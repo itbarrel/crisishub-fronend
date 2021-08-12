@@ -1,0 +1,8 @@
+###############################
+Redux                                           || Pending 
+SEO Implement                                   || Pending  
+Docker                                          || Pending
+Auto Deployment congif                          || Pending
+Next Config                                     || Pending
+Axios                                           || Pending
+React Hooks Form                                || Pending
