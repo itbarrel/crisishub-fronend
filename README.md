@@ -1,12 +1,12 @@
-## CrisisHub [Web]
+## CrisisHub
 CrisisHub is a software platform that helps organizations take control of the chaotic crisis management process.
 The CrisisHub bridges the gap between strategic decision-makers and operational experts.
 Its unique checklist module offers a way to quickly formulate a strategic decision-making agenda (both in public and private sector).
 
 ## Technologies
-1. [Node.js 10.13 or later](https://nodejs.org/en/)
-2. [Next.js 9.4.4](https://nextjs.org/)
-3. [React 16.13.1](https://reactjs.org/)
+1. [Node.js v14.16.0 or later](https://nodejs.org/en/)
+2. [Next.js 11.0.0 or later](https://nextjs.org/)
+3. [React 16.13.1 or later](https://reactjs.org/)
 
 ## Getting Started [Setup]
 * First thing first, If you don’t have Node.js installed [install it from here](https://nodejs.org/en/). You’ll need Node.js version v14.16.0 or later.
