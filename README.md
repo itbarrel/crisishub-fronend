@@ -1,34 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## CrisisHub [Web]
+CrisisHub is a software platform that helps organizations take control of the chaotic crisis management process.
+The CrisisHub bridges the gap between strategic decision-makers and operational experts.
+Its unique checklist module offers a way to quickly formulate a strategic decision-making agenda (both in public and private sector).
 
-## Getting Started
+## Technologies
+1. [Node.js 10.13 or later](https://nodejs.org/en/)
+2. [Next.js 9.4.4](https://nextjs.org/)
+3. [React 16.13.1](https://reactjs.org/)
 
-First, run the development server:
+## Getting Started [Setup]
+* First thing first, If you don’t have Node.js installed [install it from here](https://nodejs.org/en/). You’ll need Node.js version v14.16.0 or later.
+* Clone project `git@bitbucket.org/naveed_co/crisishub-frontend.git`
+* Install dependencies `yarn install`
+* Run the development server `yarn dev`
 
 ```bash
-npm run dev
-# or
-yarn dev
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Git Structure
+* `Producation` is most stable branch for the production.
+* `Stage` is most stable branch for the staging.
+* `Develop` is most stable branch for the dev environment.
+* `release` release is a version for clients and testers like a copy of production with new things.
+* Producation branch probably be locked, merge request is needed to be generated for adding new features or resolving bugs.
+* New branches should be created from Develop.
+## Type of Git commits
+* `refactor` Refactoring a specific section of the codebase.
+* `fix` A bug fix.
+* `feat` The new feature you're adding that requires great courage, skill, or strength.
+* `style` Feature and updates related to styling.
+* `docs` Everything related to documentation.
+* `Test` Everything related to documentation.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Dependencies
+1. [react ^16.13.1](https://reactjs.org/)
+2. [react-dom ^16.13.1](https://reactjs.org/docs/react-dom.html)
+3. [react-hook-form ^5.7.2](https://react-hook-form.com/get-started)
+4. [localforage ^1.7.4](https://localforage.github.io/localForage/#localforage)
+5. [classnames ^2.2.6](https://www.npmjs.com/package/classnames)
+6. [ReactRedux ^7.1.6](https://react-redux.js.org/)
+... [other]
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Naming Convention
+* Component Name e.g `ComponentName`
+* Function Name e.g `functionName`
+* Constant Name e.g `CONSTANT` or `CONSTANT_NAME` 
+* Variable Name e.g `varName`
+* Page Name (Route) e.g `blog` or `blog-all-posts`
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Notes
+* Always use `yarn` for installing dependencies.
+* Always format code before push with `TypeScript and JavaScript Language Features`.
+* Always check `eslint errors and warning` before push.
+* CSS: class name with the dash `-` is not valid in Next JS framework. You can use like this e.g `btnInfo` or `btnSubmit`
 
-## Learn More
+## Scripts
+Core scripts
+```bash
+  yarn dev
+    Starts the development server.
 
+  yarn build
+    Builds the app for production.
+
+  yarn start
+    Runs the built app in production mode.
+```
+
+## Deployment
+Coming soon...
+
+## Learn Next JS
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next JS Sample Projects](https://github.com/vercel/next.js/tree/canary/examples) - check sample projects for learning
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/)
