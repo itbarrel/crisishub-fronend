@@ -17,6 +17,7 @@ Redux
       Middleware with custom parmeters* 
       Curring*
       Calling APIs on middleware behalf on actions
+    Redux Strucator.
   Redux NextJs 
     initile redux global state in next 
     Redux-wraper for NextJS  
