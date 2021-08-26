@@ -7,6 +7,7 @@ Its unique checklist module offers a way to quickly formulate a strategic decisi
 1. [Node.js v14.16.0 or later](https://nodejs.org/en/)
 2. [Next.js 11.0.0 or later](https://nextjs.org/)
 3. [React 16.13.1 or later](https://reactjs.org/)
+3. [Ant.design 16.13.1 or later](https://ant.design/)
 
 ## Getting Started [Setup]
 * First thing first, If you don’t have Node.js installed [install it from here](https://nodejs.org/en/). You’ll need Node.js version v14.16.0 or later.
