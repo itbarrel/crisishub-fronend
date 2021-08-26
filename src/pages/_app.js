@@ -1,5 +1,6 @@
 import '../assets/styles/globals.css'
 import { wrapper } from '../store'
+import '../assets/styles/scss/styles.scss'
 
 
 function MyApp({ Component, pageProps }) {
