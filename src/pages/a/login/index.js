@@ -1,11 +1,15 @@
-import React from 'react'
+import { memo } from "react";
+import SEO from '../../../components/seo'
 
 const Login = memo(() => {
   return (
     <>
-      Login Screen
+      <SEO title="Sign in" />
+      <h1>Login page</h1>
     </>
   );
 });
 
-export default Login
+
+Login.displayName = Login;
+export default Login;
