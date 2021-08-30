@@ -2,14 +2,14 @@ import '../assets/styles/globals.css'
 import { wrapper } from '../store'
 import '../assets/styles/scss/styles.scss'
 import PropTypes from 'prop-types'
-import { LocaleProvider } from 'antd';
+import { ConfigProvider  } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <LocaleProvider locale={enUS}>
+    <ConfigProvider  locale={enUS}>
       <Component {...pageProps} />
-    </LocaleProvider>
+    </ConfigProvider>
   )
 }
 
