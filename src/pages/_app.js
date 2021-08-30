@@ -8,7 +8,6 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default wrapper.withRedux(MyApp)
-
 MyApp.propTypes = {
   Component: PropTypes.any,
   pageProps: PropTypes.any,
