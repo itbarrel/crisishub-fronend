@@ -1,4 +1,3 @@
-
 export async function forgotPassword(body) {
   try {
     const response = await api.post("FORGOT_PASSWORD", body);
@@ -20,11 +19,7 @@ export async function forgotPassword(body) {
   } catch (error) {
     log("Api call :: / :: error", error);
     log("Api call :: / :: error.response", error?.response);
-    log(
-      "Api call :: /sample-one :: error.response.data",
-      error?.response?.data
-    );
+    log("Api call :: /sample-one :: error.response.data", error?.response?.data);
     throw error?.response?.data;
   }
 }
-

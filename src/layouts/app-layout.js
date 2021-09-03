@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const Index = () => {
   return (
     <>
-     <h1>Crises Hub</h1> 
+      <h1>Crises Hub</h1>
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

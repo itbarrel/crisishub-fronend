@@ -3,9 +3,10 @@ import React from 'react'
 const Register = () => {
   return (
     <>
-      Register Page
+      <h1>Register Page</h1>
+      <h1>Register Page</h1>
     </>
-  )
+  );
 }
 
 export default Register
