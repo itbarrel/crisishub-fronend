@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-module.exports = {
+export default {
   env: {
     browser: true,
     es2020: true,
@@ -11,6 +10,10 @@ module.exports = {
     },
     ecmaVersion: 12,
     sourceType: "module",
+  },
+  "globals": {
+    "Promise": "off",
+    "module": "off"
   },
   plugins: ["react", "react-hooks"],
   rules: {
@@ -51,7 +54,7 @@ module.exports = {
     "default-param-last": "error",
     "dot-location": "off",
     "dot-notation": "error",
-    "eol-last": "off",
+    "eol-last": ["error", "always"],
     eqeqeq: "error",
     "func-call-spacing": "error",
     "func-name-matching": "error",
