@@ -149,7 +149,7 @@
   "app.userAuth.bySigning": "By Signing Up, you can avail full features of our services.",
   "app.userAuth.or": "or",
   "app.userAuth.forgotPassword": "Forgot Password",
-  "app.userAuth.forgot": "Don't worry. Recovering the password is easy.Just tell us the email you have registered with jumbo",
+  "app.userAuth.forgot": "Don't worry. Recovering the password is easy.Just tell us the email you have registered",
   "app.userAuth.signUp": "Sign Up",
   "app.userAuth.getAccount": "Get an account !!!",
   "app.userAuth.resetPassword": "Reset Password",
@@ -308,5 +308,9 @@
   "sidebar.extensions.profile": "Profile",
   "sidebar.social": "Social Apps",
   "sidebar.ifi": "International Financial Institute",
-  "sidebar.ifis": "International Financial Institutes"
+  "sidebar.ifis": "International Financial Institutes",
+
+  "app.userAuth.support": "Support",
+  "app.userAuth.reset.text": "Don't worry. Reset the password is easy.Just enter new passward and passwaord will be reset "
+
 }

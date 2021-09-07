@@ -70,9 +70,11 @@ const Login = memo(() => {
                   <Checkbox>
                     <IntlMessages id="appModule.iAccept" />
                   </Checkbox>
-                  <span className="gx-signup-form-forgot gx-link">
-                    <IntlMessages id="appModule.termAndCondition" />
-                  </span>
+                  <Link href={"/terms-conditions"} passHref={true}>
+                    <span className="gx-signup-form-forgot gx-link">
+                      <IntlMessages id="appModule.termAndCondition" />
+                    </span>
+                  </Link>
                 </Form.Item>
                 <Form.Item>
                   <Button type="primary" className="gx-mb-0" htmlType="submit">
@@ -81,10 +83,10 @@ const Login = memo(() => {
                   <span>
                     <IntlMessages id="app.userAuth.or" />
                   </span>{" "}
-                  <Link href="/signup">
+                  <Link href={"/a/forgot-password"}>
                     <a>
                       {" "}
-                      <IntlMessages id="app.userAuth.signUp" />
+                      <IntlMessages id="app.userAuth.forgotPassword" />
                     </a>
                   </Link>
                 </Form.Item>
@@ -97,17 +99,19 @@ const Login = memo(() => {
                     <li>
                       <FacebookOutlined />
                     </li>
-                    <li>
+                    {/* <li>
                       <GithubOutlined />
                     </li>
                     <li>
                       <TwitterOutlined />
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
-                <span className="gx-text-light gx-fs-sm">
+                <br />
+                <br />
+                {/* <span className="gx-text-light gx-fs-sm">
                   demo user email: 'demo@example.com' and password: 'demo#123'
-                </span>
+                </span> */}
               </Form>
             </div>
           </div>
