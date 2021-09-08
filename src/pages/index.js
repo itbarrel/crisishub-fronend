@@ -9,7 +9,7 @@ const Home = memo(() => {
       <main>
         <center>
           <h1>Welcome to CrisisHub</h1>
-          <Link url={"/a/login"} passHref={true}>
+          <Link url={"/auth/login"} passHref={true}>
             <Button type="primary"> Login Page </Button>
           </Link>
         </center>

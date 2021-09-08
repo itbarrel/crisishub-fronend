@@ -9,9 +9,9 @@ import user from "./slices/user";
 
 // combine entities and sliceses
 export default combineReducers({
-  config,
-  notification,
-  ui,
+  // config,
+  // notification,
+  // ui,
   auth,
-  user,
+  // user,
 });

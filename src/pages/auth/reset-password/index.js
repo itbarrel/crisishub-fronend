@@ -5,6 +5,7 @@ import { Button, Checkbox, Form, Input } from "antd";
 import IntlMessages from "../../../utils/IntlMessages";
 import getlanguage from "../../../components/hoc/withLang";
 
+
 const ForgotPassword = memo(() => {
 
   const onFinishFailed = (errorInfo) => {

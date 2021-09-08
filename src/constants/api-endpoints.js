@@ -3,7 +3,7 @@ export const SOCIAL_SIGNUP_FB = "login-with-facebook";
 export const SOCIAL_SIGNUP_GMAIL = "login-with-google";
 
 // signin
-export const USER_SIGNIN = "login";
+export const USER_SIGNIN = "v1/login";
 export const USER_LOGOUT = "logout";
 
 // forgot password

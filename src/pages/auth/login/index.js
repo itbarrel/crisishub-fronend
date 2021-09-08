@@ -4,19 +4,22 @@ import Link from "next/link";
 import { Button, Checkbox, Form, Input } from "antd";
 import IntlMessages from "../../../utils/IntlMessages";
 import getlanguage from "../../../components/hoc/withLang";
+import { useDispatch, useSelector } from "react-redux";
 
-import TwitterOutlined from "@ant-design/icons/lib/icons/TwitterOutlined";
-import GithubOutlined from "@ant-design/icons/lib/icons/GithubOutlined";
 import FacebookOutlined from "@ant-design/icons/lib/icons/FacebookOutlined";
 import GoogleOutlined from "@ant-design/icons/lib/icons/GoogleOutlined";
+import { login } from "../../../store/slices/auth";
 
 const Login = memo(() => {
+  const dispatch = useDispatch();
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  const onFinish = (values) => {
-    console.log("finish", values);
+  const onFinish = (data) => {
+    // console.log("finish--", data);
+    dispatch(login(data));
   };
 
   return (
@@ -53,14 +56,20 @@ const Login = memo(() => {
                 className="gx-signin-form gx-form-row0"
               >
                 <Form.Item
-                  initialValue="demo@example.com"
-                  rules={[{ required: true, message: "The input is not valid E-mail!" }]}
+                  // initialValue="demo@example.com"
+                  rules={[
+                    { required: true, message: "Please input your E-mail!" },
+                    {
+                      type: "email",
+                      message: "The input is not valid E-mail!",
+                    },
+                  ]}
                   name="email"
                 >
-                  <Input placeholder="Email" />
+                  <Input placeholder="demo@Email.com" />
                 </Form.Item>
                 <Form.Item
-                  initialValue="demo#123"
+                  // initialValue="demo#123"
                   rules={[{ required: true, message: "Please input your Password!" }]}
                   name="password"
                 >
@@ -99,12 +108,6 @@ const Login = memo(() => {
                     <li>
                       <FacebookOutlined />
                     </li>
-                    {/* <li>
-                      <GithubOutlined />
-                    </li>
-                    <li>
-                      <TwitterOutlined />
-                    </li> */}
                   </ul>
                 </div>
                 <br />
