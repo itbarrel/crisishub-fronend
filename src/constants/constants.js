@@ -1,4 +1,4 @@
-export const INFO_EMAIL = "support@crisesHub.com";
+export const INFO_EMAIL = "support@crisisHub.com";
 export const INFO_PHONE = ""; // +014 555 55
 
 // site response mapping keys

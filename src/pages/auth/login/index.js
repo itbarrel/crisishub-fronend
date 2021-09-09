@@ -1,14 +1,16 @@
 import { memo } from "react";
+import { useDispatch } from "react-redux";
 import SEO from "../../../components/seo";
 import Link from "next/link";
-import { Button, Checkbox, Form, Input } from "antd";
-import IntlMessages from "../../../utils/IntlMessages";
-import getlanguage from "../../../components/hoc/withLang";
-import { useDispatch, useSelector } from "react-redux";
 
+import { Button, Checkbox, Form, Input } from "antd";
 import FacebookOutlined from "@ant-design/icons/lib/icons/FacebookOutlined";
 import GoogleOutlined from "@ant-design/icons/lib/icons/GoogleOutlined";
-import { login } from "../../../store/slices/auth";
+
+import IntlMessages from "../../../utils/IntlMessages";
+import getlanguage from "../../../components/hoc/withLang";
+
+import { onLogin } from "../../../store/slices/auth";
 
 const Login = memo(() => {
   const dispatch = useDispatch();
@@ -18,8 +20,8 @@ const Login = memo(() => {
   };
 
   const onFinish = (data) => {
-    // console.log("finish--", data);
-    dispatch(login(data));
+    const postData = { domain: '', credentials: data }
+    dispatch(onLogin(postData));
   };
 
   return (

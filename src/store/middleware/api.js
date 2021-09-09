@@ -2,24 +2,32 @@ import axios from "axios";
 import * as actions from "../apiActions";
 import { AuthLoginAPI } from "../../lib/login";
 
-const api =
-  ({ dispatch }) =>
-  (next) =>
-  async (action) => {
-    // if (action.type !== actions.apiCallBegan.type) return console.log("-----------", action.type);
+const api = ({ dispatch }) => next => async action => {
+  if (action.type !== actions.apiCallBegan.type) return next(action);
 
-    if (action.type !== actions.apiCallBegan.type) return next(action);
-    // next(action);
-    const { url, method, data, onStart, onSuccess, onError } = action.payload;
+  const { url, method, data, onStart, onSuccess, onError } = action.payload;
 
-    if (onStart) dispatch({ type: onStart });
-    // next(action);
+  if (onStart) dispatch({ type: onStart });
 
-    const response = await AuthLoginAPI(data);
+  next(action);
 
-    // const response = {};
-    console.log("asdf", response);
-    next(action);
-  };
+  try {
+    const response = await axios.request({
+      baseURL: "http://localhost:3333/v1/",
+      url,
+      method,
+      data
+    });
+    // General
+    dispatch(actions.apiCallSuccess(response.data));
+    // Specific
+    if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
+  } catch (error) {
+    // General
+    dispatch(actions.apiCallFailed(error.message));
+    // Specific
+    if (onError) dispatch({ type: onError, payload: error.message });
+  }
+};
 
 export default api;

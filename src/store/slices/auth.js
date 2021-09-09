@@ -1,37 +1,49 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan, apiCallFailed, apiCallSuccess } from "../apiActions";
-import { USER_SIGNIN } from "../../constants/api-endpoints";
+import { apiCallBegan } from "../apiActions";
 
 const slice = createSlice({
   name: "auth",
-  initialState: { isAuthenticated: false, loader: false, profile: { userToken: {}, userInfo: {} } },
+  initialState: { isAuthenticated: false, loader: false, user: null, token: null, hasErrors: false },
   reducers: {
-    authLoader: (state, action) => {
-      console.log("load >>>>>>>>", state.loader);
+    loading: (state, action) => {
       state.loader = true;
     },
     login: (state, action) => {
-      console.log("slice:auth login", action);
-      state.isAuthenticated = action.payload?.isAuthenticated;
+      const { token, user } = action.payload
+      state.loader = false;
+      state.token = token;
+      state.isAuthenticated = !!token;
+      state.user = user
+      state.hasErrors = false
     },
     logout: (state, action) => {
-      console.log("slice:auth logout", action);
-      state.isAuthenticated = action.payload?.isAuthenticated;
-      state.at = null;
-      state.rt = null;
-      state.ei = null;
+      state.isAuthenticated = false;
+      state.loader = false;
+      state.user = null
+      state.token = null
+      state.hasErrors = false
+    },
+    failed: (state, action) => {
+      state.loader = false;
+      state.hasErrors = true
     },
   },
 });
 
-export const login = (data) => (dispatch, getState) => {
+export const { loading, login, logout, failed } = slice.actions;
+
+export const onLogin = (data) => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
+      url: 'login',
+      method: "post",
       data: data,
-      // onStart: authLoader.type,
+      onStart: loading.type,
+      onSuccess: login.type,
+      onError: failed.type
     })
+
   );
 };
 
-export const { Authlogin, logout } = slice.actions;
 export default slice.reducer;

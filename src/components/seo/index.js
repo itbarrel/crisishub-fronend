@@ -6,7 +6,7 @@ import { memo } from "react";
 const SEO = memo(({ title, description, canonical, css, js, image }) => {
   return (
     <Head>
-      <title>{`${title} ${title === "CrisesHub" ? "" : "| CrisesHub"}`}</title>
+      <title>{`${title} ${title === "CrisisHub" ? "" : "| CrisisHub"}`}</title>
       <meta name="description" content={description ? description : ENV.siteDescription} />
       <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
       <meta property="og:type" content="website" />
