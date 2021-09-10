@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../apiActions";
+import { login as _login, logout as _logout } from "../../services/Auth";
 
 const slice = createSlice({
   name: "auth",
@@ -15,8 +16,10 @@ const slice = createSlice({
       state.isAuthenticated = !!token;
       state.user = user
       state.hasErrors = false
+      _login(token)
     },
     logout: (state, action) => {
+      _logout()
       state.isAuthenticated = false;
       state.loader = false;
       state.user = null
@@ -42,8 +45,11 @@ export const onLogin = (data) => (dispatch, getState) => {
       onSuccess: login.type,
       onError: failed.type
     })
+  )
+};
 
-  );
+export const onLogOut = (data) => (dispatch, getState) => {
+  return dispatch(logout())
 };
 
 export default slice.reducer;
