@@ -38,3 +38,6 @@ export const sNO_BRACKETS = "Brackets not generated yet";
 // over-ride api messages - this is from backend we will override these messages.
 // better way we will make a map here for replacing the messages.
 export const oRESET_PASS_TOKEN_EXPIRE = "This password reset token is invalid.";
+
+// Footer Text
+export const FOOTER_TEXT = "This password reset token is invalid.";

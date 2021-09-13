@@ -1,5 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import entitiesReducer from "./entities";
+import ui from "./entities/ui";
 
 // sliceses and entities
 import auth from "./slices/auth";
@@ -9,5 +10,6 @@ import notification from "./slices/notification";
 export default combineReducers({
   auth,
   notification,
-  entities: entitiesReducer
+  entities: entitiesReducer,
+  ui
 });

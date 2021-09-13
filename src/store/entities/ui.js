@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import user from "./user";
+import settings from "../slices/ui/settings";
 
 export default combineReducers({
-  user,
+    settings
 });

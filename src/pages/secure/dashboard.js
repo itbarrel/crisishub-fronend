@@ -1,5 +1,7 @@
 import { memo } from "react";
 import withLayout from '../../layouts/app-layout'
+import getlanguage from "../../components/hoc/withLang";
+
 
 const Dashboard = memo(() => {
     return (
@@ -9,4 +11,4 @@ const Dashboard = memo(() => {
 
 Dashboard.displayName = Dashboard;
 
-export default withLayout(Dashboard)
+export default getlanguage(withLayout(Dashboard))
