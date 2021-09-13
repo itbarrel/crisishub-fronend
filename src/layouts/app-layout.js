@@ -28,6 +28,8 @@ import {
 } from "../constants/ThemeSetting";
 
 import NoHeaderNotification from "./Topbar/NoHeaderNotification";
+import Customizer from "./Customizer";
+
 
 // Old Imports
 import { withAuthSync } from '../components/hoc/authGuard'
@@ -40,7 +42,7 @@ const { Content, Footer } = Layout;
 
 const withLayout = (Page) => (props) => {
 
-  const { width, themeType, layoutType, locale, navStyle } = useSelector(({ ui }) => ui.settings)
+  const { width, themeType, layoutType, locale, navStyle,  } = useSelector(({ ui }) => ui.settings)
 
   const getContainerClass = (navStyle) => {
     switch (navStyle) {
@@ -128,7 +130,7 @@ const withLayout = (Page) => (props) => {
             </Footer>
           </Content>
         </Layout>
-        {/* <Customizer /> */}
+        <Customizer />
       </Layout>
     </>
   )

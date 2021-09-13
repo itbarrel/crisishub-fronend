@@ -1,12 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleCollapsedSideNav } from "../../../redux/actions/Setting";
+import { toggleCollapsedSideNav } from "../../../store/slices/ui/settings";
 import IntlMessages from "../../../utils/IntlMessages";
 
 const NoHeaderNotification = () => {
 
   const dispatch = useDispatch();
-  const navCollapsed = useSelector(({ settings }) => settings.navCollapsed);
+  const navCollapsed = useSelector(({ ui }) => ui.settings.navCollapsed);
 
   return (
     <div className="gx-no-header-horizontal">

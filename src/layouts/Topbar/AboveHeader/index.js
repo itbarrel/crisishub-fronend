@@ -8,7 +8,7 @@ import SearchBox from "../../../components/SearchBox";
 import UserInfo from "../../../components/UserInfo";
 import AppNotification from "../../../components/AppNotification";
 import MailNotification from "../../../components/MailNotification";
-import { switchLanguage, toggleCollapsedSideNav } from "../../../redux/actions/Setting";
+import { switchLanguage, toggleCollapsedSideNav } from "../../../store/slices/ui/settings";
 
 import { TAB_SIZE } from "../../../constants/ThemeSetting";
 import HorizontalNav from "../HorizontalNav";
@@ -40,9 +40,9 @@ const AboveHeader = () => {
   const dispatch = useDispatch();
 
   const [searchText, setSearchText] = useState('');
-  const locale = useSelector(({ settings }) => settings.locale);
-  const navCollapsed = useSelector(({ settings }) => settings.navCollapsed);
-  const width = useSelector(({ settings }) => settings.width);
+  const locale = useSelector(({ ui }) => ui.settings.locale);
+  const navCollapsed = useSelector(({ ui }) => ui.settings.navCollapsed);
+  const width = useSelector(({ ui }) => ui.settings.width);
 
   const languageMenu = () => (
     <CustomScrollbars className="gx-popover-lang-scroll">

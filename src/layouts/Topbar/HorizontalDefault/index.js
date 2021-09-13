@@ -10,7 +10,7 @@ import AppNotification from "../../../components/AppNotification";
 import MailNotification from "../../../components/MailNotification";
 import HorizontalNav from "../HorizontalNav";
 import Link from "next/link";
-import { switchLanguage, toggleCollapsedSideNav } from "../../../redux/actions/Setting";
+import { switchLanguage, toggleCollapsedSideNav } from "../../../store/slices/ui/settings";
 import IntlMessages from "../../../utils/IntlMessages";
 
 const { Header } = Layout;
@@ -36,9 +36,9 @@ const HorizontalDefault = () => {
   const dispatch = useDispatch();
 
   const [searchText, setSearchText] = useState('');
-  // const locale = useSelector(({ settings }) => settings.locale);
-  const locale = useSelector((state) => state);
-  // const navCollapsed = useSelector(({ settings }) => settings.navCollapsed);
+  const locale = useSelector(({ ui }) => ui.settings.locale);
+  // const locale = useSelector((state) => state);
+  const navCollapsed = useSelector(({ ui }) => ui.settings.navCollapsed);
 
   console.log("locale", locale)
 

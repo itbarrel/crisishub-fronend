@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import CustomScrollbars from "../../utils/CustomScrollbars";
 import languageData from "./languageData";
-import { switchLanguage, toggleCollapsedSideNav } from "../../redux/actions/Setting";
+import { switchLanguage, toggleCollapsedSideNav } from "../../store/slices/ui/settings";
 import SearchBox from "../../components/SearchBox";
 import UserInfo from "../../components/UserInfo";
 import AppNotification from "../../components/AppNotification";

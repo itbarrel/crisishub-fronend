@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Drawer, Layout } from "antd";
 
 import SidebarContent from "./SidebarContent";
-import { toggleCollapsedSideNav, updateWindowWidth } from "../../redux/actions/Setting";
+import { toggleCollapsedSideNav, updateWindowWidth } from "../../store/slices/ui/settings";
 import {
   NAV_STYLE_DRAWER,
   NAV_STYLE_FIXED,

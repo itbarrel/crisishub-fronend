@@ -14,7 +14,7 @@ import {
 } from "../../constants/ThemeSetting";
 import IntlMessages from "../../utils/IntlMessages";
 import { useDispatch, useSelector } from "react-redux";
-import { setPathName } from "../../redux/actions";
+import { setPathName } from "../../store/slices/ui/settings";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
