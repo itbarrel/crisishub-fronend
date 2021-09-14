@@ -26,15 +26,22 @@ const slice = createSlice({
 export const { loading, AccountsList, failed, } = slice.actions;
 
 export const getAccountsList = (data) => (dispatch, getState) => {
+    console.log("asdf  api dispatch")
     return dispatch(
         apiCallBegan({
-            url: 'v1/accounts',
-            method: "post",
-            data: data,
-            token: true,
+            url: 'v1/auth/login',
+            method: "get",
+            data: { domain: 'public' },
             onStart: loading.type,
-            onSuccess: login.type,
+            onSuccess: AccountsList.type,
             onError: failed.type
+            // url: 'v1/accounts',
+            // method: "get",
+            // data: data,
+            // token: true,
+            // onStart: loading.type,
+            // onSuccess: AccountsList.type,
+            // onError: failed.type
         })
     )
 };

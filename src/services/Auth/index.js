@@ -2,7 +2,7 @@ import Router from 'next/router'
 import Cookie from 'js-cookie'
 
 export const login = (token) => {
-  Cookie.set('token', token, { expires: 100 })
+  Cookie.set('token', token ? token : false, { expires: 100 })
   Router.push('/secure/dashboard')
 }
 

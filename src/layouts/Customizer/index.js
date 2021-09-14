@@ -60,8 +60,6 @@ const CustomizerSystem = () => {
   const navStyle = useSelector(({ ui }) => ui.settings.navStyle);
   const layoutType = useSelector(({ ui }) => ui.settings.layoutType);
 
-  console.log(" in  customizer", themeColor);
-
   const handleColorChange = (filename) => {
     console.log("handleColorChange", filename);
     // let link = document.createElement('link');

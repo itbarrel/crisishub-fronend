@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Card, Divider, Form, Radio, Switch, Table, Button } from "antd";
-import Icon from "@ant-design/icons";
 
 const Dynamic = () => {
   const FormItem = Form.Item;
