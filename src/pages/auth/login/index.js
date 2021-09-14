@@ -20,7 +20,7 @@ const Login = memo(() => {
   };
 
   const onFinish = (data) => {
-    const postData = { domain: '', credentials: data }
+    const postData = { domain: 'public', credentials: data }
     dispatch(onLogin(postData));
   };
 
