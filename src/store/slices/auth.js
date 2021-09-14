@@ -39,7 +39,7 @@ export const onLogin = (data) => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
       url: 'v1/auth/login',
-      method: "get",
+      method: "post",
       data: data,
       onStart: loading.type,
       onSuccess: login.type,

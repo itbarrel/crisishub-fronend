@@ -7,3 +7,8 @@ export const newsIcon = {
   news: "fas fa-comment",
   video: "fa fa-play",
 };
+
+export const HTTP_METHOD = {
+  POST: "post",
+  GET: "get"
+};
