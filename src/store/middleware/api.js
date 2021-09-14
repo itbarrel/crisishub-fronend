@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as actions from "../apiActions";
 import { AuthLoginAPI } from "../../lib/login";
+import { baseURL } from '../../configs/index'
 
 const api = ({ dispatch }) => next => async action => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
@@ -13,7 +14,7 @@ const api = ({ dispatch }) => next => async action => {
 
   try {
     const response = await axios.request({
-      baseURL: "http://localhost:3333/v1/",
+      baseURL: baseURL,
       url,
       method,
       data
