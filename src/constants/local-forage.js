@@ -2,7 +2,7 @@
 export const COOKIE = "ch.cookies";
 
 // auth token
-export const TOKEN_KEY = "ch.ack"; // access_token
+export const TOKEN_KEY = "token"; // access_token
 export const REFRESH_TOKEN_KEY = "ch.rtk"; // refresh_token
 export const TOKEN_TYPE = "ch.tt"; // token_type
 export const TOKEN_EXPIRES_IN = "ch.tei"; // token expires in

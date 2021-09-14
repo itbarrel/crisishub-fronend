@@ -18,7 +18,7 @@ const slice = createSlice({
   name: "ui-settings",
   initialState: {
     navCollapsed: true,
-    navStyle: NAV_STYLE_MINI_SIDEBAR,
+    navStyle: NAV_STYLE_FIXED,
     layoutType: LAYOUT_TYPE_FULL,
     themeType: THEME_TYPE_SEMI_DARK,
     colorSelection: THEME_COLOR_SELECTION_PRESET,

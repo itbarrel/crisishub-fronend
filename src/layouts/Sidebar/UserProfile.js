@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Avatar, Popover } from "antd";
-// import {userSignOut} from "../../redux/actions/Auth";
+import { onLogOut } from "../../store/slices/auth";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -9,8 +9,7 @@ const UserProfile = () => {
     <ul className="gx-user-popover">
       <li>My Account</li>
       <li>Connections</li>
-      <li>Logout
-        {/* <li onClick={() => dispatch(userSignOut())}>Logout */}
+      <li onClick={() => dispatch(onLogOut())}>Logout
       </li>
     </ul >
   );

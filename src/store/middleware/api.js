@@ -2,23 +2,30 @@ import axios from "axios";
 import * as actions from "../apiActions";
 import { AuthLoginAPI } from "../../lib/login";
 import { baseURL } from '../../configs/index'
+import ApiService, { api as apis, secureapi } from "../../services/api/api.config";
+
 
 const api = ({ dispatch }) => next => async action => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
 
-  const { url, method, data, onStart, onSuccess, onError } = action.payload;
+  const { url, method, data, onStart, onSuccess, onError, token } = action.payload;
 
   if (onStart) dispatch({ type: onStart });
 
   next(action);
-
   try {
-    const response = await axios.request({
-      baseURL: baseURL,
-      url,
-      method,
-      data
-    });
+    if (token) {
+      const response = await secureapi.get(`${url}`, data);
+    }
+    else {
+      const response = await apis.post(`${url}`, data);
+    }
+    // const response = await axios.request({
+    //   baseURL: "http://new.crisishub.co/",
+    //   url,
+    //   method,
+    //   data
+    // });
     // General
     dispatch(actions.apiCallSuccess(response.data));
     // Specific

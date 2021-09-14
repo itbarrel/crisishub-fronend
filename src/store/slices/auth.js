@@ -38,7 +38,7 @@ export const { loading, login, logout, failed } = slice.actions;
 export const onLogin = (data) => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
-      url: 'login',
+      url: 'v1/auth/login',
       method: "post",
       data: data,
       onStart: loading.type,

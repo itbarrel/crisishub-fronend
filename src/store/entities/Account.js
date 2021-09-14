@@ -1,8 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import user from "./user";
-import Accounts from "./Account";
+import Accounts from "../slices/Accounts/AccountsList";
 
 export default combineReducers({
-  Accounts,
-  user,
+    Accounts
 });

@@ -2,7 +2,7 @@ import React from 'react'
 import { ConfigProvider, Layout } from "antd";
 import { IntlProvider } from 'react-intl';
 import { connect, useSelector, useDispatch } from "react-redux";
-
+import AppLocale from "../lngProvider";
 import Sidebar from "./Sidebar";
 import HorizontalDefault from "./Topbar/HorizontalDefault";
 import HorizontalDark from "./Topbar/HorizontalDark";
@@ -26,23 +26,17 @@ import {
   TAB_SIZE,
   THEME_TYPE_DARK
 } from "../constants/ThemeSetting";
-
 import NoHeaderNotification from "./Topbar/NoHeaderNotification";
 import Customizer from "./Customizer";
-
-
-// Old Imports
 import { withAuthSync } from '../components/hoc/authGuard'
-import { getDisplayName } from '../utils'
-import { onLogOut } from "../store/slices/auth";
-import Header from '../components/header'
 
 const { Content, Footer } = Layout;
+const currentAppLocale = AppLocale.en;
 
 
 const withLayout = (Page) => (props) => {
 
-  const { width, themeType, layoutType, locale, navStyle,  } = useSelector(({ ui }) => ui.settings)
+  const { width, themeType, layoutType, locale, navStyle, } = useSelector(({ ui }) => ui.settings)
 
   const getContainerClass = (navStyle) => {
     switch (navStyle) {
@@ -115,23 +109,27 @@ const withLayout = (Page) => (props) => {
 
   return (
     <>
-      <Layout className={`gx-app-layout ${bodyClass}`}>
-        {getSidebar(navStyle, width)}
-        <Layout>
-          {getNavStyles(navStyle)}
-          <Content className={`gx-layout-content ${getContainerClass(navStyle)}`}>
-            <div className="gx-main-content-wrapper">
-              <Page {...props} />
-            </div>
-            <Footer>
-              <div className="gx-layout-footer-content">
-                {FOOTER_TEXT}
-              </div>
-            </Footer>
-          </Content>
-        </Layout>
-        <Customizer />
-      </Layout>
+      <ConfigProvider locale={currentAppLocale.antd}>
+        <IntlProvider locale={currentAppLocale.locale} messages={currentAppLocale.messages}>
+          <Layout className={`gx-app-layout ${bodyClass}`}>
+            {getSidebar(navStyle, width)}
+            <Layout>
+              {getNavStyles(navStyle)}
+              <Content className={`gx-layout-content ${getContainerClass(navStyle)}`}>
+                <div className="gx-main-content-wrapper">
+                  <Page {...props} />
+                </div>
+                <Footer>
+                  <div className="gx-layout-footer-content">
+                    {FOOTER_TEXT}
+                  </div>
+                </Footer>
+              </Content>
+            </Layout>
+            <Customizer />
+          </Layout>
+        </IntlProvider>
+      </ConfigProvider>
     </>
   )
 }
