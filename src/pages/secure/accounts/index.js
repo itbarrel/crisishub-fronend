@@ -1,16 +1,14 @@
 import React, { memo, useEffect, useState } from "react";
 import withLayout from "../../../layouts/app-layout";
 import Dynamic from "../../../components/table/Dynamic";
-import { getAccountsList } from '../../../store/slices/Accounts/AccountsList'
 import { useDispatch } from "react-redux";
 
-
+import { getAccountsList } from '../../../store/entities/resources/account'
 
 import { Card, Form, Table, Button } from "antd";
 
-
-const Accounts = memo(() => {
-
+const Accounts = memo((props) => {
+  console.log('->>>>>>>>>>>>>>>..wowow', props)
   const dispatch = useDispatch();
   const FormItem = Form.Item;
 

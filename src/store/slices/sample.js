@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../apiActions";
 
 const slice = createSlice({
     name: "ui-settings",
