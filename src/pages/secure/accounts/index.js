@@ -9,10 +9,8 @@ import { Card, Form, Table, Button } from "antd";
 
 const Accounts = memo((props) => {
   const { accounts } = useSelector(({ resources }) => resources.Account)
-  console.log('->>>>>>>>>>>>>>>..wowow', accounts)
 
   const dispatch = useDispatch();
-  const FormItem = Form.Item;
 
   const columns = [
     {
@@ -23,35 +21,19 @@ const Accounts = memo((props) => {
       render: (text) => <span className="gx-link">{text}</span>,
     },
     {
-      title: "Accout Name*",
-      dataIndex: "accountName",
-      key: "accountName",
+      title: "Domain Name*",
+      dataIndex: "tenant_name",
+      key: "tenant_name",
       width: 120,
     },
     {
-      title: "Status*",
-      dataIndex: "status",
-      key: "status",
-      width: 40,
-    },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-      width: 350,
-    },
+      title: "Active",
+      dataIndex: "active",
+      key: "active",
+      width: 120,
+      render: (text) => <span className="gx-link">{(text) ? 'Yes' : 'No'}</span>,
+    }
   ];
-
-  const data = [];
-  for (let i = 1; i <= 10; i++) {
-    data.push({
-      key: i,
-      name: "John Brown",
-      accountName: `Bluey ${i}`,
-      status: `Active`,
-      description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
-    });
-  }
 
   const expandedRowRender = (record) => <p>{record.description}</p>;
   const title = () => "Here is title";
@@ -61,7 +43,7 @@ const Accounts = memo((props) => {
   const pagination = { position: "bottom" };
 
   const [state, setState] = useState({
-    bordered: "small", // false if instead
+    bordered: "small",
     loading: false,
     pagination,
     size: "default",
@@ -69,8 +51,9 @@ const Accounts = memo((props) => {
     title: undefined,
     showHeader,
     footer: false,
-    rowSelection: false, //{}
+    rowSelection: false,
     scroll: undefined,
+    rowKey: 'id'
   });
 
   useEffect(() => {
@@ -80,9 +63,9 @@ const Accounts = memo((props) => {
   return (
     <>
       {/* <Dynamic /> */}
+      <Button type="primary">Creact Account</Button>
       <Card title="Accounts">
-        <Button type="primary">Creact Account</Button>
-        <Table className="gx-table-responsive" {...state} columns={columns} dataSource={data} />
+        <Table className="gx-table-responsive" {...state} columns={columns} dataSource={accounts} />
       </Card>
     </>
   );
