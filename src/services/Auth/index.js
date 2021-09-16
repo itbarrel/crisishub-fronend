@@ -9,5 +9,5 @@ export const login = (token) => {
 export const logout = () => {
   CookieService.removeToken()
   window.localStorage.setItem('logout', Date.now())
-  Router.push('/auth/login')
+  Router.push('/')
 }

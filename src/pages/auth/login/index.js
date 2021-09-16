@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import SEO from "../../../components/seo";
 import Link from "next/link";
@@ -11,9 +11,17 @@ import IntlMessages from "../../../utils/IntlMessages";
 import getlanguage from "../../../components/hoc/withLang";
 
 import { onLogin } from "../../../store/slices/auth";
+import IsAuthenticate from '../../../utils/is-authenticate'
+import Router from 'next/router'
+
 
 const Login = memo(() => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("isAuthencated")
+    // if (IsAuthenticate) Router.push('/secure/dashboard')
+  }, [])
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

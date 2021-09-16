@@ -55,33 +55,44 @@ const SidebarContent = () => {
           {/* <AppsNavigation /> */}
         </div>
         <CustomScrollbars className="gx-layout-sider-scrollbar">
+          {/* side bar */}
           <Menu
             defaultOpenKeys={[defaultOpenKeys]}
             selectedKeys={[selectedKeys]}
             theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
             mode="inline"
           >
+            {/* Main text */}
             <MenuItemGroup
               key="main"
               className="gx-menu-group"
               title={<IntlMessages id="sidebar.main" />}
             >
+              {/* dashboard */}
               <Menu.Item key="/secure/dashboard">
                 <Link href="/secure/dashboard">
                   <a>
                     <i className="icon icon-widgets" />
                     <span>
-                      Dashboard
+                      <IntlMessages id="dashBoard" />
                     </span>
                   </a>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/secure/accounts">
+            </MenuItemGroup>
+            {/* settings */}
+            <MenuItemGroup
+              key="setting"
+              className="gx-menu-group"
+              title={<IntlMessages id="settings" />}
+            >
+              {/* Accounts */}
+              <Menu.Item key="settings">
                 <Link href="/secure/accounts">
                   <a>
-                    <i className="icon icon-crm" />
+                    <i className="icon icon-widgets" />
                     <span>
-                      Accounts
+                      <IntlMessages id="accounts" />
                     </span>
                   </a>
                 </Link>
