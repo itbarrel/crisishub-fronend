@@ -15,7 +15,8 @@ const api = ({ dispatch }) => next => async action => {
 
   if (onStart) dispatch({ type: onStart });
   const cashtoken = CookieService.getToken()
-  console.log("tt", cashtoken)
+  console.log("tt --------------------------------------", cashtoken)
+  console.log("tt token--------------------------------------", token)
   next(action);
   try {
     let response = '';

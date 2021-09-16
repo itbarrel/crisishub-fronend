@@ -3,14 +3,12 @@ import withLayout from "../../../layouts/app-layout";
 import Dynamic from "../../../components/table/Dynamic";
 import { getAccountsList } from '../../../store/slices/Accounts/AccountsList'
 import { useDispatch } from "react-redux";
-
-
-
 import { Card, Form, Table, Button } from "antd";
+import { CookieService } from "../../../services/storage.service";
 
 
 const Accounts = memo(() => {
-
+  const token = CookieService.getToken()
   const dispatch = useDispatch();
   const FormItem = Form.Item;
 
@@ -73,9 +71,10 @@ const Accounts = memo(() => {
   });
 
   useEffect(() => {
-    console.log("asdf accounts")
-    dispatch(getAccountsList())
-  }, [])
+
+    console.log("api trigger=================")
+    dispatch(getAccountsList(token))
+  })
 
   return (
     <>

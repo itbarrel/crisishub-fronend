@@ -25,15 +25,14 @@ const slice = createSlice({
 
 export const { loading, AccountsList, failed, } = slice.actions;
 
-export const getAccountsList = (data) => (dispatch, getState) => {
+export const getAccountsList = (token) => (dispatch, getState) => {
     return dispatch(
         apiCallBegan({
             url: 'v1/accounts',
-            method: "post",
-            data: data,
-            token: true,
+            method: "get",
+            token: token,
             onStart: loading.type,
-            onSuccess: login.type,
+            onSuccess: AccountsList.type,
             onError: failed.type
         })
     )
