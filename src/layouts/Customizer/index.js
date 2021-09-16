@@ -94,7 +94,7 @@ const CustomizerSystem = () => {
   };
 
   const onNavStyleChanges = (navStyle) => {
-    dispatech(onNavStyleChange(navStyle));
+    dispatch(onNavStyleChange(navStyle));
   };
 
   const getCustomizerContent = () => {

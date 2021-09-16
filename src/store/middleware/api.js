@@ -5,7 +5,6 @@ import { baseURL } from '../../configs/index'
 import ApiService, { api as apis, secureapi } from "../../services/api/api.config";
 
 import apiClient from "../../services/ApiClient";
-import { CookieService } from "../../services/storage.service";
 
 const api = ({ dispatch }) => next => async action => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
@@ -13,9 +12,6 @@ const api = ({ dispatch }) => next => async action => {
   const { url, method, data, onStart, onSuccess, onError } = action.payload;
 
   if (onStart) dispatch({ type: onStart });
-
-  const cashtoken = CookieService.getToken()
-  console.log("tt", cashtoken)
 
   next(action);
   apiClient.doRequest(method, url, data)
