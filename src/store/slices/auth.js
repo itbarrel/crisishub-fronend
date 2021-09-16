@@ -4,16 +4,25 @@ import { login as _login, logout as _logout } from "../../services/Auth";
 
 const slice = createSlice({
   name: "auth",
-  initialState: { isAuthenticated: false, loader: false, user: null, token: null, hasErrors: false },
+  initialState: {
+    isAuthenticated: false,
+    permissions: {},
+    loader: false,
+    user: null,
+    token: null,
+    hasErrors: false
+  },
   reducers: {
+
     loading: (state, action) => {
       state.loader = true;
     },
     login: (state, action) => {
-      const { token, user } = action.payload
+      const { token, user, permissions } = action.payload
       state.loader = false;
       state.token = token;
       state.isAuthenticated = !!token;
+      state.permissions = permissions
       state.user = user
       state.hasErrors = false
       _login(token)
@@ -24,6 +33,7 @@ const slice = createSlice({
       state.loader = false;
       state.user = null
       state.token = null
+      state.permissions = {}
       state.hasErrors = false
     },
     failed: (state, action) => {

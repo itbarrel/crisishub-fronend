@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../../apiActions";
-import { login as _login, logout as _logout } from "../../../services/Auth";
 
 import {
   LAYOUT_TYPE,

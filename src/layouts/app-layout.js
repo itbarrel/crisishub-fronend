@@ -26,6 +26,7 @@ import {
   TAB_SIZE,
   THEME_TYPE_DARK
 } from "../constants/ThemeSetting";
+
 import NoHeaderNotification from "./Topbar/NoHeaderNotification";
 import Customizer from "./Customizer";
 import { withAuthSync } from '../components/hoc/authGuard'

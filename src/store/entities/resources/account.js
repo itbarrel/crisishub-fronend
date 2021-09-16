@@ -5,16 +5,20 @@ const slice = createSlice({
     name: "Accounts",
     initialState: {
         loader: false,
-        list: {}
+        account: {},
+        accounts: []
     },
     reducers: {
         loading: (state, action) => {
             state.loader = true;
         },
-        AccountsList: (state, action) => {
+        all: (state, action) => {
             const { payload } = action
-            state.list = payload
-
+            state.accounts = payload
+        },
+        show: (state, action) => {
+            const { payload } = action
+            state.accounts = payload
         },
         failed: (state, action) => {
             state.loader = false;
@@ -23,16 +27,17 @@ const slice = createSlice({
     },
 });
 
-export const { loading, AccountsList, failed, } = slice.actions;
+export const { loading, all, show, failed, } = slice.actions;
 
 export const getAccountsList = (token) => (dispatch, getState) => {
     return dispatch(
         apiCallBegan({
             url: 'v1/accounts',
             method: "get",
-            token: token,
+            data: data,
+            token: true,
             onStart: loading.type,
-            onSuccess: AccountsList.type,
+            onSuccess: all.type,
             onError: failed.type
         })
     )
