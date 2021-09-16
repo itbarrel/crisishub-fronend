@@ -5,8 +5,8 @@ const slice = createSlice({
     name: "Accounts",
     initialState: {
         loader: false,
-        account: {},
-        accounts: []
+        list: [],
+        update_item: {},
     },
     reducers: {
         loading: (state, action) => {
@@ -14,7 +14,7 @@ const slice = createSlice({
         },
         all: (state, action) => {
             const { payload } = action
-            state.accounts = payload
+            state.list = payload
         },
         show: (state, action) => {
             const { payload } = action

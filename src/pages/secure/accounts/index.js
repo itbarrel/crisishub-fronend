@@ -8,7 +8,7 @@ import { getAccountsList } from '../../../store/slices/resources/account'
 import { Card, Form, Table, Button } from "antd";
 
 const Accounts = memo((props) => {
-  const { accounts } = useSelector(({ resources }) => resources.Account)
+  const { list } = useSelector(({ resources }) => resources.Account)
 
   const dispatch = useDispatch();
 
@@ -62,10 +62,9 @@ const Accounts = memo((props) => {
 
   return (
     <>
-      {/* <Dynamic /> */}
       <Button type="primary">Creact Account</Button>
       <Card title="Accounts">
-        <Table className="gx-table-responsive" {...state} columns={columns} dataSource={accounts} />
+        <Table className="gx-table-responsive" {...state} columns={columns} dataSource={list} />
       </Card>
     </>
   );
