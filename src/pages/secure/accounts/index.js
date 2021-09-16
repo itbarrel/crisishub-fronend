@@ -74,7 +74,7 @@ const Accounts = memo((props) => {
   useEffect(() => {
 
     console.log("api trigger=================")
-    dispatch(getAccountsList(token))
+    dispatch(getAccountsList())
   })
 
   return (

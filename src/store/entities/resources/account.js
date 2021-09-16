@@ -34,7 +34,6 @@ export const getAccountsList = (token) => (dispatch, getState) => {
         apiCallBegan({
             url: 'v1/accounts',
             method: "get",
-            data: data,
             token: true,
             onStart: loading.type,
             onSuccess: all.type,
