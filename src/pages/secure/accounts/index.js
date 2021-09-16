@@ -1,14 +1,16 @@
 import React, { memo, useEffect, useState } from "react";
 import withLayout from "../../../layouts/app-layout";
 import Dynamic from "../../../components/table/Dynamic";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { getAccountsList } from '../../../store/entities/resources/account'
+import { getAccountsList } from '../../../store/slices/resources/account'
 
 import { Card, Form, Table, Button } from "antd";
 
 const Accounts = memo((props) => {
-  console.log('->>>>>>>>>>>>>>>..wowow', props)
+  const { accounts } = useSelector(({ resources }) => resources.Account)
+  console.log('->>>>>>>>>>>>>>>..wowow', accounts)
+
   const dispatch = useDispatch();
   const FormItem = Form.Item;
 
@@ -57,6 +59,7 @@ const Accounts = memo((props) => {
   const footer = () => "Here is footer";
   const scroll = { y: 240 };
   const pagination = { position: "bottom" };
+
   const [state, setState] = useState({
     bordered: "small", // false if instead
     loading: false,

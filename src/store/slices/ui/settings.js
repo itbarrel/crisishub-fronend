@@ -77,7 +77,6 @@ const slice = createSlice({
 
 export const { loading, toggleCollapsedNav, setPathName, windowWidth, themeType, navStyle, layoutType, themeColorSelected, switchLanguage, failed, } = slice.actions;
 
-
 export const toggleCollapsedSideNav = (navCollapsed) => (dispatch, getState) => {
   return dispatch(toggleCollapsedNav(navCollapsed))
 };

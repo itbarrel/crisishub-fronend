@@ -1,6 +1,7 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import Resources from "./resources";
+import resources from "./resources";
+import ui from "./ui";
 
-export default combineReducers({
-  Resources,
-});
+export {
+  resources,
+  ui
+};
