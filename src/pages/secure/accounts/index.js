@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAccountsList } from '../../../store/slices/resources/account'
 
 import { Card, Form, Table, Button } from "antd";
+import { CookieService } from "../../../services/storage.service";
 
 const Accounts = memo((props) => {
   const { accounts } = useSelector(({ resources }) => resources.Account)
@@ -74,9 +75,10 @@ const Accounts = memo((props) => {
   });
 
   useEffect(() => {
-    console.log("asdf accounts")
-    dispatch(getAccountsList())
-  }, [])
+
+    console.log("api trigger=================")
+    dispatch(getAccountsList(token))
+  })
 
   return (
     <>
