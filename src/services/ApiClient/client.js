@@ -76,7 +76,6 @@ export default class ApiClient {
   }
 
   get(path, data, token) {
-    console.log('>>>>>>>>>>>>>.', path, data, token)
     const url = withQuery(this.apiUrl + path, data)
     const config = { ...this.config, method: 'GET' }
     return this.makeRequest(url, config, token)
