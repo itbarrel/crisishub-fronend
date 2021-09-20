@@ -49,6 +49,7 @@ import {
   THEME_TYPE_LITE,
   THEME_TYPE_SEMI_DARK
 } from "../../constants/ThemeSetting";
+import { log } from '../../utils/console-log'
 
 const CustomizerSystem = () => {
 
@@ -61,7 +62,7 @@ const CustomizerSystem = () => {
   const layoutType = useSelector(({ ui }) => ui.settings.layoutType);
 
   const handleColorChange = (filename) => {
-    console.log("handleColorChange", filename);
+    log("handleColorChange", filename);
     // let link = document.createElement('link');
     // link.type = 'text/css';
     // link.rel = 'stylesheet';
@@ -98,7 +99,7 @@ const CustomizerSystem = () => {
   };
 
   const getCustomizerContent = () => {
-    console.log("getCustomizerContent >>>>>")
+    log("getCustomizerContent")
     // if (themeType === THEME_TYPE_DARK) {
     //   document.body.classList.add('dark-theme');
     //   let link = document.createElement('link');

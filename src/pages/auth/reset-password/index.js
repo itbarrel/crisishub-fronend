@@ -4,16 +4,17 @@ import Link from "next/link";
 import { Button, Checkbox, Form, Input } from "antd";
 import IntlMessages from "../../../utils/IntlMessages";
 import getlanguage from "../../../components/hoc/withLang";
+import { log } from '../../../utils/console-log'
 
 
 const ForgotPassword = memo(() => {
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    log(`Failed ${errorInfo}`);
   };
 
   const onFinish = (values) => {
-    console.log("finish", values);
+    log(`finish ${values}`);
   };
 
   return (
@@ -43,7 +44,7 @@ const ForgotPassword = memo(() => {
             </div>
             <div className="gx-app-login-content">
               <h2>Reset Password</h2>
-              <p><IntlMessages id="appModule.enterPasswordReset"/></p>
+              <p><IntlMessages id="appModule.enterPasswordReset" /></p>
               <Form
                 initialValues={{ remember: true }}
                 name="basic"
@@ -65,11 +66,11 @@ const ForgotPassword = memo(() => {
                 >
                   <Input placeholder={"Retype New Password"} />
                 </Form.Item>
-                
+
                 <Form.Item>
                   <Button type="primary" className="gx-mb-0" htmlType="submit">
                     <IntlMessages id="app.userAuth.reset" />
-                  </Button>                  
+                  </Button>
                 </Form.Item>
               </Form>
               <br />
@@ -87,7 +88,7 @@ const ForgotPassword = memo(() => {
           </div>
         </div>
       </div>
-      
+
     </>
   )
 });

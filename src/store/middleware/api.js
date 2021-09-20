@@ -1,9 +1,4 @@
-import axios from "axios";
 import * as actions from "../apiActions";
-import { AuthLoginAPI } from "../../lib/login";
-import { baseURL } from '../../configs/index'
-import ApiService, { api as apis, secureapi } from "../../services/api/api.config";
-
 import apiClient from "../../services/ApiClient";
 
 const api = ({ dispatch }) => next => async action => {

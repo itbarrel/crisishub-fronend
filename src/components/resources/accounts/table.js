@@ -33,10 +33,10 @@ const Accounts = memo((props) => {
         }
     ];
 
-    const expandedRowRender = (record) => <p>{record.description}</p>;
-    const title = () => "Here is title";
+    // const expandedRowRender = (record) => <p>{record.description}</p>;
+    // const title = () => "Here is title";
     const showHeader = true;
-    const footer = () => "Here is footer";
+    // const footer = () => "Here is footer";
     const scroll = { y: 240 };
     const pagination = { position: "bottom" };
 
