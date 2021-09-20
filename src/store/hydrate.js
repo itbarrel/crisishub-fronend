@@ -1,8 +1,9 @@
 import combineReducers from "./reducer";
 import { HYDRATE } from "next-redux-wrapper";
+import { log } from '../utils/console-log'
 
 const reducer = (state, action) => {
-  console.log("Hydrate:action", action.type);
+  log("Hydrate:action", action.type);
   if (action.type === HYDRATE) {
     // xPOINT:: Attention! This will overwrite client state! Real apps should use proper reconciliation.
     const appStore = { ...state, ...action.payload };

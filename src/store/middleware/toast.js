@@ -1,5 +1,7 @@
-const toast = store => next => action => {
-    if (action.type === "error") console.log("Toastify", action.payload.message);
+import log from "../../utils/console-log";
+
+const toast = (store) => (next) => (action) => {
+    if (action.type === "error") log(`Toastify`, action.payload.message);
     else return next(action);
 };
 

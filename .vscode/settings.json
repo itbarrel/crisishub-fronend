@@ -11,5 +11,13 @@
     ],
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
-    }
+    },
+    "cSpell.words": [
+        "antd",
+        "Customizer",
+        "nprofress",
+        "nprogress",
+        "reduxjs",
+        "Topbar"
+    ]
 }
