@@ -15,6 +15,7 @@ import {
 import IntlMessages from "../../utils/IntlMessages";
 import { useDispatch, useSelector } from "react-redux";
 import { setPathName } from "../../store/slices/ui/settings";
+import permissionCheck from "../../utils/PermissionGuard";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -46,6 +47,26 @@ const SidebarContent = () => {
 
   const selectedKeys = pathname.substr(1);
   const defaultOpenKeys = selectedKeys.split("/")[1];
+
+  console.log(permissionCheck({
+    Accounts: ['update'],
+    Accounts: ['create'],
+    Users: ['update'],
+    Roles: ['update'],
+
+  }))
+  const y = {
+    Accounts: { update: true },
+    Accounts: ['create'],
+    Users: ['update'],
+    Roles: ['update'],
+
+  }
+
+  // ['view', 'create', 'update', 'delete']
+
+  // console.log(permissionCheck([]))
+
   return (
     <>
       <SidebarLogo />
@@ -81,13 +102,13 @@ const SidebarContent = () => {
               </Menu.Item>
             </MenuItemGroup>
             {/* settings */}
-            <MenuItemGroup
+            {<MenuItemGroup
               key="setting"
               className="gx-menu-group"
               title={<IntlMessages id="settings" />}
             >
               {/* Accounts */}
-              <Menu.Item key="settings">
+              {permissionCheck({ Accounts: ['view'] }) && <Menu.Item key="accounts">
                 <Link href="/secure/accounts">
                   <a>
                     <i className="icon icon-widgets" />
@@ -96,51 +117,22 @@ const SidebarContent = () => {
                     </span>
                   </a>
                 </Link>
-              </Menu.Item>
-            </MenuItemGroup>
-            {/* <SubMenu
-                key="dashboard"
-                popupClassName={getNavStyleSubMenuClass(navStyle)}
-                title={
-                  <span>
-                    <i className="icon icon-dasbhoard" />
+              </Menu.Item>}
+
+              {/* Users */}
+              {permissionCheck({ Users: ['view'] }) && <Menu.Item key="users">
+                <Link href="/secure/users">
+                  <a>
+                    <i className="icon icon-widgets" />
                     <span>
-                      <IntlMessages id="sidebar.dashboard" />
+                      {/* <IntlMessages id="users" /> */}
+                      Users
                     </span>
-                  </span>
-                }
-              >
-                <Menu.Item key="main/dashboard/crypto">
-                  <Link href="/main/dashboard/crypto">
-                    <a>
-                      <i className="icon icon-crypto" />
-                      <span>
-                        <IntlMessages id="sidebar.dashboard.crypto" />
-                      </span>
-                    </a>
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="main/dashboard/crm">
-                  <Link href="/main/dashboard/crm">
-                    <a>
-                      <i className="icon icon-crm" />
-                      <span>
-                        <IntlMessages id="sidebar.dashboard.crm" />
-                      </span>
-                    </a>
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="main/dashboard/listing">
-                  <Link href="/main/dashboard/listing">
-                    <a>
-                      <i className="icon icon-listing-dbrd" />
-                      <span>
-                        <IntlMessages id="sidebar.dashboard.listing" />
-                      </span>
-                    </a>
-                  </Link>
-                </Menu.Item>
-              </SubMenu> */}
+                  </a>
+                </Link>
+              </Menu.Item>}
+
+            </MenuItemGroup>}
           </Menu>
         </CustomScrollbars>
       </div>

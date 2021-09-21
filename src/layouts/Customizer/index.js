@@ -98,7 +98,6 @@ const CustomizerSystem = () => {
   };
 
   const getCustomizerContent = () => {
-    console.log("getCustomizerContent >>>>>")
     // if (themeType === THEME_TYPE_DARK) {
     //   document.body.classList.add('dark-theme');
     //   let link = document.createElement('link');

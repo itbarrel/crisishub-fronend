@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { apiCallBegan } from "../apiActions";
 import { login as _login, logout as _logout } from "../../services/Auth";
 
@@ -13,7 +14,6 @@ const slice = createSlice({
     hasErrors: false
   },
   reducers: {
-
     loading: (state, action) => {
       state.loader = true;
     },
@@ -40,7 +40,7 @@ const slice = createSlice({
       state.loader = false;
       state.hasErrors = true
     },
-  },
+  }
 });
 
 export const { loading, login, logout, failed } = slice.actions;

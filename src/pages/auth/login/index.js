@@ -12,8 +12,6 @@ import getlanguage from "../../../components/hoc/withLang";
 
 import { onLogin } from "../../../store/slices/auth";
 import { IsAuthenticate } from '../../../utils/is-authenticate'
-import Router from 'next/router'
-
 
 const Login = memo(() => {
   const dispatch = useDispatch();
