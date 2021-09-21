@@ -11,6 +11,7 @@ import IntlMessages from "../../../utils/IntlMessages";
 import getlanguage from "../../../components/hoc/withLang";
 
 import { onLogin } from "../../../store/slices/auth";
+import { IsAuthenticate } from '../../../utils/is-authenticate'
 import { log } from "../../../utils/console-log";
 
 const Login = memo(() => {

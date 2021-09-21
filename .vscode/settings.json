@@ -15,10 +15,14 @@
     "cSpell.words": [
         "antd",
         "Customizer",
+        "draggable",
+        "localforage",
         "nprofress",
         "nprogress",
         "Popconfirm",
         "reduxjs",
-        "Topbar"
+        "scrollbars",
+        "Topbar",
+        "unfetch"
     ]
 }
