@@ -6,7 +6,11 @@ import { Provider } from 'react-redux'
 import "antd/dist/antd.css";
 // import "../../public/vendors/style";
 import "../assets/styles/style.css";
+
 import { PersistGate } from 'redux-persist/integration/react'
+import { nprofress } from '../services/nprofress'
+
+nprofress()
 
 function MyApp({ Component, pageProps }) {
 

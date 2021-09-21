@@ -18,6 +18,8 @@ class UGSports extends Document {
           <meta name="twitter:description" content={ENV.siteDescription} />
           <meta name="twitter:image" content="/images/ogimg.png" />
 
+          <link rel="stylesheet" type="text/css" href="/nprogress.css" />
+
           <link rel="mask-icon" href="/images/favicon.ico" />
 
           <link rel="stylesheet" href="/vendors/gaxon/styles.css" />

@@ -4,30 +4,35 @@ import { apiCallBegan } from "../../apiActions";
 const slice = createSlice({
     name: "Accounts",
     initialState: {
-        loader: false,
+        loading: false,
         list: [],
         item: {},
     },
     reducers: {
         loading: (state, action) => {
-            state.loader = true;
+            state.loading = true;
         },
         all: (state, action) => {
             const { payload } = action
             state.list = payload
+            state.loading = false;
+        },
+        add: (state, action) => {
+            state.list.unshift(action.payload);
+            state.loading = false;
         },
         show: (state, action) => {
             const { payload } = action
             state.item = payload
         },
         failed: (state, action) => {
-            state.loader = false;
+            state.loading = false;
             state.hasErrors = true
         },
     },
 });
 
-export const { loading, all, show, failed, } = slice.actions;
+export const { loading, all, show, add, failed, } = slice.actions;
 
 export const getAccountsList = () => (dispatch, getState) => {
     return dispatch(
@@ -37,6 +42,19 @@ export const getAccountsList = () => (dispatch, getState) => {
             token: true,
             onStart: loading.type,
             onSuccess: all.type,
+            onError: failed.type
+        })
+    )
+};
+
+export const addAccount = (data) => (dispatch, getState) => {
+    return dispatch(
+        apiCallBegan({
+            url: 'v1/accounts',
+            method: "post",
+            data,
+            onStart: loading.type,
+            onSuccess: add.type,
             onError: failed.type
         })
     )

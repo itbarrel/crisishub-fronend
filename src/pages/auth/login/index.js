@@ -12,21 +12,17 @@ import getlanguage from "../../../components/hoc/withLang";
 
 import { onLogin } from "../../../store/slices/auth";
 import { IsAuthenticate } from '../../../utils/is-authenticate'
+import { log } from "../../../utils/console-log";
 
 const Login = memo(() => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log("isAuthencated", IsAuthenticate())
-    // if (IsAuthenticate) Router.push('/secure/dashboard')
-  }, [])
-
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    log("Failed:", errorInfo);
   };
 
   const onFinish = (data) => {
-    const postData = { domain: 'public', credentials: data }
+    const postData = { domain: "public", credentials: data };
     dispatch(onLogin(postData));
   };
 

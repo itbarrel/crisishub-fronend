@@ -37,7 +37,7 @@ const Topbar = () => {
     </CustomScrollbars>);
 
   const updateSearchChatUser = (evt) => {
-    setSearchText(evt.target.value);
+    // setSearchText(evt.target.value);
   };
   return (
     <Header>
