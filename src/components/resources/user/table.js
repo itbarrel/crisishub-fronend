@@ -100,7 +100,7 @@ const Accounts = memo((props) => {
 
     return (
         <>
-            <Table className="gx-table-responsive" rowSelection={rowSelection} {...tableSetting} columns={columns} dataSource={list} />
+            <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={list} />
         </>
     );
 });
