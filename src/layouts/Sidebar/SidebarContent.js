@@ -69,8 +69,8 @@ const SidebarContent = () => {
               title={<IntlMessages id="sidebar.main" />}
             >
               {/* dashboard */}
-              <Menu.Item key="/secure/dashboard">
-                <Link href="/secure/dashboard">
+              <Menu.Item key={"/secure/dashboard"}>
+                <Link href="/secure/dashboard" as={'/dashboard'}>
                   <a>
                     <i className="icon icon-widgets" />
                     <span>
@@ -88,11 +88,22 @@ const SidebarContent = () => {
             >
               {/* Accounts */}
               <Menu.Item key="settings">
-                <Link href="/secure/accounts">
+                <Link href={"/secure/accounts"} as={'/accounts'}>
                   <a>
-                    <i className="icon icon-widgets" />
+                    <i className="icon icon-crm" />
                     <span>
                       <IntlMessages id="accounts" />
+                    </span>
+                  </a>
+                </Link>
+              </Menu.Item>
+              {/* Users */}
+              <Menu.Item key="users">
+                <Link href={"/secure/user"}>
+                  <a>
+                    <i className="icon icon-crypto" />
+                    <span>
+                      <IntlMessages id="users" />
                     </span>
                   </a>
                 </Link>

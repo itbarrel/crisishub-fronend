@@ -40,8 +40,8 @@ const Accounts = memo((props) => {
     const scroll = { y: 240 };
     const pagination = { position: "bottom" };
 
-    const [state, setState] = useState({
-        bordered: "small",
+    const [tableSetting, setTableSetting] = useState({
+        bordered: true,
         loading: false,
         pagination,
         size: "default",
@@ -60,7 +60,7 @@ const Accounts = memo((props) => {
 
     return (
         <>
-            <Table className="gx-table-responsive" {...state} columns={columns} dataSource={list} />
+            <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={list} />
         </>
     );
 });

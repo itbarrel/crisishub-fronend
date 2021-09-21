@@ -27,7 +27,7 @@ const tailFormItemLayout = {
   },
 };
 
-const AddAccoutForm = memo(({ data, action, children }) => {
+const AddAccountForm = memo(({ data, action, children }) => {
 
   const [form] = Form.useForm();
 
@@ -145,6 +145,6 @@ const AddAccoutForm = memo(({ data, action, children }) => {
   )
 });
 
-AddAccoutForm.displayName = AddAccoutForm
+AddAccountForm.displayName = AddAccountForm
 
-export default AddAccoutForm
+export default AddAccountForm

@@ -1,5 +1,6 @@
 import * as actions from "../apiActions";
 import apiClient from "../../services/ApiClient";
+import { log } from '../../utils/console-log'
 
 const api = ({ dispatch }) => next => async action => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
@@ -13,6 +14,7 @@ const api = ({ dispatch }) => next => async action => {
     .then(resp => resp.json())
     .then(response => {
       // General
+      log("API Call == Response ", response)
       dispatch(actions.apiCallSuccess(response));
       // Specific
       if (onSuccess) dispatch({ type: onSuccess, payload: response });

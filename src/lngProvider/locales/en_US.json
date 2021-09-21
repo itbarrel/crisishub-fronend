@@ -313,5 +313,6 @@
   "app.userAuth.reset.text": "Don't worry. Reset the password is easy.Just enter new passward and passwaord will be reset ",
   "settings": "Settings",
   "dashBoard": "DashBoard",
-  "accounts": "Accounts"
+  "accounts": "Accounts",
+  "users": "Users"
 }
