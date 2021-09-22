@@ -109,7 +109,7 @@ const SidebarContent = () => {
             >
               {/* Accounts */}
               {permissionCheck({ Accounts: ['view'] }) && <Menu.Item key="accounts">
-                <Link href="/secure/accounts">
+                <Link href="/secure/accounts" as={'/accounts'}>
                   <a>
                     <i className="icon icon-crm" />
                     <span>
@@ -121,7 +121,7 @@ const SidebarContent = () => {
 
               {/* Users */}
               {permissionCheck({ Users: ['view'] }) && <Menu.Item key="users">
-                <Link href="/secure/users">
+                <Link href="/secure/user">
                   <a>
                     <i className="icon icon-widgets" />
                     <span>

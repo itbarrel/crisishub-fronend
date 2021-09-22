@@ -1,8 +1,8 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import withLayout from "../../layouts/app-layout";
-import { Card } from "antd";
+import { Card , Row, Col} from "antd";
 import UsersList from "../../components/resources/user/table";
-import AddUser from "../../components/resources/user/model";
+import AddUser from "../../components/resources/user/form-model";
 import SEO from "../../components/seo/";
 
 const User = memo(() => {
@@ -10,7 +10,11 @@ const User = memo(() => {
         <>
             <SEO title={"User"} />
             <Card title="Users">
-                <AddUser />
+                <Row justify="end">
+                    <Col span={4}>
+                        <AddUser title={'Add User'} />
+                    </Col>
+                </Row>
                 <UsersList />
             </Card>
         </>

@@ -1,10 +1,12 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserList } from '../../../store/slices/resources/user'
-import { Table, Divider, Button, Space, Popconfirm } from "antd";
+import { Table, Button, Popconfirm } from "antd";
 import { log } from '../../../utils/console-log'
-import { removeUser, remove } from '../../../store/slices/resources/user'
-import UpdateData from '../user/model'
+import { removeUser, current_item } from '../../../store/slices/resources/user'
+import UpdateUser from './form-model'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+
 
 const Accounts = memo((props) => {
 
@@ -12,26 +14,20 @@ const Accounts = memo((props) => {
     const { list } = useSelector(({ resources }) => resources.User)
     const loader = useSelector(({ resources }) => resources.User.loading)
     const [loading, setLoading] = useState(loader)
-    const [selectedUser, setSelectedUser] = useState([])
-    const onSelectChange = selectedRowKeys => {
-        log('selectedRowKeys changed: ', selectedRowKeys);
-        setSelectedUser(selectedRowKeys);
-    };
-    const rowSelection = {
-        selectedUser,
-        onChange: onSelectChange,
-    };
+    const [selectedUser, setSelectedUser] = useState({})
+    const [visible, setVisible] = useState(false);
 
     const handleDelete = (key) => {
         log('handleDelete User', key)
         dispatch(removeUser(key))
-        // dispatch(remove())
     };
 
-    const handleUpdate = (user) => {
-        log('handleUpdate User', user)
+    const handleUpdate = (Current_user) => {
+        log('handleUpdate User', Current_user)
+        setVisible(true)
+        dispatch(current_item(Current_user))
+        setSelectedUser(Current_user);
     };
-
 
     const columns = [
         {
@@ -65,13 +61,9 @@ const Accounts = memo((props) => {
             width: 360,
             render: (text, record) => (
                 <>
-                    <Button type="primary" size="small" style={{ width: 60, marginTop: 10 }} onClick={() => handleUpdate(record)}>
-                        Update
-                    </Button>
+                    <Button size="large" icon={<EditOutlined />}  onClick={() => handleUpdate(record)} />
                     <Popconfirm title="Are you sure delete this User?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record.id)}>
-                        <Button type="primary" size="small" style={{ width: 60, marginTop: 10 }}>
-                            Delete
-                        </Button>
+                        <Button size="default" icon={<DeleteOutlined />}/>
                     </Popconfirm>
                 </>
             ),
@@ -100,6 +92,7 @@ const Accounts = memo((props) => {
 
     return (
         <>
+            <UpdateUser onShow={visible} selectedUser={selectedUser} title={'Update User'} off/>
             <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={list} />
         </>
     );

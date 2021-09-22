@@ -1,28 +1,7 @@
 {
-    "editor.tabSize": 4,
-    "editor.insertSpaces": true,
-    "editor.formatOnSave": true,
-    "editor.unfoldOnClickAfterEndOfLine": true,
-    "files.insertFinalNewline": true,
-    "html.format.endWithNewline": true,
-    "eslint.validate": [
-        "javascript",
-        "html"
-    ],
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-    "cSpell.words": [
-        "antd",
-        "Customizer",
-        "draggable",
-        "localforage",
-        "nprofress",
-        "nprogress",
-        "Popconfirm",
-        "reduxjs",
-        "scrollbars",
-        "Topbar",
-        "unfetch"
-    ]
+  "cSpell.words": [
+    "Popconfirm",
+    "reduxjs",
+    "submenu"
+  ]
 }

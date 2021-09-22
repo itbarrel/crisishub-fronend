@@ -4,12 +4,15 @@ import {
     Form,
     Input,
     Modal,
+    Row,
+    Col
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../../store/slices/resources/user";
+import { addUser , updateUser} from "../../../store/slices/resources/user";
 import { isClient } from "../../../utils/is-client";
 import Draggable from "react-draggable";
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const formItemLayout = {
     labelCol: {
@@ -22,24 +25,24 @@ const formItemLayout = {
     },
 };
 
-const Model = memo(() => {
+const Model = memo(({ onShow, selectedUser, title, off }) => {
     const draggleRef = useRef(null);
     const dispatch = useDispatch();
     const loader = useSelector(({ resources }) => resources.Account.loading)
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(onShow);
     const [loading, setLoading] = useState(loader);
-    const [title, setTitle] = useState("Add User");
+    const [modelTitle, setModelTitle] = useState(title);
     const [disabled, setDisabled] = useState(true);
     const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
+    const [form] = Form.useForm();
 
     const onShowModal = () => {
         setVisible(true);
     };
     const onCloseModal = () => {
         setVisible(false);
+        form.resetFields();
     };
-    const [form] = Form.useForm();
-
     const onSubmit = async () => {
         setLoading(true);
         const formData = await form.validateFields();
@@ -51,7 +54,11 @@ const Model = memo(() => {
             lastName: formData.lastName,
             RoleId: "5bb697e0-de02-49bc-bbd4-5d33bfa2746e"
         };
-        dispatch(addUser(data));
+        if (onShow) {
+            dispatch(updateUser(selectedUser.id, data));
+        } else {
+            dispatch(addUser(data));
+        }
         form.resetFields();
     };
 
@@ -77,7 +84,7 @@ const Model = memo(() => {
                     onBlur={() => { }}
                 // end
                 >
-                    {title}
+                    {modelTitle}
                 </div>
             </>
         );
@@ -95,6 +102,11 @@ const Model = memo(() => {
             </>
         );
     };
+
+    useEffect(() => {
+        if (onShow) onShowModal()
+        form.setFieldsValue(selectedUser)
+    }, [onShow, selectedUser])
 
     useEffect(() => {
         if (loading) {
@@ -132,9 +144,9 @@ const Model = memo(() => {
 
     return (
         <>
-            <Button type="primary" onClick={onShowModal}>
+            {off ? '' : <Button type="primary" onClick={onShowModal} icon={<PlusCircleOutlined />}>
                 Create User
-            </Button>
+            </Button>}
             <Modal
                 title={<ModalHeader />}
                 visible={visible}
@@ -193,42 +205,44 @@ const Model = memo(() => {
                         <Input />
                     </Form.Item>
 
-                    <Form.Item
-                        name="password"
-                        label={<LabelAndTooltip title={"Password"} />}
-                        rules={[
-                            {
-                                required: true,
-                                message: "Please input your password!",
-                            },
-                        ]}
-                        hasFeedback
-                    >
-                        <Input.Password />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="confirm"
-                        label={<LabelAndTooltip title={"Confirm Password"} />}
-                        dependencies={["password"]}
-                        hasFeedback
-                        rules={[
-                            {
-                                required: true,
-                                message: "Please confirm your password!",
-                            },
-                            ({ getFieldValue }) => ({
-                                validator(rule, value) {
-                                    if (!value || getFieldValue("password") === value) {
-                                        return Promise.resolve();
-                                    }
-                                    return Promise.reject("The two passwords that you entered do not match!");
+                    {off ? '' : <>
+                        <Form.Item
+                            name="password"
+                            label={<LabelAndTooltip title={"Password"} />}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input your password!",
                                 },
-                            }),
-                        ]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
+                            ]}
+                            hasFeedback
+                        >
+                            <Input.Password />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="confirm"
+                            label={<LabelAndTooltip title={"Confirm Password"} />}
+                            dependencies={["password"]}
+                            hasFeedback
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please confirm your password!",
+                                },
+                                ({ getFieldValue }) => ({
+                                    validator(rule, value) {
+                                        if (!value || getFieldValue("password") === value) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject("The two passwords that you entered do not match!");
+                                    },
+                                }),
+                            ]}
+                        >
+                            <Input.Password />
+                        </Form.Item>
+                    </>}
                 </Form>
             </Modal>
         </>

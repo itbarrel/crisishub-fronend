@@ -6,7 +6,7 @@ const slice = createSlice({
     initialState: {
         loading: false,
         list: [],
-        update_item: {},
+        update_item: [],
     },
     reducers: {
         loading: (state, action) => {
@@ -23,8 +23,20 @@ const slice = createSlice({
         },
         remove: (state, action) => {
             const { payload } = action
-            // Filtered or update table state here
+            const update = state.list.filter(user => user.id !== payload ? user : null)
+            state.list = update
+
             state.loading = false;
+        },
+        update: (state, action) => {
+            const haveID = state.list.findIndex((id) => id.id === "544d4ed1-cf26-4e4a-a662-92d69535de0f") // return index of arr
+            state.list[haveID] = action.payload
+            state.loading = false;
+            // const hasID = !!state.list.find((id) => id.id === payload.id) //recommended return true / false
+            // const isID = state.list.includes("544d4ed1-cf26-4e4a-a662-92d69535de0f") // true / false
+        },
+        current_item: (state, action) => {
+            state.update_item = action.payload;
         },
         show: (state, action) => {
             const { payload } = action
@@ -37,7 +49,7 @@ const slice = createSlice({
     },
 });
 
-export const { loading, all, add, remove, show, failed, } = slice.actions
+export const { loading, all, add, remove, update, current_item, show, failed, } = slice.actions
 
 export const getUserList = () => (dispatch, getState) => {
     return dispatch(
@@ -71,6 +83,19 @@ export const removeUser = (id) => (dispatch, getState) => {
             method: "delete",
             onStart: loading.type,
             onSuccess: remove.type,
+            onError: failed.type
+        })
+    )
+};
+
+export const updateUser = (id, data) => (dispatch, getState) => {
+    return dispatch(
+        apiCallBegan({
+            url: `v1/users/${id}`,
+            method: "put",
+            data,
+            onStart: loading.type,
+            onSuccess: update.type,
             onError: failed.type
         })
     )
