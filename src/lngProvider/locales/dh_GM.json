@@ -1,0 +1,12 @@
+{
+  "sidebar.main": "Hoofd",
+  "app.userAuth.support": "Steun",
+  "app.userAuth.reset.text": "Maak je geen zorgen. Het wachtwoord opnieuw instellen is eenvoudig. Voer gewoon een nieuw wachtwoord in en het wachtwoord wordt opnieuw ingesteld!",
+  "settings": "Instellingen",
+  "dashBoard": "Dashboard",
+  "accounts": "Rekeningen",
+  "users": "Gebruikers",
+  "departments": "Afdelingen",
+  "incidents": "Incidenten",
+  "task": "Taken"
+}
