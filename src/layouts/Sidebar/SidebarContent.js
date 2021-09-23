@@ -123,10 +123,21 @@ const SidebarContent = () => {
               {permissionCheck({ Users: ['view'] }) && <Menu.Item key="users">
                 <Link href="/secure/user">
                   <a>
-                    <i className="icon icon-widgets" />
+                    <i className="icon icon-signup" />
                     <span>
-                      {/* <IntlMessages id="users" /> */}
-                      Users
+                      <IntlMessages id="users" />
+                    </span>
+                  </a>
+                </Link>
+              </Menu.Item>}
+
+              {/* Department */}
+              {permissionCheck({ Departments: ['view'] }) && <Menu.Item key="departments">
+                <Link href="/secure/departments">
+                  <a>
+                    <i className="icon icon-basic-calendar" />
+                    <span>
+                    <IntlMessages id="departments" />
                     </span>
                   </a>
                 </Link>

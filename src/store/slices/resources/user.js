@@ -29,7 +29,7 @@ const slice = createSlice({
             state.loading = false;
         },
         update: (state, action) => {
-            const haveID = state.list.findIndex((id) => id.id === "544d4ed1-cf26-4e4a-a662-92d69535de0f") // return index of arr
+            const haveID = state.list.findIndex((id) => id.id === action.payload.id) // return index of arr
             state.list[haveID] = action.payload
             state.loading = false;
             // const hasID = !!state.list.find((id) => id.id === payload.id) //recommended return true / false
