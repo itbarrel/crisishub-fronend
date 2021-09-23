@@ -91,7 +91,7 @@ const SidebarContent = () => {
             >
               {/* dashboard */}
               <Menu.Item key={"/secure/dashboard"}>
-                <Link href="/secure/dashboard" as={'/dashboard'}>
+                <Link href="/secure/dashboard">
                   <a>
                     <i className="icon icon-widgets" />
                     <span>
@@ -109,7 +109,7 @@ const SidebarContent = () => {
             >
               {/* Accounts */}
               {permissionCheck({ Accounts: ['view'] }) && <Menu.Item key="accounts">
-                <Link href="/secure/accounts" as={'/accounts'}>
+                <Link href="/secure/accounts">
                   <a>
                     <i className="icon icon-crm" />
                     <span>
@@ -121,12 +121,25 @@ const SidebarContent = () => {
 
               {/* Users */}
               {permissionCheck({ Users: ['view'] }) && <Menu.Item key="users">
-                <Link href="/secure/user">
+                <Link href="/secure/users">
                   <a>
                     <i className="icon icon-widgets" />
                     <span>
                       {/* <IntlMessages id="users" /> */}
                       Users
+                    </span>
+                  </a>
+                </Link>
+              </Menu.Item>}
+
+              {/* roles */}
+              {permissionCheck({ Roles: ['view'] }) && <Menu.Item key="roles">
+                <Link href="/secure/roles">
+                  <a>
+                    <i className="icon icon-widgets" />
+                    <span>
+                      {/* <IntlMessages id="users" /> */}
+                      Roles
                     </span>
                   </a>
                 </Link>

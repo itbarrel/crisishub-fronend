@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
-import { withAuthSync } from '../Auth'
+import { withAuthSync } from '../../components/hoc/authGuard'
 import { getDisplayName } from '../Utils'
 
 import { logout } from '../../store/session'
-// import { getCurrentClient } from '../../store/client'
-// import { getProducts } from '../../store/products'
 
-import Header from '../../components/Header'
 import Link from 'next/link'
-// import Navigation from '../../components/Navigation'
 import { useTranslation } from '../../modules/I18n'
 
 const LegalFooter = () => {
@@ -61,7 +57,7 @@ const withLayout = (Page) => {
 }
 
 const mapStateToProps = (state) => {
-  const { user } = state.session
+  const { user } = state.auth
   return {
     user
   }

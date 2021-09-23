@@ -8,7 +8,7 @@ import {
     Col
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser , updateUser} from "../../../store/slices/resources/user";
+import { addUser, updateUser } from "../../../store/slices/resources/user";
 import { isClient } from "../../../utils/is-client";
 import Draggable from "react-draggable";
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
