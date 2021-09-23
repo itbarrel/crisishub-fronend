@@ -308,11 +308,13 @@
   "sidebar.extensions.profile": "Profile",
   "sidebar.social": "Social Apps",
   "sidebar.ifi": "International Financial Institute",
-  "sidebar.ifis": "International Financial Institutes",
   "app.userAuth.support": "Support",
-  "app.userAuth.reset.text": "Don't worry. Reset the password is easy.Just enter new passward and passwaord will be reset ",
+  "app.userAuth.reset.text": "Don't worry. Reset the password is easy.Just enter new password and password will be reset ",
   "settings": "Settings",
   "dashBoard": "DashBoard",
   "accounts": "Accounts",
-  "users": "Users"
+  "users": "Users",
+  "departments": "Departments",
+  "incidents": "Incidents",
+  "task": "Tasks"
 }

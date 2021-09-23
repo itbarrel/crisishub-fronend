@@ -32,7 +32,7 @@ import Customizer from "./Customizer";
 import { withAuthSync } from '../components/hoc/authGuard'
 
 const { Content, Footer } = Layout;
-const currentAppLocale = AppLocale.en;
+// const currentAppLocale = AppLocale.en;
 
 
 const withLayout = (Page) => (props) => {
@@ -107,6 +107,8 @@ const withLayout = (Page) => (props) => {
   if (themeType === THEME_TYPE_DARK) {
     bodyClass = "dark-theme"
   }
+
+  const currentAppLocale = AppLocale[locale.locale];
 
   return (
     <>

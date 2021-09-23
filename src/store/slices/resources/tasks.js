@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../../apiActions";
 
 const slice = createSlice({
-  name: "users",
+  name: "Tasks",
   initialState: {
     loading: false,
     list: [],
@@ -13,12 +13,11 @@ const slice = createSlice({
       state.loading = true;
     },
     all: (state, action) => {
-      const { payload } = action;
-      state.list = payload;
+      state.list = action.payload;
       state.loading = false;
     },
     add: (state, action) => {
-      state.list.unshift(action.payload.user);
+      state.list.unshift(action.payload);
       state.loading = false;
     },
     remove: (state, action) => {
@@ -27,18 +26,12 @@ const slice = createSlice({
       state.loading = false;
     },
     update: (state, action) => {
-      const haveID = state.list.findIndex((id) => id.id === action.payload.id); // return index of arr
+      const haveID = state.list.findIndex((department) => department.id === action.payload.id);
       state.list[haveID] = action.payload;
       state.loading = false;
-      // const hasID = !!state.list.find((id) => id.id === payload.id) //recommended return true / false
-      // const isID = state.list.includes("544d4ed1-cf26-4e4a-a662-92d69535de0f") // true / false
     },
     current_item: (state, action) => {
       state.update_item = action.payload;
-    },
-    show: (state, action) => {
-      const { payload } = action;
-      state.accounts = payload;
     },
     failed: (state, action) => {
       state.loading = false;
@@ -47,12 +40,12 @@ const slice = createSlice({
   },
 });
 
-export const { loading, all, add, remove, update, current_item, show, failed } = slice.actions;
+export const { loading, all, add, remove, update, current_item, failed } = slice.actions;
 
-export const getUserList = () => (dispatch, getState) => {
+export const getTaskList = () => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
-      url: "v1/users",
+      url: "v1/tasks",
       method: "get",
       onStart: loading.type,
       onSuccess: all.type,
@@ -61,10 +54,10 @@ export const getUserList = () => (dispatch, getState) => {
   );
 };
 
-export const addUser = (data) => (dispatch, getState) => {
+export const addTask = (data) => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
-      url: "v1/users",
+      url: "v1/tasks",
       method: "post",
       data,
       onStart: loading.type,
@@ -74,10 +67,10 @@ export const addUser = (data) => (dispatch, getState) => {
   );
 };
 
-export const removeUser = (id) => (dispatch, getState) => {
+export const removeTask = (id) => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
-      url: `v1/users/${id}`,
+      url: `v1/tasks/${id}`,
       method: "delete",
       onStart: loading.type,
       onSuccess: remove.type,
@@ -86,10 +79,10 @@ export const removeUser = (id) => (dispatch, getState) => {
   );
 };
 
-export const updateUser = (id, data) => (dispatch, getState) => {
+export const updateTask = (id, data) => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
-      url: `v1/users/${id}`,
+      url: `v1/tasks/${id}`,
       method: "put",
       data,
       onStart: loading.type,
