@@ -1,10 +1,11 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDepartmentsList } from '../../../store/slices/resources/departments'
-import { Table, Button } from "antd";
+import { getDepartmentsList, removeDepartment , current_item } from '../../../store/slices/resources/departments'
+import { Table, Button , Popconfirm} from "antd";
 import { log } from '../../../utils/console-log'
 import UpdateDepartment from './form-model'
-import { EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+
 
 
 const Accounts = memo((props) => {
@@ -15,6 +16,12 @@ const Accounts = memo((props) => {
     const [loading, setLoading] = useState(loader)
     const [selectedDepartment, setSelectedDepartment] = useState({})
     const [visible, setVisible] = useState(false);
+
+    const handleDelete = (Current_user) => {
+        log('handleDelete department', Current_user.id)
+        dispatch(removeDepartment(Current_user.id))
+        dispatch(current_item(Current_user))
+    };
 
     const handleUpdate = (Current_user) => {
         log('handleUpdate Department', Current_user)
@@ -37,11 +44,15 @@ const Accounts = memo((props) => {
             render: (text) => <span className="gx-link">{(text) ? 'Yes' : 'No'}</span>,
         }, {
             title: 'Action',
-            key: 'action',
+            dataIndex: "Action",
+            key: 'Action',
             width: 360,
             render: (text, record) => (
                 <>
                     <Button size="large" icon={<EditOutlined />}  onClick={() => handleUpdate(record)} />
+                    <Popconfirm title="Are you sure delete this User?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record)}>
+                        <Button size="default" icon={<DeleteOutlined />}/>
+                    </Popconfirm>
                 </>
             ),
         }

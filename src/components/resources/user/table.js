@@ -17,9 +17,10 @@ const Accounts = memo((props) => {
     const [selectedUser, setSelectedUser] = useState({})
     const [visible, setVisible] = useState(false);
 
-    const handleDelete = (key) => {
-        log('handleDelete User', key)
-        dispatch(removeUser(key))
+    const handleDelete = (Current_user) => {
+        log('handleDelete User', Current_user.key)
+        dispatch(current_item(Current_user))
+        dispatch(removeUser(Current_user.id))
     };
 
     const handleUpdate = (Current_user) => {
@@ -62,7 +63,7 @@ const Accounts = memo((props) => {
             render: (text, record) => (
                 <>
                     <Button size="large" icon={<EditOutlined />}  onClick={() => handleUpdate(record)} />
-                    <Popconfirm title="Are you sure delete this User?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record.id)}>
+                    <Popconfirm title="Are you sure delete this User?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record)}>
                         <Button size="default" icon={<DeleteOutlined />}/>
                     </Popconfirm>
                 </>

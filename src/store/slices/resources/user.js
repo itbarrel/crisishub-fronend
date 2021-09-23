@@ -22,10 +22,8 @@ const slice = createSlice({
             state.loading = false;
         },
         remove: (state, action) => {
-            const { payload } = action
-            const update = state.list.filter(user => user.id !== payload ? user : null)
+            const update = state.list.filter(user => user.id !== state.update_item?.id ? user : null)
             state.list = update
-
             state.loading = false;
         },
         update: (state, action) => {

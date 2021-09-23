@@ -6,6 +6,7 @@ const slice = createSlice({
   initialState: {
     loading: false,
     list: [],
+    update_item: [],
   },
   reducers: {
     loading: (state, action) => {
@@ -19,10 +20,18 @@ const slice = createSlice({
       state.list.unshift(action.payload);
       state.loading = false;
     },
+    remove: (state, action) => {
+      const update = state.list.filter(user => user.id !== state.update_item?.id ? user : null)
+      state.list = update
+      state.loading = false;
+    },
     update: (state, action) => {
       const haveID = state.list.findIndex((department) => department.id === action.payload.id)
       state.list[haveID] = action.payload
       state.loading = false;
+    },
+    current_item: (state, action) => {
+      state.update_item = action.payload;
     },
     failed: (state, action) => {
       state.loading = false;
@@ -31,7 +40,7 @@ const slice = createSlice({
   },
 });
 
-export const { loading, all, add, update, failed, } = slice.actions
+export const { loading, all, add, remove, update, current_item, failed, } = slice.actions
 
 export const getDepartmentsList = () => (dispatch, getState) => {
   return dispatch(
@@ -56,6 +65,18 @@ export const addDepartment = (data) => (dispatch, getState) => {
       onError: failed.type
     })
   )
+};
+
+export const removeDepartment = (id) => (dispatch, getState) => {
+    return dispatch(
+        apiCallBegan({
+            url: `v1/departments/${id}`,
+            method: "delete",
+            onStart: loading.type,
+            onSuccess: remove.type,
+            onError: failed.type
+        })
+    )
 };
 
 export const updateDepartment = (id, data) => (dispatch, getState) => {
