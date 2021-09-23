@@ -48,24 +48,20 @@ const SidebarContent = () => {
   const selectedKeys = pathname.substr(1);
   const defaultOpenKeys = selectedKeys.split("/")[1];
 
-  console.log(permissionCheck({
-    Accounts: ['update'],
-    Accounts: ['create'],
-    Users: ['update'],
-    Roles: ['update'],
-
-  }))
+  console.log(
+    permissionCheck({
+      Accounts: ["update"],
+      Accounts: ["create"],
+      Users: ["update"],
+      Roles: ["update"],
+    })
+  );
   const y = {
     Accounts: { update: true },
-    Accounts: ['create'],
-    Users: ['update'],
-    Roles: ['update'],
-
-  }
-
-  // ['view', 'create', 'update', 'delete']
-
-  // console.log(permissionCheck([]))
+    Accounts: ["create"],
+    Users: ["update"],
+    Roles: ["update"],
+  };
 
   return (
     <>
@@ -91,7 +87,7 @@ const SidebarContent = () => {
             >
               {/* dashboard */}
               <Menu.Item key={"/secure/dashboard"}>
-                <Link href="/secure/dashboard" as={'/dashboard'}>
+                <Link href="/secure/dashboard">
                   <a>
                     <i className="icon icon-widgets" />
                     <span>
@@ -102,48 +98,69 @@ const SidebarContent = () => {
               </Menu.Item>
             </MenuItemGroup>
             {/* settings */}
-            {<MenuItemGroup
-              key="setting"
-              className="gx-menu-group"
-              title={<IntlMessages id="settings" />}
-            >
-              {/* Accounts */}
-              {permissionCheck({ Accounts: ['view'] }) && <Menu.Item key="accounts">
-                <Link href="/secure/accounts" as={'/accounts'}>
-                  <a>
-                    <i className="icon icon-crm" />
-                    <span>
-                      <IntlMessages id="accounts" />
-                    </span>
-                  </a>
-                </Link>
-              </Menu.Item>}
+            {
+              <MenuItemGroup
+                key="setting"
+                className="gx-menu-group"
+                title={<IntlMessages id="settings" />}
+              >
+                {/* Accounts */}
+                {permissionCheck({ Accounts: ["view"] }) && (
+                  <Menu.Item key="accounts">
+                    <Link href="/secure/accounts">
+                      <a>
+                        <i className="icon icon-crm" />
+                        <span>
+                          <IntlMessages id="accounts" />
+                        </span>
+                      </a>
+                    </Link>
+                  </Menu.Item>
+                )}
 
-              {/* Users */}
-              {permissionCheck({ Users: ['view'] }) && <Menu.Item key="users">
-                <Link href="/secure/user">
-                  <a>
-                    <i className="icon icon-signup" />
-                    <span>
-                      <IntlMessages id="users" />
-                    </span>
-                  </a>
-                </Link>
-              </Menu.Item>}
+                {/* Users */}
+                {permissionCheck({ Users: ["view"] }) && (
+                  <Menu.Item key="users">
+                    <Link href="/secure/user">
+                      <a>
+                        <i className="icon icon-signup" />
+                        <span>
+                          <IntlMessages id="users" />
+                        </span>
+                      </a>
+                    </Link>
+                  </Menu.Item>
+                )}
 
-              {/* Department */}
-              {permissionCheck({ Departments: ['view'] }) && <Menu.Item key="departments">
-                <Link href="/secure/departments">
-                  <a>
-                    <i className="icon icon-basic-calendar" />
-                    <span>
-                    <IntlMessages id="departments" />
-                    </span>
-                  </a>
-                </Link>
-              </Menu.Item>}
+                {/* Department */}
+                {permissionCheck({ Departments: ["view"] }) && (
+                  <Menu.Item key="departments">
+                    <Link href="/secure/departments">
+                      <a>
+                        <i className="icon icon-basic-calendar" />
+                        <span>
+                          <IntlMessages id="departments" />
+                        </span>
+                      </a>
+                    </Link>
+                  </Menu.Item>
+                )}
 
-            </MenuItemGroup>}
+                {/* incident */}
+                {permissionCheck({ Incidents: ["view"] }) && (
+                  <Menu.Item key="incident">
+                    <Link href="/secure/incidents">
+                      <a>
+                        <i className="icon icon-cards-list-view" />
+                        <span>
+                          <IntlMessages id="incidents" />
+                        </span>
+                      </a>
+                    </Link>
+                  </Menu.Item>
+                )}
+              </MenuItemGroup>
+            }
           </Menu>
         </CustomScrollbars>
       </div>

@@ -5,22 +5,20 @@ import DepartmentList from "../../components/resources/departments/table";
 import AddDepartments from "../../components/resources/departments/form-model";
 import SEO from "../../components/seo/";
 
-
 const Departments = memo(() => {
-
-    return (
-        <>
-            <SEO title={"Departments"} />
-            <Card title="Departments">
-                <Row justify="end">
-                    <Col span={4}>
-                        <AddDepartments title={'Add Department'} />
-                    </Col>
-                </Row>
-                <DepartmentList />
-            </Card>
-        </>
-    );
+  return (
+    <>
+      <SEO title={"Departments"} />
+      <Card title="Departments">
+        <Row justify="end">
+          <Col span={4}>
+            <AddDepartments title={"Add Department"} />
+          </Col>
+        </Row>
+        <DepartmentList />
+      </Card>
+    </>
+  );
 });
 
 Departments.displayName = Departments;

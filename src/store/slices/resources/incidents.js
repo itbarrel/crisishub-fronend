@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../../apiActions";
 
 const slice = createSlice({
-  name: "departments",
+  name: "incident",
   initialState: {
     loading: false,
     list: [],
@@ -42,10 +42,10 @@ const slice = createSlice({
 
 export const { loading, all, add, remove, update, current_item, failed } = slice.actions;
 
-export const getDepartmentsList = () => (dispatch, getState) => {
+export const getIncidentList = () => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
-      url: "v1/departments",
+      url: "v1/incidents",
       method: "get",
       onStart: loading.type,
       onSuccess: all.type,
@@ -54,10 +54,10 @@ export const getDepartmentsList = () => (dispatch, getState) => {
   );
 };
 
-export const addDepartment = (data) => (dispatch, getState) => {
+export const addIncident = (data) => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
-      url: "v1/departments",
+      url: "v1/incidents",
       method: "post",
       data,
       onStart: loading.type,
@@ -67,10 +67,10 @@ export const addDepartment = (data) => (dispatch, getState) => {
   );
 };
 
-export const removeDepartment = (id) => (dispatch, getState) => {
+export const removeIncident = (id) => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
-      url: `v1/departments/${id}`,
+      url: `v1/incidents/${id}`,
       method: "delete",
       onStart: loading.type,
       onSuccess: remove.type,
@@ -79,10 +79,10 @@ export const removeDepartment = (id) => (dispatch, getState) => {
   );
 };
 
-export const updateDepartment = (id, data) => (dispatch, getState) => {
+export const updateIncident = (id, data) => (dispatch, getState) => {
   return dispatch(
     apiCallBegan({
-      url: `v1/departments/${id}`,
+      url: `v1/incidents/${id}`,
       method: "put",
       data,
       onStart: loading.type,

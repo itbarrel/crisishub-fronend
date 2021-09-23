@@ -314,5 +314,6 @@
   "dashBoard": "DashBoard",
   "accounts": "Accounts",
   "users": "Users",
-  "departments": "Departments"
+  "departments": "Departments",
+  "incidents": "Incidents"
 }
