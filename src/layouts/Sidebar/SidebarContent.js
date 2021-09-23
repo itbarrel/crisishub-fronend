@@ -158,6 +158,22 @@ const SidebarContent = () => {
                       </a>
                     </Link>
                   </Menu.Item>
+
+                )}
+
+                {/* Task */}
+                {permissionCheck({ Tasks: ["view"] }) && (
+                  <Menu.Item key="Task">
+                    <Link href="/secure/tasks">
+                      <a>
+                        <i className="icon icon-tasks" />
+                        <span>
+                          <IntlMessages id="task" />
+                        </span>
+                      </a>
+                    </Link>
+                  </Menu.Item>
+
                 )}
               </MenuItemGroup>
             }

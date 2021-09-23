@@ -26,7 +26,7 @@ const formItemLayout = {
 const DepartmentModel = memo(({ onShow, selected, title, off }) => {
     const draggleRef = useRef(null);
     const dispatch = useDispatch();
-    const loader = useSelector(({ resources }) => resources.Account.loading)
+    const loader = useSelector(({ resources }) => resources.Departments.loading)
     const [visible, setVisible] = useState(onShow);
     const [loading, setLoading] = useState(loader);
     const [modelTitle, setModelTitle] = useState(title);

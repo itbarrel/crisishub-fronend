@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { Button, Form, Input, Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { addIncident, updateIncident } from "../../../store/slices/resources/incidents";
+import { addTask, updateTask } from "../../../store/slices/resources/tasks";
 import { isClient } from "../../../utils/is-client";
 import Draggable from "react-draggable";
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
@@ -21,7 +21,7 @@ const formItemLayout = {
 const DepartmentModel = memo(({ onShow, selected, title, off }) => {
   const draggleRef = useRef(null);
   const dispatch = useDispatch();
-  const loader = useSelector(({ resources }) => resources.Incidents.list);
+  const loader = useSelector(({ resources }) => resources.Task.loading);
   const [visible, setVisible] = useState(onShow);
   const [loading, setLoading] = useState(loader);
   const [modelTitle, setModelTitle] = useState(title);
@@ -37,15 +37,19 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
     form.resetFields();
   };
   const onSubmit = async () => {
-    const formData = await form.validateFields();
+    const { title, author, type, links, description } = await form.validateFields();
     setLoading(true);
     let data = {
-      name: formData.name,
+      title,
+      author,
+      type,
+      links,
+      description,
     };
     if (onShow) {
-      dispatch(updateIncident(selected.id, data));
+      dispatch(updateTask(selected.id, data));
     } else {
-      dispatch(addIncident(data));
+      dispatch(addTask(data));
     }
     form.resetFields();
   };
@@ -153,14 +157,51 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
           scrollToFirstError
         >
           <Form.Item
-            name="name"
+            name="title"
             label={
               <LabelAndTooltip
-                title={"Incident Name"}
-                tooltip={"Enter your Incident name you want to create "}
+                title={"Task Name"}
+                tooltip={"Enter your Author name you want to create "}
               />
             }
             rules={[{ required: true, message: "Please input incident name", whitespace: true }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="author"
+            label={
+              <LabelAndTooltip
+                title={"Author Name"}
+                tooltip={"Enter your Author name you want to create "}
+              />
+            }
+            rules={[{ required: true, message: "Please author name", whitespace: true }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="type"
+            label={<LabelAndTooltip title={"type "} />}
+            rules={[{ required: true, message: "Please input incident type", whitespace: true }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="links"
+            label={<LabelAndTooltip title={"Links"} />}
+            rules={[{ required: true, message: "Please enter Link", whitespace: true }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="description"
+            label={<LabelAndTooltip title={"Task Description"} />}
+            rules={[{ required: true, message: "Please enter task description", whitespace: true }]}
           >
             <Input />
           </Form.Item>

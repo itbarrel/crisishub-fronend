@@ -315,5 +315,6 @@
   "accounts": "Accounts",
   "users": "Users",
   "departments": "Departments",
-  "incidents": "Incidents"
+  "incidents": "Incidents",
+  "task": "Tasks"
 }

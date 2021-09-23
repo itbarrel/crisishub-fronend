@@ -7,7 +7,6 @@ import { Table } from "antd";
 
 const Accounts = memo((props) => {
     const { list } = useSelector(({ resources }) => resources.Account)
-
     const dispatch = useDispatch();
 
     const columns = [

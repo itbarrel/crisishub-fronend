@@ -11,8 +11,8 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 const Accounts = memo((props) => {
 
     const dispatch = useDispatch();
-    const departmentList  = useSelector(({resources}) => resources.departments.list);
-    const loader = useSelector(({ resources }) => resources.User.loading)
+    const departmentList  = useSelector(({resources}) => resources.Departments.list);
+    const loader = useSelector(({ resources }) => resources.Departments.loading)
     const [loading, setLoading] = useState(loader)
     const [selectedDepartment, setSelectedDepartment] = useState({})
     const [visible, setVisible] = useState(false);
