@@ -120,6 +120,7 @@ export default class ApiClient {
       return fetch(url, config)
         .then(checkStatus)
         .catch(handleNotAuthorized)
+        .catch(handleBadData)
     } else {
       const { headers } = config
       return fetch(url, { ...config, headers: { ...headers, 'token': token } })

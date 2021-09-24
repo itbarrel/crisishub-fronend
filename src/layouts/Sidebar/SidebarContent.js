@@ -105,8 +105,8 @@ const SidebarContent = () => {
                 title={<IntlMessages id="settings" />}
               >
                 {/* Accounts */}
-                {permissionCheck({ Accounts: ["view"] }) && (
-                  <Menu.Item key="accounts">
+                {permissionCheck({ Accounts: ['view'] }) &&
+                  (<Menu.Item key="accounts">
                     <Link href="/secure/accounts">
                       <a>
                         <i className="icon icon-crm" />
@@ -115,26 +115,42 @@ const SidebarContent = () => {
                         </span>
                       </a>
                     </Link>
-                  </Menu.Item>
-                )}
+                  </Menu.Item>)
+                }
 
                 {/* Users */}
-                {permissionCheck({ Users: ["view"] }) && (
-                  <Menu.Item key="users">
-                    <Link href="/secure/user">
+                {permissionCheck({ Users: ['view'] }) &&
+                  (<Menu.Item key="users">
+                    <Link href="/secure/users">
                       <a>
-                        <i className="icon icon-signup" />
+                        <i className="icon icon-widgets" />
                         <span>
-                          <IntlMessages id="users" />
+                          {/* <IntlMessages id="users" /> */}
+                          Users
                         </span>
                       </a>
                     </Link>
-                  </Menu.Item>
-                )}
+                  </Menu.Item>)
+                }
+
+                {/* roles */}
+                {permissionCheck({ Roles: ['view'] }) &&
+                  (<Menu.Item key="roles">
+                    <Link href="/secure/roles">
+                      <a>
+                        <i className="icon icon-widgets" />
+                        <span>
+                          {/* <IntlMessages id="users" /> */}
+                          Roles
+                        </span>
+                      </a>
+                    </Link>
+                  </Menu.Item>)
+                }
 
                 {/* Department */}
-                {permissionCheck({ Departments: ["view"] }) && (
-                  <Menu.Item key="departments">
+                {permissionCheck({ Departments: ["view"] }) &&
+                  (<Menu.Item key="departments">
                     <Link href="/secure/departments">
                       <a>
                         <i className="icon icon-basic-calendar" />
@@ -143,12 +159,12 @@ const SidebarContent = () => {
                         </span>
                       </a>
                     </Link>
-                  </Menu.Item>
-                )}
+                  </Menu.Item>)
+                }
 
                 {/* incident */}
-                {permissionCheck({ Incidents: ["view"] }) && (
-                  <Menu.Item key="incident">
+                {permissionCheck({ Incidents: ["view"] }) &&
+                  (<Menu.Item key="incident">
                     <Link href="/secure/incidents">
                       <a>
                         <i className="icon icon-cards-list-view" />
@@ -157,12 +173,12 @@ const SidebarContent = () => {
                         </span>
                       </a>
                     </Link>
-                  </Menu.Item>
-                )}
+                  </Menu.Item>)
+                }
 
                 {/* Task */}
-                {permissionCheck({ Tasks: ["view"] }) && (
-                  <Menu.Item key="Task">
+                {permissionCheck({ Tasks: ["view"] }) &&
+                  (<Menu.Item key="Task">
                     <Link href="/secure/tasks">
                       <a>
                         <i className="icon icon-tasks" />
@@ -175,9 +191,10 @@ const SidebarContent = () => {
                 )}
               </MenuItemGroup>
             }
-          </Menu>
-        </CustomScrollbars>
-      </div>
+
+          </Menu >
+        </CustomScrollbars >
+      </div >
     </>
   );
 };
