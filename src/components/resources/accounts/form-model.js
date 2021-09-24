@@ -46,7 +46,7 @@ const Model = memo(() => {
         let data = {
             name: formData.accountName,
             admin: {
-                userName: formData.userName,
+                userName: formData.username1,
                 email: formData.email,
                 password: formData.password,
                 firstName: formData.firstName,
@@ -145,6 +145,7 @@ const Model = memo(() => {
                 footer={<ModalFooter />}
                 width={800}
                 modalRender={Drag()}
+                forceRender
             >
                 <Form
                     {...formItemLayout}
@@ -180,7 +181,7 @@ const Model = memo(() => {
                     </Form.Item>
 
                     <Form.Item
-                        name="userName"
+                        name="username1"
                         label={<LabelAndTooltip title={"User Name"} tooltip={"Enter your Last Name"} />}
                         rules={[{ required: true, message: "Please input your Last Name!", whitespace: true }]}
                     >

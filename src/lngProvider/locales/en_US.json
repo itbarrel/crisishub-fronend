@@ -312,9 +312,22 @@
   "app.userAuth.reset.text": "Don't worry. Reset the password is easy.Just enter new password and password will be reset ",
   "settings": "Settings",
   "dashBoard": "DashBoard",
+  "DashBoard": "DashBoard",
+  "Dashboard": "DashBoard",
   "accounts": "Accounts",
+  "Accounts": "Accounts",
   "users": "Users",
+  "Users": "Users",
   "departments": "Departments",
+  "Departments": "Departments",
   "incidents": "Incidents",
-  "task": "Tasks"
+  "Incidents": "Incidents",
+  "task": "Tasks",
+  "Task": "Tasks",
+  "tasks": "Tasks",
+  "Tasks": "Tasks",
+  "Form": "Form",
+  "form": "form"
+  
+
 }

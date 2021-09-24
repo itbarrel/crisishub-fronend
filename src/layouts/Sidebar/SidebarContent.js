@@ -158,7 +158,6 @@ const SidebarContent = () => {
                       </a>
                     </Link>
                   </Menu.Item>
-
                 )}
 
                 {/* Task */}
@@ -173,7 +172,6 @@ const SidebarContent = () => {
                       </a>
                     </Link>
                   </Menu.Item>
-
                 )}
               </MenuItemGroup>
             }

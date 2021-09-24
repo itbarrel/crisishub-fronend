@@ -4,9 +4,17 @@
   "app.userAuth.reset.text": "Maak je geen zorgen. Het wachtwoord opnieuw instellen is eenvoudig. Voer gewoon een nieuw wachtwoord in en het wachtwoord wordt opnieuw ingesteld!",
   "settings": "Instellingen",
   "dashBoard": "Dashboard",
+  "DashBoard": "Dashboard",
   "accounts": "Rekeningen",
+  "Accounts": "Rekeningen",
   "users": "Gebruikers",
+  "Users": "Gebruikers",
   "departments": "Afdelingen",
+  "Departments": "Afdelingen",
   "incidents": "Incidenten",
-  "task": "Taken"
+  "Incidents": "Incidenten",
+  "task": "Taken",
+  "Task": "Taken",
+  "tasks": "Taken",
+  "Tasks": "Taken"
 }

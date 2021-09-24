@@ -148,6 +148,7 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
                 footer={<ModalFooter />}
                 width={800}
                 modalRender={Drag()}
+                forceRender
             >
                 <Form
                     {...formItemLayout}

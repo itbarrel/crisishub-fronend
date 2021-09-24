@@ -47,7 +47,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
         setLoading(true);
         const formData = await form.validateFields();
         let data = {
-            userName: formData.userName,
+            userName: formData.username,
             email: formData.email,
             password: formData.password,
             firstName: formData.firstName,
@@ -155,6 +155,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
                 footer={<ModalFooter />}
                 width={800}
                 modalRender={Drag()}
+                getContainer={false}
             >
                 <Form
                     {...formItemLayout}
@@ -181,7 +182,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
                     </Form.Item>
 
                     <Form.Item
-                        name="userName"
+                        name="username"
                         label={<LabelAndTooltip title={"User Name"} tooltip={"Enter your Last Name"} />}
                         rules={[{ required: true, message: "Please input your Last Name!", whitespace: true }]}
                     >

@@ -15,8 +15,8 @@ import {
 
 const SidebarLogo = () => {
   const dispatch = useDispatch();
-  const { width, themeType, navCollapsed, navStyle } = useSelector(({ ui }) => ui.settings)
-  // let navStyle = useSelector(({ settings }) => settings.navStyle);
+  let { width, themeType, navCollapsed } = useSelector(({ ui }) => ui.settings)
+  let navStyle = useSelector(({ ui }) => ui.settings.navStyle);
   if (width < TAB_SIZE && navStyle === NAV_STYLE_FIXED) {
     navStyle = NAV_STYLE_DRAWER;
   }
