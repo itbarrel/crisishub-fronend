@@ -1,10 +1,10 @@
 import React, { memo } from "react";
 import { Row, Col } from "antd";
-import withLayout from "../../layouts/app-layout";
-import UsersList from "../../components/resources/user/table";
-import AddUser from "../../components/resources/user/form-model";
-import SEO from "../../components/seo/";
-import Widget from "../../components/Widget";
+import withLayout from "../../../layouts/app-layout";
+import UsersList from "../../../components/resources/user/table";
+import AddUser from "../../../components/resources/user/form-model";
+import SEO from "../../../components/seo/";
+import Widget from "../../../components/Widget";
 
 const User = memo(() => {
 	return (
