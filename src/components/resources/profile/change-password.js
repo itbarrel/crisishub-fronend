@@ -4,25 +4,27 @@ import { useSelector, useDispatch } from "react-redux";
 import Widget from "../../Widget";
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
 import IntlMessages from "../../../utils/IntlMessages";
-import { updateProfile } from "../../../store/slices/auth";
+import { updatePassword } from "../../../store/slices/auth";
 
 const ChangePassword = memo(() => {
 	const [form] = Form.useForm();
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(false);
-	const { user } = useSelector(({ auth }) => auth);
+	const { loader } = useSelector(({ auth }) => auth);
 	const [buttonState, setButtonState] = useState(false);
 
 	const onSubmit = (get) => {
 		setLoading(true)
 		let data = {
-			password: get.confirm,
+			oldPassword: get.oldPassword,
+			newPassword: get.confirm,
 		};
-		dispatch(updateProfile(user.id, data));
+		dispatch(updatePassword(data));
 		form.resetFields();
 	};
 
 	const validate = {
+		oldPassword: [{ required: true, message: "Please input your Old Password!" }],
 		password: [{ required: true, message: "Please input your password!" }],
 		confirmPassword: [
 			{ required: true, message: "Please confirm your password!" },
@@ -37,9 +39,9 @@ const ChangePassword = memo(() => {
 		],
 	};
 
-	useEffect(() => {
-		setLoading(false);
-	}, [user]);
+	// useEffect(() => {
+	// 	setLoading(false);
+	// }, [user]);
 
 	return (
 		<>
@@ -51,6 +53,14 @@ const ChangePassword = memo(() => {
 					scrollToFirstError
 					layout={"vertical"}
 				>
+					<Form.Item
+						name="oldPassword"
+						label={<LabelAndTooltip title={"Old.Password"} />}
+						rules={validate?.oldPassword}
+					>
+						<Input />
+					</Form.Item>
+
 					<Form.Item
 						name="password"
 						label={<LabelAndTooltip title={"Password"} />}
