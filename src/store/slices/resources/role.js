@@ -75,7 +75,8 @@ export const addRole = (data) => (dispatch, getState) => {
             data,
             onStart: loading.type,
             onSuccess: add.type,
-            onError: failed.type
+            onError: failed.type,
+            notify: true
         })
     )
 };
@@ -87,7 +88,8 @@ export const removeRole = (id) => (dispatch, getState) => {
             method: "delete",
             onStart: loading.type,
             onSuccess: remove.type,
-            onError: failed.type
+            onError: failed.type,
+            notify: true
         })
     )
 };
@@ -101,7 +103,8 @@ export const updateRole = (id, data) => (dispatch, getState) => {
             data,
             onStart: loading.type,
             onSuccess: update.type,
-            onError: failed.type
+            onError: failed.type,
+            notify: true
         })
     )
 };

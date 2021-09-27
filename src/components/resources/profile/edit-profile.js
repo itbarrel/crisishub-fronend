@@ -20,20 +20,20 @@ const EditProfile = memo(() => {
 	const formItemLayout =
 		formLayout === "horizontal"
 			? {
-					labelCol: { xs: { span: 24 }, sm: { span: 6 } },
-					wrapperCol: { xs: { span: 24 }, sm: { span: 14 } },
-			  }
+				labelCol: { xs: { span: 24 }, sm: { span: 6 } },
+				wrapperCol: { xs: { span: 24 }, sm: { span: 14 } },
+			}
 			: null;
 
-	const onSubmit = (get) => {
+	const onSubmit = (userObj) => {
 		setLoading(true);
 		let data = {
-			userName: get.firstName,
-			email: get.email,
-			firstName: get.firstName,
-			lastName: get.lastName,
-			mobilePhone: get.mobilePhone,
-			country: get.country,
+			userName: userObj.userName,
+			email: userObj.email,
+			firstName: userObj.firstName,
+			lastName: userObj.lastName,
+			mobilePhone: userObj.mobilePhone,
+			country: userObj.country,
 		};
 		dispatch(updateProfile(user.id, data));
 	};
@@ -41,9 +41,9 @@ const EditProfile = memo(() => {
 	const validate = {
 		firstName: [{ required: true, message: "Please input your First Name!", whitespace: true }],
 		lastName: [{ required: true, message: "Please input your Last Name!", whitespace: true }],
-		username: [{ required: true, message: "Please input your User Name!", whitespace: true }],
-		country: [{ required: true, message: "Please input your Country Name!", whitespace: true }],
-		phone: [{ required: true, message: "Please input your phone Name!", whitespace: true }],
+		username: [{ required: true, message: "Please input your User Name!", whitespace: false }],
+		country: [{ message: "Please input your Country Name!", whitespace: true }],
+		phone: [{ message: "Please input your phone Name!", whitespace: true }],
 		email: [
 			{ type: "email", message: "The input is not valid E-mail!" },
 			{ required: true, message: "Please input your E-mail!" },
@@ -68,10 +68,10 @@ const EditProfile = memo(() => {
 					scrollToFirstError
 					{...formItemLayout}
 					layout={formLayout}
-					// initialValues={{
-					// 	layout: formLayout,
-					// }}
-					// onValuesChange={onFormLayoutChange}
+				// initialValues={{
+				// 	layout: formLayout,
+				// }}
+				// onValuesChange={onFormLayoutChange}
 				>
 					{/* <Form.Item label="" name="layout">
 						<Radio.Group value={formLayout}>

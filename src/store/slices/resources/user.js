@@ -70,6 +70,7 @@ export const addUser = (data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: add.type,
       onError: failed.type,
+      notify: true
     })
   );
 };
@@ -82,6 +83,7 @@ export const removeUser = (id) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: remove.type,
       onError: failed.type,
+      notify: true
     })
   );
 };
@@ -95,6 +97,7 @@ export const updateUser = (id, data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: update.type,
       onError: failed.type,
+      notify: true
     })
   );
 };
