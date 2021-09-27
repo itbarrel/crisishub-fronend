@@ -60,7 +60,8 @@ export const onLogin = (data) => (dispatch, getState) => {
       data: data,
       onStart: loading.type,
       onSuccess: login.type,
-      onError: failed.type
+      onError: failed.type,
+      notify: true
     })
   )
 };
@@ -74,6 +75,7 @@ export const updateProfile = (id, data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: update.type,
       onError: failed.type,
+      notify: true
     })
   );
 };
@@ -87,7 +89,7 @@ export const updatePassword = (data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: changePassword.type,
       onError: failed.type,
-      
+      notify: true
     })
   );
 };
