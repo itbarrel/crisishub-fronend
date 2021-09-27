@@ -8,7 +8,7 @@ import { logout } from '../Auth'
 
 const checkStatus = (response) => {
   if (response.ok) {
-    return response
+    return response.json()
   } else {
     const error = new Error(response.status)
     error.response = response
@@ -16,18 +16,10 @@ const checkStatus = (response) => {
   }
 }
 
-const handleNotAuthorized = (error) => {
+const handleError = (error) => {
   if (error.response.status === 401) logout()
-  return Promise.reject(error)
-}
-
-const handleForbidden = (error) => {
   if (error.response.status === 403) Router.push('/secure/dashboard')
   return Promise.reject(error)
-}
-
-const handleBadData = (error) => {
-  if (error.response.status === 400) return Promise.reject(error)
 }
 
 export default class ApiClient {
@@ -116,18 +108,14 @@ export default class ApiClient {
   }
 
   makeRequest(url, config, token) {
-    if (!token) {
-      return fetch(url, config)
-        .then(checkStatus)
-        .catch(handleNotAuthorized)
-        .catch(handleBadData)
-    } else {
-      const { headers } = config
-      return fetch(url, { ...config, headers: { ...headers, 'token': token } })
-        .then(checkStatus)
-        .catch(handleNotAuthorized)
-        .catch(handleForbidden)
-        .catch(handleBadData)
-    }
+    const { headers } = config
+
+    const configuration = (token)
+      ? { ...config, headers: { ...headers, 'token': token } }
+      : config
+
+    return fetch(url, configuration)
+      .then(checkStatus)
+      .catch(handleError)
   }
 }

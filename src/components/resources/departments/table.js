@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDepartmentsList, removeDepartment , current_item } from '../../../store/slices/resources/departments'
-import { Table, Button , Popconfirm} from "antd";
+import { getDepartmentsList, removeDepartment, current_item } from '../../../store/slices/resources/departments'
+import { Table, Button, Popconfirm } from "antd";
 import { log } from '../../../utils/console-log'
 import UpdateDepartment from './form-model'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -11,7 +11,7 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 const Accounts = memo((props) => {
 
     const dispatch = useDispatch();
-    const departmentList  = useSelector(({resources}) => resources.Departments.list);
+    const departmentList = useSelector(({ resources }) => resources.Departments.list);
     const loader = useSelector(({ resources }) => resources.Departments.loading)
     const [loading, setLoading] = useState(loader)
     const [selectedDepartment, setSelectedDepartment] = useState({})
@@ -49,9 +49,9 @@ const Accounts = memo((props) => {
             width: 360,
             render: (text, record) => (
                 <>
-                    <Button size="large" icon={<EditOutlined />}  onClick={() => handleUpdate(record)} />
+                    <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record)} />
                     <Popconfirm title="Are you sure delete this User?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record)}>
-                        <Button size="default" icon={<DeleteOutlined />}/>
+                        <Button size="default" icon={<DeleteOutlined />} />
                     </Popconfirm>
                 </>
             ),
@@ -74,13 +74,13 @@ const Accounts = memo((props) => {
         rowKey: 'id'
     });
 
-      useEffect(() => {
+    useEffect(() => {
         dispatch(getDepartmentsList())
     }, [])
 
     return (
         <>
-            <UpdateDepartment onShow={visible} selected={selectedDepartment} title={'Update User'} off/>
+            <UpdateDepartment onShow={visible} selected={selectedDepartment} title={'Update Department'} off />
             <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={departmentList} />
         </>
     );
