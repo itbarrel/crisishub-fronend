@@ -9,8 +9,8 @@ const slice = createSlice({
         // action:  (state, action) => {
         //     const { prop1, prop2 } = action.payload
         // }
-        countInc: (count, action) => { return count+=action.payload.value },
-        countDec: (count, action) => { return count-=action.payload.value }
+        countInc: (count, action) => { return count += action.payload.value },
+        countDec: (count, action) => { return count -= action.payload.value }
     }
 })
 

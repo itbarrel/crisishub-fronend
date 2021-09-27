@@ -1,11 +1,8 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRolesList, getPermissionEntities } from '../../../../store/slices/resources/role'
-import { Table, Button, Popconfirm } from "antd";
+import { Table, Checkbox } from "antd";
 import { log } from '../../../../utils/console-log'
 // import { removeRole, current_item } from '../../../../store/slices/resources/role'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Checkbox } from 'antd';
 
 const PermissionTable = memo(({ permissions, setPermissions }) => {
 
@@ -45,9 +42,9 @@ const PermissionTable = memo(({ permissions, setPermissions }) => {
                 dataIndex: element,
                 key: element,
                 width: 500 / entities.length,
-                render: (text, record, index) => (permissions[element])
+                render: (text, record, _index) => ((permissions[element])
                     ? <Checkbox onChange={() => onChange(event, element, record.key)} checked={permissions[element][record.key]} disabled={false} ></Checkbox>
-                    : text
+                    : text)
             })
         });
 
@@ -60,9 +57,9 @@ const PermissionTable = memo(({ permissions, setPermissions }) => {
 
         operations.forEach(operation => {
             entry = {}
-            entry['key'] = operation
-            entry['permissions'] = (operation === '*') ? 'All' : operation
-            entry['model'] = (operation === '*') ? 'All' : operation
+            entry.key = operation
+            entry.permissions = (operation === '*') ? 'All' : operation
+            entry.model = (operation === '*') ? 'All' : operation
             // entities.forEach(entity => {
             // if (permissions[entity] && permissions[entity][operation]) {
             //     permissionObj[entity][operation] = permissions[entity][operation]
@@ -134,10 +131,10 @@ const PermissionTable = memo(({ permissions, setPermissions }) => {
     // ];
 
     const showHeader = true;
-    const pagination = { position: "bottom" };
+    // const pagination = { position: "bottom" };
     const [tableSetting, setTableSetting] = useState({
         bordered: true,
-        loading: loading,
+        loading: false,
         pagination: false,
         size: "small",
         expandedRowRender: false,

@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPathName } from "../../store/slices/ui/settings";
 import permissionCheck from "../../utils/PermissionGuard";
 
-const SubMenu = Menu.SubMenu;
+const {SubMenu} = Menu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const SidebarContent = () => {

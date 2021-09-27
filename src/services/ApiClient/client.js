@@ -17,8 +17,8 @@ const checkStatus = (response) => {
 }
 
 const handleError = (error) => {
-  if (error.response.status === 401) logout()
-  if (error.response.status === 403) Router.push('/secure/dashboard')
+  if (error.response.status === 401) { logout() }
+  if (error.response.status === 403) { Router.push('/secure/dashboard') }
   return Promise.reject(error)
 }
 

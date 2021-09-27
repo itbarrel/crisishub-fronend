@@ -53,7 +53,7 @@ export const withAuthSync = (Page) => {
         }
 
         syncLogout(event) {
-            if (event.key === 'logout') Router.push('/')
+            if (event.key === 'logout') { Router.push('/') }
         }
 
         render() {

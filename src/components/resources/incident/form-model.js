@@ -89,7 +89,7 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
   };
 
   useEffect(() => {
-    if (onShow) onShowModal();
+    if (onShow) { onShowModal(); }
     form.setFieldsValue(selected);
   }, [onShow, selected]);
 

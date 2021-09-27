@@ -25,8 +25,7 @@ const slice = createSlice({
             state.records.unshift(action.payload.role);
             state.loading = false;
         },
-        remove: (state, action) => {
-            const { payload } = action
+        remove: (state) => {
             const update = state.records.filter(role => role.id !== state.id)
             state.records = update
             state.loading = false;
@@ -51,7 +50,7 @@ const slice = createSlice({
             state.operations = payload.operations
             state.loading = false;
         },
-        failed: (state, action) => {
+        failed: (state) => {
             state.loading = false;
             state.hasErrors = true
         },
@@ -60,7 +59,7 @@ const slice = createSlice({
 
 export const { loading, all, add, remove, update, setId, setRecord, setEntities, failed, } = slice.actions
 
-export const getRolesList = () => (dispatch, getState) => {
+export const getRolesList = () => (dispatch) => {
     return dispatch(
         apiCallBegan({
             url: 'v1/roles',
@@ -72,7 +71,7 @@ export const getRolesList = () => (dispatch, getState) => {
     )
 };
 
-export const addRole = (data) => (dispatch, getState) => {
+export const addRole = (data) => (dispatch) => {
     return dispatch(
         apiCallBegan({
             url: 'v1/roles',
@@ -86,7 +85,7 @@ export const addRole = (data) => (dispatch, getState) => {
     )
 };
 
-export const removeRole = (id) => (dispatch, getState) => {
+export const removeRole = (id) => (dispatch) => {
     return dispatch(
         apiCallBegan({
             url: `v1/roles/${id}`,
@@ -99,8 +98,7 @@ export const removeRole = (id) => (dispatch, getState) => {
     )
 };
 
-export const updateRole = (id, data) => (dispatch, getState) => {
-    dispatch
+export const updateRole = (id, data) => (dispatch) => {
     return dispatch(
         apiCallBegan({
             url: `v1/roles/${id}`,
@@ -114,7 +112,7 @@ export const updateRole = (id, data) => (dispatch, getState) => {
     )
 };
 
-export const getPermissionEntities = () => (dispatch, getState) => {
+export const getPermissionEntities = () => (dispatch) => {
     return dispatch(
         apiCallBegan({
             url: `v1/roles/permissions`,

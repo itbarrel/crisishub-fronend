@@ -8,8 +8,7 @@ module.exports = (permissions, permissionsToChk) => {
             if (permissions[per] && !missed) {
                 const actions = permissions[per];
 
-                if (actions.includes('*'))
-                    granted = true;
+                if (actions.includes('*')) { granted = true; }
                 else {
                     per.actionsTocheck.forEach(action => {
                         granted = granted || ((!actions.includes(action)) ? false : true);
@@ -20,12 +19,10 @@ module.exports = (permissions, permissionsToChk) => {
                 granted = false;
             }
 
-            if (!granted)
-                missed = true
+            if (!granted) { missed = true }
         });
 
         return !missed;
     }
-    else
-        return false;
+    else { return false; }
 };

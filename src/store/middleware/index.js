@@ -13,8 +13,10 @@ import api from "./api";
 import toast from "./toast";
 
 const middleware = () => {
-  return [...getDefaultMiddleware({
+  return [
+...getDefaultMiddleware({
     serializableCheck: {
+
       /* ignore persistance actions */
       ignoredActions: [
         FLUSH,
@@ -25,7 +27,8 @@ const middleware = () => {
         REGISTER
       ],
     },
-  }), toast, api];
+  }), toast, api
+];
 };
 
 export default middleware;

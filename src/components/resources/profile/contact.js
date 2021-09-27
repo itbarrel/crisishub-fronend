@@ -4,7 +4,6 @@ import Widget from "../../../components/Widget";
 import IntlMessages from "../../../utils/IntlMessages";
 
 
-
 export const Item = ({ id, title, description, icon }) => {
 	return (
 		<>
@@ -33,7 +32,7 @@ const Contact = memo(() => {
 			<Widget title="Profile" text={"info"} styleName="gx-card-profile-sm">
 					{user?.email && <Item id={"email"} title={"Email"} description={user?.email} icon={"email"} />}
 					{user?.mobilePhone && <Item id={"Phone"} title={"Phone"} description={user?.mobilePhone} icon={"phone"} />}
-					<Item id={"status"} title={"Status"} description={user?.active? 'active': 'non-active'} icon={"check-cricle"} />
+					<Item id={"status"} title={"Status"} description={user?.active ? 'active' : 'non-active'} icon={"check-cricle"} />
 					<Item id={"Webpage"} title={"Account Name OR Domain Name"} description={"www.CrisisHub.co"} icon={"link"} />
 			</Widget>
 		</>

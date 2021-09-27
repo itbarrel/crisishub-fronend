@@ -104,7 +104,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
     };
 
     useEffect(() => {
-        if (onShow) onShowModal()
+        if (onShow) { onShowModal() }
         form.setFieldsValue(selectedUser)
     }, [onShow, selectedUser])
 

@@ -24,7 +24,6 @@ const Accounts = memo((props) => {
 	};
 
 
-
     const handleDelete = (Current_user) => {
         log('handleDelete User', Current_user.key)
         dispatch(current_item(Current_user))

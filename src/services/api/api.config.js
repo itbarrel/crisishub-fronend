@@ -36,7 +36,7 @@ const ApiService = {
   removeAuthorization() {
     // can keep one ;)
     api.defaults.headers.Authorization = ``;
-    delete api.defaults.headers.common["Authorization"];
+    delete api.defaults.headers.common.Authorization;
   },
 
   // complete exposed axios request

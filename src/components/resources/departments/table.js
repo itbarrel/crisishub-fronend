@@ -7,7 +7,6 @@ import UpdateDepartment from './form-model'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 
-
 const Accounts = memo((props) => {
 
     const dispatch = useDispatch();

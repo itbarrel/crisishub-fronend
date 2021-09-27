@@ -53,32 +53,24 @@ export const data = [
   {
     name: 'Domnic Harris',
     image: 'https://via.placeholder.com/150x150',
-    buttonList: [
-      {name: 'Interface'}, {name: 'UI'}, {name: 'UX'}
-    ],
+    buttonList: [{name: 'Interface'}, {name: 'UI'}, {name: 'UX'}],
     description: "All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet"
   },
   {
     name: 'Garry Sobars',
-    buttonList: [
-      {name: 'Gardening'}, {name: 'Bonsai'}, {name: 'Organic'}
-    ],
+    buttonList: [{name: 'Gardening'}, {name: 'Bonsai'}, {name: 'Organic'}],
     image: 'https://via.placeholder.com/150x150',
     description: "It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable."
   },
   {
     name: 'Stella Johnson',
-    buttonList: [
-      {name: 'React'}, {name: 'Redux'}
-    ],
+    buttonList: [{name: 'React'}, {name: 'Redux'}],
     image: 'https://via.placeholder.com/150x150',
     description: "Most text editors like MS Word or Lotus Notes generate random lorem text when needed, either as pre-installed module or plug-in to be added. Word selection or sequence don't necessarily match the original, which is intended to add variety."
   }, {
     name: 'John Smith',
     designation: 'BDM',
-    buttonList: [
-      {name: 'html'}, {name: 'css'}, {name: 'java'}
-    ],
+    buttonList: [{name: 'html'}, {name: 'css'}, {name: 'java'}],
     image: 'https://via.placeholder.com/150x150',
     description: "Most text editors like MS Word or Lotus Notes generate random lorem text when needed, either as pre-installed module or plug-in to be added. Word selection or sequence don't necessarily match the original, which is intended to add variety."
   },

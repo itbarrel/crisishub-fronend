@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { apiCallBegan } from "../apiActions";
 import { login as _login, logout as _logout } from "../../services/Auth";
 
@@ -14,7 +13,7 @@ const slice = createSlice({
     hasErrors: false
   },
   reducers: {
-    loading: (state, action) => {
+    loading: (state) => {
       state.loader = true;
     },
     login: (state, action) => {
@@ -27,7 +26,7 @@ const slice = createSlice({
       state.hasErrors = false
       _login(token)
     },
-    logout: (state, action) => {
+    logout: (state) => {
       _logout()
       state.isAuthenticated = false;
       state.loader = false;
@@ -40,10 +39,10 @@ const slice = createSlice({
       state.user = action.payload;
       state.loader = false;
     },
-    changePassword: (state, action) => {
+    changePassword: (state) => {
       state.loader = false;
     },
-    failed: (state, action) => {
+    failed: (state) => {
       state.loader = false;
       state.hasErrors = true
     },
@@ -52,7 +51,7 @@ const slice = createSlice({
 
 export const { loading, login, logout, update, changePassword, failed } = slice.actions;
 
-export const onLogin = (data) => (dispatch, getState) => {
+export const onLogin = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: 'v1/auth/login',
@@ -66,7 +65,7 @@ export const onLogin = (data) => (dispatch, getState) => {
   )
 };
 
-export const updateProfile = (id, data) => (dispatch, getState) => {
+export const updateProfile = (id, data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: `v1/users/${id}`,
@@ -80,7 +79,7 @@ export const updateProfile = (id, data) => (dispatch, getState) => {
   );
 };
 
-export const updatePassword = (data) => (dispatch, getState) => {
+export const updatePassword = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: `v1/auth/changepassword`,
@@ -94,7 +93,7 @@ export const updatePassword = (data) => (dispatch, getState) => {
   );
 };
 
-export const onLogOut = (data) => (dispatch, getState) => {
+export const onLogOut = () => (dispatch) => {
   return dispatch(logout())
 };
 

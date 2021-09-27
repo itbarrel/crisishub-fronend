@@ -27,7 +27,7 @@ export const validateStep = (input, step) => {
 }
 
 const checkDecimals = (number, decimalCount) => {
-  const paddedNumber = number * Math.pow(10, decimalCount)
+  const paddedNumber = number * 10 ** decimalCount
   return Math.floor(paddedNumber) === paddedNumber
 }
 

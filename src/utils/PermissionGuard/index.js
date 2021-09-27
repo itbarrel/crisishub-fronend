@@ -8,9 +8,9 @@ const permissionCheck = (permissionsToChk) => {
     if (permissionsToChk && Object.keys(permissionsToChk).length > 0) {
         granted = verifyPermission(permissions, permissionsToChk)
 
-        if (granted) return true
-        else return false
-    } else return false
+        if (granted) { return true }
+        else { return false }
+    } else { return false }
 }
 
 module.exports = permissionCheck

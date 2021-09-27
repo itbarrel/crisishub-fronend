@@ -6,7 +6,7 @@ const reducer = (state = {}, action) => {
     // xPOINT:: Attention! This will overwrite client state! Real apps should use proper reconciliation.
     const appStore = { ...state, ...action.payload };
     // xPOINT:: need to re-conciliation - preserve count value on client side navigation
-    if (state.count) appStore.count = state.count
+    if (state.count) { appStore.count = state.count }
     return appStore;
 
   } else {
