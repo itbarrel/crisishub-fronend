@@ -316,6 +316,7 @@
   "Dashboard": "DashBoard",
   "accounts": "Accounts",
   "Accounts": "Accounts",
+  "Account.Name": "Account Name",
   "users": "Users",
   "Users": "Users",
   "departments": "Departments",
@@ -327,7 +328,23 @@
   "tasks": "Tasks",
   "Tasks": "Tasks",
   "Form": "Form",
-  "form": "form"
-  
-
+  "form": "Form",
+  "Roles": "Roles",
+  "roles": "roles",
+  "profile": "profile",
+  "Profile": "Profile",
+  "Password": "Password",
+  "password": "password",
+  "Update" : "Update",
+  "First.Name" : "First Name",
+  "Last.Name" : "Last Name",
+  "User.Name" : "User Name",
+  "Country" : "Country",
+  "Confirm.Password" : "Confirm Password",
+  "Change.Password" : "Change Password",
+  "Email" : "Email",
+  "Phone" : "Phone",
+  "Mobile.Phone" : "Mobile Phone",
+  "Status" : "Status",
+  "sample":"sample"
 }

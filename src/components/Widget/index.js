@@ -3,10 +3,18 @@ import { Card } from "antd";
 import PropTypes from "prop-types";
 import IntlMessages from '../../utils/IntlMessages'
 
-const Widget = ({ title, children, styleName, cover, extra, actions }) => {
+const Widget = ({ title, text,children, styleName, cover, extra, actions }) => {
+	
+	const Title = () => {
+		return(
+			<>
+				<IntlMessages id={title} /> {text}
+			</>
+		)
+	}
 	return (
 		<Card
-			title={<IntlMessages id={title} />}
+			title={<Title />}
 			actions={actions}
 			cover={cover}
 			className={` ${styleName}`}

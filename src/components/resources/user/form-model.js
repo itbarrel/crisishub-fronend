@@ -167,7 +167,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
 
                     <Form.Item
                         name="firstName"
-                        label={<LabelAndTooltip title={"First Name"} tooltip={"Enter your First Name"} />}
+                        label={<LabelAndTooltip title={"First.Name"} tooltip={"Enter your First Name"} />}
                         rules={[{ required: true, message: "Please input your First Name!", whitespace: true }]}
                     >
                         <Input />
@@ -175,7 +175,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
 
                     <Form.Item
                         name="lastName"
-                        label={<LabelAndTooltip title={"Last Name"} tooltip={"Enter your Last Name"} />}
+                        label={<LabelAndTooltip title={"Last.Name"} tooltip={"Enter your Last Name"} />}
                         rules={[{ required: true, message: "Please input your Last Name!", whitespace: true }]}
                     >
                         <Input />
@@ -183,7 +183,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
 
                     <Form.Item
                         name="username"
-                        label={<LabelAndTooltip title={"User Name"} tooltip={"Enter your Last Name"} />}
+                        label={<LabelAndTooltip title={"User.Name"} tooltip={"Enter your Last Name"} />}
                         rules={[{ required: true, message: "Please input your Last Name!", whitespace: true }]}
                     >
                         <Input />
@@ -191,7 +191,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
 
                     <Form.Item
                         name="email"
-                        label={<LabelAndTooltip title={"E-mail"} />}
+                        label={<LabelAndTooltip title={"Email"} />}
                         rules={[
                             {
                                 type: "email",
@@ -223,7 +223,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
 
                         <Form.Item
                             name="confirm"
-                            label={<LabelAndTooltip title={"Confirm Password"} />}
+                            label={<LabelAndTooltip title={"Confirm.Password"} />}
                             dependencies={["password"]}
                             hasFeedback
                             rules={[
