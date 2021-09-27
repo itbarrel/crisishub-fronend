@@ -13,6 +13,7 @@ import { isClient } from "../../../utils/is-client";
 import Draggable from "react-draggable";
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
 import { PlusCircleOutlined } from '@ant-design/icons';
+import PermissionTable from './permissions'
 
 const formItemLayout = {
     labelCol: {
@@ -168,6 +169,7 @@ const ModalWindow = memo(({ onShow, record, title, off }) => {
                     >
                         <Input />
                     </Form.Item>
+                    <PermissionTable />
 
                 </Form>
             </Modal>

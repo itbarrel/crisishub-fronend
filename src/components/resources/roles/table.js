@@ -10,8 +10,7 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 const Role = memo((props) => {
 
     const dispatch = useDispatch();
-    const { records } = useSelector(({ resources }) => resources.Role)
-    const loader = useSelector(({ resources }) => resources.User.loading)
+    const { records, loading: loader } = useSelector(({ resources }) => resources.Role)
     const [loading, setLoading] = useState(loader)
     const [role, setRole] = useState({})
     const [visible, setVisible] = useState(false);
@@ -21,10 +20,10 @@ const Role = memo((props) => {
         dispatch(removeRole(key))
     };
 
-    const handleUpdate = (role) => {
-        log('handleUpdate role', role)
+    const handleUpdate = (role, index) => {
+        log('handleUpdate role', index)
         setVisible(true)
-        dispatch(current_item(role))
+        dispatch(current_item(index))
         setRole(role);
     };
 
@@ -52,12 +51,14 @@ const Role = memo((props) => {
             title: 'Action',
             key: 'action',
             width: 80,
-            render: (text, record) => (
+            render: (text, record, index) => (
                 <>
-                    <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record)} />
-                    <Popconfirm title="Are you sure delete this Role?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record.id)}>
-                        <Button size="default" icon={<DeleteOutlined />} />
-                    </Popconfirm>
+                    <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record, index)} />
+                    {!record.default &&
+                        <Popconfirm title="Are you sure delete this Role?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record.id)}>
+                            <Button size="default" icon={<DeleteOutlined />} />
+                        </Popconfirm>
+                    }
                 </>
             ),
         }
@@ -86,7 +87,7 @@ const Role = memo((props) => {
 
     return (
         <>
-            <UpdateRoleModal onShow={visible} record={role} title={'Update User'} off />
+            <UpdateRoleModal onShow={visible} record={role} title={'Update Role'} off />
             <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={records} />
         </>
     );
