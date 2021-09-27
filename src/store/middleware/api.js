@@ -6,7 +6,7 @@ import { notification } from 'antd';
 const api = ({ dispatch }) => next => async action => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
 
-  const { url, method, data, onStart, onSuccess, onError } = action.payload;
+  const { url, method, data, onStart, onSuccess, onError, notify = false } = action.payload;
 
   if (onStart) dispatch({ type: onStart });
 
@@ -15,6 +15,12 @@ const api = ({ dispatch }) => next => async action => {
     .then(response => {
       // General
       log("API Call == Response ", response)
+      if (notify) {
+        notification['success']({
+          message: 'Operation Successful',
+          description: response.message
+        });
+      }
       dispatch(actions.apiCallSuccess(response));
       // Specific
       if (onSuccess) dispatch({ type: onSuccess, payload: response });

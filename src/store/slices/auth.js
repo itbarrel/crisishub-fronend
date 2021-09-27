@@ -36,6 +36,10 @@ const slice = createSlice({
       state.permissions = {}
       state.hasErrors = false
     },
+    update: (state, action) => {
+      state.user = action.payload;
+      state.loader = false;
+    },
     failed: (state, action) => {
       state.loader = false;
       state.hasErrors = true
@@ -43,7 +47,7 @@ const slice = createSlice({
   }
 });
 
-export const { loading, login, logout, failed } = slice.actions;
+export const { loading, login, logout, update, failed } = slice.actions;
 
 export const onLogin = (data) => (dispatch, getState) => {
   return dispatch(
@@ -56,6 +60,19 @@ export const onLogin = (data) => (dispatch, getState) => {
       onError: failed.type
     })
   )
+};
+
+export const updateProfile = (id, data) => (dispatch, getState) => {
+  return dispatch(
+    apiCallBegan({
+      url: `v1/users/${id}`,
+      method: "put",
+      data,
+      onStart: loading.type,
+      onSuccess: update.type,
+      onError: failed.type,
+    })
+  );
 };
 
 export const onLogOut = (data) => (dispatch, getState) => {

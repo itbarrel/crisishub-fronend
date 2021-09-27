@@ -56,6 +56,7 @@ export const addAccount = (data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: add.type,
       onError: failed.type,
+      notify: true
     })
   );
 };

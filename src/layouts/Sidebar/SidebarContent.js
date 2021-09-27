@@ -125,8 +125,7 @@ const SidebarContent = () => {
                       <a>
                         <i className="icon icon-widgets" />
                         <span>
-                          {/* <IntlMessages id="users" /> */}
-                          Users
+                          <IntlMessages id="Users" />
                         </span>
                       </a>
                     </Link>
@@ -138,10 +137,9 @@ const SidebarContent = () => {
                   (<Menu.Item key="roles">
                     <Link href="/secure/roles">
                       <a>
-                        <i className="icon icon-widgets" />
+                        <i className="icon icon-culture-calendar" />
                         <span>
-                          {/* <IntlMessages id="users" /> */}
-                          Roles
+                          <IntlMessages id="Roles" />
                         </span>
                       </a>
                     </Link>
