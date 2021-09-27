@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getIncidentList, removeIncident , current_item } from '../../../store/slices/resources/incidents'
-import { Table, Button , Popconfirm} from "antd";
+import { getIncidentList, removeIncident, current_item } from '../../../store/slices/resources/incidents'
+import { Table, Button, Popconfirm } from "antd";
 import { log } from '../../../utils/console-log'
 import UpdateIncident from './form-model'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -11,7 +11,7 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 const Accounts = memo((props) => {
 
     const dispatch = useDispatch();
-    const incidentList  = useSelector(({resources}) => resources.Incidents.list);
+    const incidentList = useSelector(({ resources }) => resources.Incidents.list);
     const loader = useSelector(({ resources }) => resources.Incidents.loading)
     const [loading, setLoading] = useState(loader)
     const [selectedDepartment, setSelectedDepartment] = useState({})
@@ -49,9 +49,9 @@ const Accounts = memo((props) => {
             width: 360,
             render: (text, record) => (
                 <>
-                    <Button size="large" icon={<EditOutlined />}  onClick={() => handleUpdate(record)} />
+                    <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record)} />
                     <Popconfirm title="Are you sure delete this incident?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record)}>
-                        <Button size="default" icon={<DeleteOutlined />}/>
+                        <Button size="default" icon={<DeleteOutlined />} />
                     </Popconfirm>
                 </>
             ),
@@ -74,13 +74,13 @@ const Accounts = memo((props) => {
         rowKey: 'id'
     });
 
-      useEffect(() => {
+    useEffect(() => {
         dispatch(getIncidentList())
     }, [])
 
     return (
         <>
-            <UpdateIncident onShow={visible} selected={selectedDepartment} title={'Update User'} off />
+            <UpdateIncident onShow={visible} selected={selectedDepartment} title={'Update Incident'} off />
             <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={incidentList} />
         </>
     );

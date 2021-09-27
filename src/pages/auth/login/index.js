@@ -22,7 +22,8 @@ const Login = memo(() => {
   };
 
   const onFinish = (data) => {
-    const postData = { domain: "public", credentials: data };
+    const { domain, ...credentials } = data
+    const postData = { domain, credentials };
     dispatch(onLogin(postData));
   };
 
@@ -59,6 +60,12 @@ const Login = memo(() => {
                 onFinishFailed={onFinishFailed}
                 className="gx-signin-form gx-form-row0"
               >
+                <Form.Item
+                  // initialValue="public"
+                  name="domain"
+                >
+                  <Input type="text" placeholder="Domain" />
+                </Form.Item>
                 <Form.Item
                   // initialValue="demo@example.com"
                   rules={[

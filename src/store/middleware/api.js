@@ -12,14 +12,14 @@ const api = ({ dispatch }) => next => async action => {
 
   next(action);
   apiClient.doRequest(method, url, data)
-    .then(resp => resp.json())
     .then(response => {
       // General
       log("API Call == Response ", response)
       dispatch(actions.apiCallSuccess(response));
       // Specific
       if (onSuccess) dispatch({ type: onSuccess, payload: response });
-    }).catch((err) => {
+    })
+    .catch((err) => {
       // General
       err.response.json().then((error) => {
         dispatch(actions.apiCallFailed(error.message));
