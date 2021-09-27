@@ -7,22 +7,28 @@ import { log } from '../../../../utils/console-log'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
 
-const PermissionTable = memo((props) => {
+const PermissionTable = memo(({ permissions, setPermissions }) => {
 
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false)
     const { entities, operations } = useSelector(({ resources }) => resources.Role)
-    // const records = [{ id: 123, Role: '123' }]
 
     const [columns, setColumns] = useState([])
     const [records, setRecords] = useState([])
-    const [permissions, setPermissions] = useState({})
-    const [userPermissions, setUserPermissions] = useState({})
-    const [wow, setWow] = useState(false)
+
+    const initializePermissions = () => {
+        let permissionObj = {}
+        operations.forEach(operation => {
+            entities.forEach(entity => {
+                permissionObj[entity] ||= {}
+                permissionObj[entity][operation] ||= false
+            });
+        });
+        setPermissions(permissionObj)
+    };
 
     const generateColumns = () => {
         const enteries = []
-        let permissionObj = {}
 
         enteries.push({
             title: 'Permissions',
@@ -34,79 +40,48 @@ const PermissionTable = memo((props) => {
         })
 
         entities.forEach(element => {
-            permissions[element] ||= {}
             enteries.push({
                 title: element,
                 dataIndex: element,
                 key: element,
                 width: 500 / entities.length,
-                render: (text, record, index) => <Checkbox onChange={() => onChange(event, element, record.key)} checked={wow} disabled={false} >{(wow) ? 'Y' : 'N'}</Checkbox>
+                render: (text, record, index) => (permissions[element])
+                    ? <Checkbox onChange={() => onChange(event, element, record.key)} checked={permissions[element][record.key]} disabled={false} ></Checkbox>
+                    : text
             })
         });
 
         setColumns(enteries)
-        return permissionObj
     };
 
-    const generateRecords = (permissionObj) => {
+    const generateRecords = () => {
         const enteries = []
         let entry = {}
-        console.log('>>>>>>>>>>wtf>>>>>...', permissionObj)
 
         operations.forEach(operation => {
             entry = {}
             entry['key'] = operation
             entry['permissions'] = (operation === '*') ? 'All' : operation
-            entities.forEach(entity => {
-                permissions[entity][operation] ||= false
-                // setPermissions(prevState => ({
-                //     ...prevState, [entity]: {
-                //         ...permissions[entity], [operation]: false
-                //     }
-                // }))
+            entry['model'] = (operation === '*') ? 'All' : operation
+            // entities.forEach(entity => {
+            // if (permissions[entity] && permissions[entity][operation]) {
+            //     permissionObj[entity][operation] = permissions[entity][operation]
+            // }
 
-                // setPermissions({ ...permissions, [entity]: { ...permissions[entity], [operation]: false } })
-
-                // permissions[entity][operation] ||= false
-                // entry[entity] = <Checkbox onChange={() => onChange(event, entity, operation)} checked={wow} disabled={false} >{(wow) ? 'Y' : 'N'}</Checkbox>
-            });
+            // entry[entity] = <Checkbox onChange={() => onChange(event, entity, operation)} checked={wow} disabled={false} >{(wow) ? 'Y' : 'N'}</Checkbox>
+            // });
             enteries.push(entry)
         });
-        setPermissions(permissionObj)
+
         setRecords(enteries)
     };
 
-    const onXChange = (e) => {
-        setWow(e.target.checked)
-    }
     const onChange = (e, entity, operation) => {
-        setWow(e.target.checked)
-
-        console.log('>WOW', e.target.checked, wow)
-        console.log(permissions, permissions[entity], permissions[entity][operation])
         if (permissions && permissions[entity]) {
             permissions[entity][operation] = e.target.checked
             setPermissions({ ...permissions, [entity]: { ...permissions[entity], [operation]: e.target.checked } })
-            // permissions[entity] = { [operation]: e.target.checked, ...permissions[entity] }
-
-            // console.log('>>>>>>>>>>>>>>>...', permissions)
-            // setPermissions(prevState => ({
-            //     ...prevState, [entity]: {
-            //         ...permissions[entity], [operation]: e.target.checked
-            //     }
-            // }))
-
-
-            // setInfoData((prevState) => ({
-            //     ...prevState,
-            //     major: {
-            //         ...prevState.major,
-            //         name: "Tan Long",
-            //     }
-            // }));
         }
     }
-
 
     const handleDelete = (key) => {
         log('handleDelete User', key)
@@ -174,30 +149,17 @@ const PermissionTable = memo((props) => {
     });
 
     useEffect(() => {
-    }, [])
-
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>many')
-    useEffect(() => {
-        generateColumns()
-        generateRecords()
-
+        initializePermissions()
     }, [entities])
 
     useEffect(() => {
-        if (permissions && permissions['Roles']) {
-            console.log('>>>>>>>>>pPERMISSIONS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>many', permissions['Roles']['*'])
-        }
-        // setPermissions({ ...permissions, 'Roles': { ...permissions['Roles'], 'some': false } })
+        generateRecords()
+        generateColumns()
     }, [permissions])
-
-    useEffect(() => {
-        console.log('>>>>>>>>>WWOW>>>>>>>>>>>>>>>>>>>many', wow)
-    }, [wow])
 
     return (
         <>
-            <Checkbox onChange={() => onXChange(event)} checked={wow} disabled={false} >{(wow) ? 'Y' : 'N'}</Checkbox>
-            <Table className="gx-table-responsive" scroll={{ x: 1500, y: 300 }} {...tableSetting} columns={columns} dataSource={records} />
+            <Table className="gx-table-responsive" scroll={{ x: 1500, y: 300 }} {...tableSetting} columns={[...columns]} dataSource={[...records]} />
         </>
     );
 });

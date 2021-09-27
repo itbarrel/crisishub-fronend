@@ -26,21 +26,38 @@ const formItemLayout = {
     },
 };
 
-const ModalWindow = memo(({ onShow, record, title, off }) => {
-    console.log(onShow, record, title, off)
+const ModalWindow = memo(({ title, visible, setVisible }) => {
     const draggleRef = useRef(null);
     const dispatch = useDispatch();
-    const loader = useSelector(({ resources }) => resources.Role.loading)
-    const [visible, setVisible] = useState(onShow);
-    const [loading, setLoading] = useState(loader);
-    const [modalTitle, setModalTitle] = useState(title);
-    const [disabled, setDisabled] = useState(true);
-    const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
     const [form] = Form.useForm();
 
-    const onShowModal = () => {
-        setVisible(true);
-    };
+    const { loading: loader, entities, operations, record } = useSelector(({ resources }) => resources.Role)
+    console.log(title, visible, record)
+
+    const [loading, setLoading] = useState(loader);
+    const [disabled, setDisabled] = useState(true);
+
+    const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
+
+    const [permissions, setPermissions] = useState({})
+
+    const processPermissions = (permissionsSet = {}) => {
+        let permissionObj = {}
+
+        entities.forEach((entity) => {
+            permissionObj[entity] ||= {}
+            operations.forEach((operation) => {
+                permissionObj[entity] ||= false
+                if (permissionsSet[entity] && permissionsSet[entity].includes(operation)) {
+                    permissionObj[entity][operation] = true
+                } else {
+                    permissionObj[entity][operation] = false
+                }
+            })
+        })
+
+        return permissionObj
+    }
 
     const onCloseModal = () => {
         setVisible(false);
@@ -50,9 +67,21 @@ const ModalWindow = memo(({ onShow, record, title, off }) => {
     const onSubmit = async () => {
         setLoading(true);
         const formData = await form.validateFields();
+
+        let permissionObj = {}
+
+        Object.keys(permissions).forEach(entity => {
+            permissionObj[entity] ||= []
+            Object.keys(permissions[entity]).forEach(operation => {
+                if (permissions[entity][operation]) {
+                    permissionObj[entity].push(operation)
+                }
+            });
+        });
+
         let data = {
             name: formData.name,
-            permissions: {}
+            permissions: permissionObj
         };
 
         if (record.id) {
@@ -82,7 +111,7 @@ const ModalWindow = memo(({ onShow, record, title, off }) => {
                     onFocus={() => { }}
                     onBlur={() => { }}
                 >
-                    {modalTitle}
+                    {title}
                 </div>
             </>
         );
@@ -102,16 +131,17 @@ const ModalWindow = memo(({ onShow, record, title, off }) => {
     };
 
     useEffect(() => {
-        if (onShow) onShowModal()
-        form.setFieldsValue(record)
-    }, [onShow, record])
-
-    useEffect(() => {
         if (loading) {
             setVisible(false);
             setLoading(false);
         }
     }, [loading])
+
+    useEffect(() => {
+        const permissionSet = processPermissions(record.permissions || {})
+        setPermissions(permissionSet)
+        form.setFieldsValue(record)
+    }, [record])
 
     const Drag = () => (model) => {
         if (isClient) {
@@ -142,9 +172,6 @@ const ModalWindow = memo(({ onShow, record, title, off }) => {
 
     return (
         <>
-            {off ? '' : <Button type="primary" onClick={onShowModal} icon={<PlusCircleOutlined />}>
-                Create New Role
-            </Button>}
             <Modal
                 title={<ModalHeader />}
                 visible={visible}
@@ -169,8 +196,7 @@ const ModalWindow = memo(({ onShow, record, title, off }) => {
                     >
                         <Input />
                     </Form.Item>
-                    <PermissionTable />
-
+                    <PermissionTable permissions={permissions} setPermissions={setPermissions} />
                 </Form>
             </Modal>
         </>

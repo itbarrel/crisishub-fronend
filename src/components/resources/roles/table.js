@@ -3,28 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRolesList, getPermissionEntities } from '../../../store/slices/resources/role'
 import { Table, Button, Popconfirm } from "antd";
 import { log } from '../../../utils/console-log'
-import { removeRole, current_item } from '../../../store/slices/resources/role'
+import { removeRole, setId, setRecord } from '../../../store/slices/resources/role'
 import UpdateRoleModal from './modal'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
-const Role = memo((props) => {
-
+const Role = memo(({ setVisible, setTitle }) => {
     const dispatch = useDispatch();
     const { records, loading: loader } = useSelector(({ resources }) => resources.Role)
     const [loading, setLoading] = useState(loader)
-    const [role, setRole] = useState({})
-    const [visible, setVisible] = useState(false);
 
-    const handleDelete = (key) => {
-        log('handleDelete User', key)
-        dispatch(removeRole(key))
+    const handleDelete = (id) => {
+        log('handleDelete Role', id)
+        dispatch(setId(id))
+        dispatch(removeRole(id))
     };
 
-    const handleUpdate = (role, index) => {
-        log('handleUpdate role', index)
+    const handleEdit = (roleObj) => {
+        log('handleUpdate role', roleObj)
+        if (!roleObj.id) return
+        setTitle('Update Role')
+        dispatch(setId(roleObj.id))
+        dispatch(setRecord(roleObj))
         setVisible(true)
-        dispatch(current_item(index))
-        setRole(role);
     };
 
     const columns = [
@@ -53,7 +53,7 @@ const Role = memo((props) => {
             width: 80,
             render: (text, record, index) => (
                 <>
-                    <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record, index)} />
+                    <Button size="large" icon={<EditOutlined />} onClick={() => handleEdit(record)} />
                     {!record.default &&
                         <Popconfirm title="Are you sure delete this Role?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record.id)}>
                             <Button size="default" icon={<DeleteOutlined />} />
@@ -87,7 +87,6 @@ const Role = memo((props) => {
 
     return (
         <>
-            <UpdateRoleModal onShow={visible} record={role} title={'Update Role'} off />
             <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={records} />
         </>
     );
