@@ -63,6 +63,7 @@ export const addIncident = (data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: add.type,
       onError: failed.type,
+      notify: true
     })
   );
 };
@@ -75,6 +76,7 @@ export const removeIncident = (id) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: remove.type,
       onError: failed.type,
+      notify: true
     })
   );
 };
@@ -88,6 +90,7 @@ export const updateIncident = (id, data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: update.type,
       onError: failed.type,
+      notify: true
     })
   );
 };

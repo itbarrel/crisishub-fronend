@@ -63,6 +63,7 @@ export const addTask = (data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: add.type,
       onError: failed.type,
+      notify: true
     })
   );
 };
@@ -75,6 +76,7 @@ export const removeTask = (id) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: remove.type,
       onError: failed.type,
+      notify: true
     })
   );
 };
@@ -88,6 +90,7 @@ export const updateTask = (id, data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: update.type,
       onError: failed.type,
+      notify: true
     })
   );
 };
