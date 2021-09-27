@@ -6,7 +6,8 @@ const slice = createSlice({
     initialState: {
         loading: false,
         records: [],
-        index: -1,
+        id: null,
+        record: {},
         entities: [],
         operations: [],
         hasErrors: false
@@ -26,7 +27,7 @@ const slice = createSlice({
         },
         remove: (state, action) => {
             const { payload } = action
-            const update = state.records.filter(role => role.id !== payload ? role : null)
+            const update = state.records.filter(role => role.id !== state.id)
             state.records = update
             state.loading = false;
         },
@@ -36,8 +37,12 @@ const slice = createSlice({
             state.records[haveID] = action.payload
             state.loading = false;
         },
-        current_item: (state, action) => {
-            state.index = action.payload;
+        setRecord: (state, action) => {
+            state.record = action.payload;
+            state.loading = false;
+        },
+        setId: (state, action) => {
+            state.id = action.payload;
             state.loading = false;
         },
         setEntities: (state, action) => {
@@ -53,7 +58,7 @@ const slice = createSlice({
     },
 });
 
-export const { loading, all, add, remove, update, current_item, setEntities, failed, } = slice.actions
+export const { loading, all, add, remove, update, setId, setRecord, setEntities, failed, } = slice.actions
 
 export const getRolesList = () => (dispatch, getState) => {
     return dispatch(
