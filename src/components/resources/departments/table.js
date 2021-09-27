@@ -16,6 +16,12 @@ const Accounts = memo((props) => {
     const [loading, setLoading] = useState(loader)
     const [selectedDepartment, setSelectedDepartment] = useState({})
     const [visible, setVisible] = useState(false);
+    const [sort, setSort] = useState({});
+    sort ||= {};
+	const handleSortChange = (pagination, filters, sorter) => {
+		console.log("Various parameters", pagination, filters, sorter);
+		setSort(sorter);
+	};
 
     const handleDelete = (Current_user) => {
         log('handleDelete department', Current_user.id)
@@ -35,6 +41,9 @@ const Accounts = memo((props) => {
             dataIndex: "name",
             key: "name",
             width: 120,
+            sorter: (a, b) => a.name.localeCompare(b.name),
+			sortOrder: sort.columnKey === "name" && sort.order,
+			ellipsis: true,
         },
         {
             title: "Status",
@@ -81,7 +90,7 @@ const Accounts = memo((props) => {
     return (
         <>
             <UpdateDepartment onShow={visible} selected={selectedDepartment} title={'Update Department'} off />
-            <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={departmentList} />
+            <Table className="gx-table-responsive" {...tableSetting} onChange={handleSortChange} columns={columns} dataSource={departmentList} />
         </>
     );
 });

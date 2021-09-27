@@ -138,9 +138,9 @@ const CustomizerSystem = () => {
 
       {getNavStyles(navStyle)}
 
-      <h6 className="gx-mb-3 gx-text-uppercase">Layout</h6>
+      {/* <h6 className="gx-mb-3 gx-text-uppercase">Layout</h6> */}
 
-      {getLayoutsTypes(layoutType)}
+      {/* {getLayoutsTypes(layoutType)} */}
     </CustomScrollbars>
   };
 
@@ -280,7 +280,7 @@ const CustomizerSystem = () => {
           <img src={('/images/layouts/vertical no header.png')} alt='vertical no header' />
         </span>
       </li>
-      <li>
+      {/* <li>
         <span onClick={() => onNavStyleChanges(NAV_STYLE_DEFAULT_HORIZONTAL)}
           className={`gx-pointer ${navStyle === NAV_STYLE_DEFAULT_HORIZONTAL && 'active'}`}>
           <img src={('/images/layouts/default horizontal.png')} alt='default horizontal' />
@@ -291,8 +291,8 @@ const CustomizerSystem = () => {
           className={`gx-pointer ${navStyle === NAV_STYLE_DARK_HORIZONTAL && 'active'}`}>
           <img src={('/images/layouts/dark horizontal.png')} alt='dark horizontal' />
         </span>
-      </li>
-      <li>
+      </li> */}
+      {/* <li>
         <span onClick={() => onNavStyleChanges(NAV_STYLE_INSIDE_HEADER_HORIZONTAL)}
           className={`gx-pointer ${navStyle === NAV_STYLE_INSIDE_HEADER_HORIZONTAL && 'active'}`}>
           <img src={('/images/layouts/inside header horizontal.png')} alt='inside header horizontal' />
@@ -310,7 +310,7 @@ const CustomizerSystem = () => {
           className={`gx-pointer ${navStyle === NAV_STYLE_ABOVE_HEADER && 'active'}`}>
           <img src={('/images/layouts/top to header.png')} alt='top to header' />
         </span>
-      </li>
+      </li> */}
     </ul>
   };
 

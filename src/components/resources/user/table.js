@@ -16,6 +16,14 @@ const Accounts = memo((props) => {
     const [loading, setLoading] = useState(loader)
     const [selectedUser, setSelectedUser] = useState({})
     const [visible, setVisible] = useState(false);
+    const [sort, setSort] = useState({});
+    sort ||= {};
+	const handleSortChange = (pagination, filters, sorter) => {
+		console.log("Various parameters", pagination, filters, sorter);
+		setSort(sorter);
+	};
+
+
 
     const handleDelete = (Current_user) => {
         log('handleDelete User', Current_user.key)
@@ -36,12 +44,18 @@ const Accounts = memo((props) => {
             dataIndex: "firstName",
             key: "firstName",
             width: 120,
+            sorter: (a, b) => a.firstName.localeCompare(b.nafirstNameme),
+			sortOrder: sort.columnKey === "firstName" && sort.order,
+			ellipsis: true,
         },
         {
             title: "Email*",
             dataIndex: "email",
             key: "email",
             width: 120,
+            sorter: (a, b) => a.email.localeCompare(b.email),
+			sortOrder: sort.columnKey === "email" && sort.order,
+			ellipsis: true,
         },
         {
             title: "User Name",
@@ -94,7 +108,7 @@ const Accounts = memo((props) => {
     return (
         <>
             <UpdateUser onShow={visible} selectedUser={selectedUser} title={'Update User'} off/>
-            <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={list} />
+            <Table className="gx-table-responsive" {...tableSetting} onChange={handleSortChange} columns={columns} dataSource={list} />
         </>
     );
 });

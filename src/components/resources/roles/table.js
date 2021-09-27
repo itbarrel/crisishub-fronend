@@ -15,6 +15,13 @@ const Role = memo((props) => {
     const [loading, setLoading] = useState(loader)
     const [role, setRole] = useState({})
     const [visible, setVisible] = useState(false);
+    const [sort, setSort] = useState({});
+    sort ||= {};
+
+	const handleSortChange = (pagination, filters, sorter) => {
+		console.log("Various parameters", pagination, filters, sorter);
+		setSort(sorter);
+	};
 
     const handleDelete = (key) => {
         log('handleDelete User', key)
@@ -34,6 +41,9 @@ const Role = memo((props) => {
             dataIndex: "name",
             key: "name",
             width: 120,
+            sorter: (a, b) => a.name.localeCompare(b.name),
+			sortOrder: sort.columnKey === "name" && sort.order,
+			ellipsis: true,
         },
         {
             title: "Permanent*",
@@ -87,7 +97,7 @@ const Role = memo((props) => {
     return (
         <>
             <UpdateRoleModal onShow={visible} record={role} title={'Update User'} off />
-            <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={records} />
+            <Table className="gx-table-responsive" {...tableSetting} onChange={handleSortChange} columns={columns} dataSource={records} />
         </>
     );
 });

@@ -16,6 +16,13 @@ const Accounts = memo((props) => {
     const [loading, setLoading] = useState(loader)
     const [selectedTask, setSelectedTask] = useState({})
     const [visible, setVisible] = useState(false);
+    const [sort, setSort] = useState({});
+    sort ||= {};
+	const handleSortChange = (pagination, filters, sorter) => {
+		console.log("Various parameters", pagination, filters, sorter);
+		setSort(sorter);
+	};
+
 
     const handleDelete = (Current_user) => {
         log('handleDelete department', Current_user.id)
@@ -35,6 +42,8 @@ const Accounts = memo((props) => {
             dataIndex: "title",
             key: "title",
             width: 80,
+            sorter: (a, b) => a.title.localeCompare(b.title),
+			sortOrder: sort.columnKey === "title" && sort.order,
         },
         {
             title: "Status",
@@ -49,6 +58,8 @@ const Accounts = memo((props) => {
             key: "author",
             width: 5,
             render: (text, record) => <span className="gx-link">{record.author}</span>,
+            sorter: (a, b) => a.author.localeCompare(b.author),
+			sortOrder: sort.columnKey === "author" && sort.order,
         }, 
         {
             title: "Type",
@@ -63,6 +74,8 @@ const Accounts = memo((props) => {
             key: "links",
             width: 80,
             render: (text, record) => <span className="gx-link">{record.links}</span>,
+            sorter: (a, b) => a.links.localeCompare(b.links),
+			sortOrder: sort.columnKey === "links" && sort.order,
         }, 
         {
             title: "Description",
@@ -70,6 +83,8 @@ const Accounts = memo((props) => {
             key: "description",
             width: 200,
             render: (text, record) => record.description,
+            sorter: (a, b) => a.description.localeCompare(b.description),
+			sortOrder: sort.columnKey === "description" && sort.order,
         }, 
         {
             title: 'Action',
@@ -110,7 +125,7 @@ const Accounts = memo((props) => {
     return (
         <>
             <UpdateTask onShow={visible} selected={selectedTask} title={'Update Task'} off />
-            <Table className="gx-table-responsive" {...tableSetting} columns={columns} dataSource={taskList} />
+            <Table className="gx-table-responsive" {...tableSetting} onChange={handleSortChange} columns={columns} dataSource={taskList} />
         </>
     );
 });
