@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../../apiActions";
+import { apiCallBegan, resetAll } from "../../apiActions";
 
 const slice = createSlice({
   name: "users",
@@ -44,6 +44,15 @@ const slice = createSlice({
       state.loading = false;
       state.hasErrors = true;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(resetAll, (state, action) => {
+        // action is inferred correctly here if using TS
+        state.loading = false
+        state.list = []
+        state.update_item = []
+      })
   },
 });
 

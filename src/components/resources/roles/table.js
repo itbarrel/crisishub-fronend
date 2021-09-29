@@ -7,7 +7,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const Role = memo(({ setVisible, setTitle }) => {
     const dispatch = useDispatch();
-    const { records, loading: loader } = useSelector(({ resources }) => resources.Role);
+    const { records, loading: loader, record: loginRole } = useSelector(({ resources }) => resources.Role);
     const [loading, setLoading] = useState(loader);
     const [sort, setSort] = useState({});
 
@@ -61,7 +61,7 @@ const Role = memo(({ setVisible, setTitle }) => {
             width: 80,
             render: (text, record, index) => (
                 <>
-                    <Button size="large" icon={<EditOutlined />} onClick={() => handleEdit(record)} />
+                    {loginRole.id !== record.id && <Button size="large" icon={<EditOutlined />} onClick={() => handleEdit(record)} />}
                     {!record.default && (
                         <Popconfirm
                             title="Are you sure delete this Role?"

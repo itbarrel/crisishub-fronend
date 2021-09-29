@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from "../apiActions";
+import { apiCallBegan, resetAll } from "../apiActions";
 import { login as _login, logout as _logout } from "../../services/Auth";
 
 const slice = createSlice({
@@ -94,6 +94,7 @@ export const updatePassword = (data) => (dispatch) => {
 };
 
 export const onLogOut = () => (dispatch) => {
+  dispatch(resetAll())
   return dispatch(logout())
 };
 

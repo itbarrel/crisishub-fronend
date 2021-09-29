@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { apiCallBegan } from "../../apiActions";
+import { apiCallBegan, resetAll } from "../../apiActions";
 
 const slice = createSlice({
     name: "roles",
@@ -54,6 +54,19 @@ const slice = createSlice({
             state.loading = false;
             state.hasErrors = true
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(resetAll, (state, action) => {
+                // action is inferred correctly here if using TS
+                state.loading = false
+                state.records = []
+                state.id = null
+                state.record = {}
+                state.entities = []
+                state.operations = []
+                state.hasErrors = false
+            })
     },
 });
 

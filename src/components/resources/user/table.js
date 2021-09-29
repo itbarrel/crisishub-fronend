@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserList } from '../../../store/slices/resources/user'
+import { getRolesList } from '../../../store/slices/resources/role'
 import { Table, Button, Popconfirm } from "antd";
 import { log } from '../../../utils/console-log'
 import { removeUser, current_item } from '../../../store/slices/resources/user'
@@ -9,7 +10,6 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 
 const Accounts = memo((props) => {
-
     const dispatch = useDispatch();
     const { list } = useSelector(({ resources }) => resources.User)
     const loader = useSelector(({ resources }) => resources.User.loading)
@@ -18,10 +18,10 @@ const Accounts = memo((props) => {
     const [visible, setVisible] = useState(false);
     const [sort, setSort] = useState({});
     sort ||= {};
-	const handleSortChange = (pagination, filters, sorter) => {
-		console.log("Various parameters", pagination, filters, sorter);
-		setSort(sorter);
-	};
+    const handleSortChange = (pagination, filters, sorter) => {
+        console.log("Various parameters", pagination, filters, sorter);
+        setSort(sorter);
+    };
 
 
     const handleDelete = (Current_user) => {
@@ -44,8 +44,8 @@ const Accounts = memo((props) => {
             key: "firstName",
             width: 120,
             sorter: (a, b) => a.firstName.localeCompare(b.nafirstNameme),
-			sortOrder: sort.columnKey === "firstName" && sort.order,
-			ellipsis: true,
+            sortOrder: sort.columnKey === "firstName" && sort.order,
+            ellipsis: true,
         },
         {
             title: "Email*",
@@ -53,8 +53,8 @@ const Accounts = memo((props) => {
             key: "email",
             width: 120,
             sorter: (a, b) => a.email.localeCompare(b.email),
-			sortOrder: sort.columnKey === "email" && sort.order,
-			ellipsis: true,
+            sortOrder: sort.columnKey === "email" && sort.order,
+            ellipsis: true,
         },
         {
             title: "User Name",
@@ -75,9 +75,9 @@ const Accounts = memo((props) => {
             width: 360,
             render: (text, record) => (
                 <>
-                    <Button size="large" icon={<EditOutlined />}  onClick={() => handleUpdate(record)} />
+                    <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record)} />
                     <Popconfirm title="Are you sure delete this User?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record)}>
-                        <Button size="default" icon={<DeleteOutlined />}/>
+                        <Button size="default" icon={<DeleteOutlined />} />
                     </Popconfirm>
                 </>
             ),
@@ -102,11 +102,12 @@ const Accounts = memo((props) => {
 
     useEffect(() => {
         dispatch(getUserList())
+        dispatch(getRolesList())
     }, [])
 
     return (
         <>
-            <UpdateUser onShow={visible} selectedUser={selectedUser} title={'Update User'} off/>
+            <UpdateUser onShow={visible} selectedUser={selectedUser} title={'Update User'} off />
             <Table className="gx-table-responsive" {...tableSetting} onChange={handleSortChange} columns={columns} dataSource={list} />
         </>
     );

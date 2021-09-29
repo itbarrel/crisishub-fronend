@@ -4,9 +4,9 @@ import {
     Form,
     Input,
     Modal,
-    Row,
-    Col
+    Select
 } from "antd";
+
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, updateUser } from "../../../store/slices/resources/user";
 import { isClient } from "../../../utils/is-client";
@@ -29,6 +29,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
     const draggleRef = useRef(null);
     const dispatch = useDispatch();
     const loader = useSelector(({ resources }) => resources.Account.loading)
+    const { records: roles } = useSelector(({ resources }) => resources.Role)
     const [visible, setVisible] = useState(onShow);
     const [loading, setLoading] = useState(loader);
     const [modelTitle, setModelTitle] = useState(title);
@@ -52,7 +53,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
             password: formData.password,
             firstName: formData.firstName,
             lastName: formData.lastName,
-            mobilePhone: "09233599898",
+            mobilePhone: formData.mobilePhone,
         };
         if (onShow) {
             dispatch(updateUser(selectedUser.id, data));
@@ -182,9 +183,9 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
                     </Form.Item>
 
                     <Form.Item
-                        name="username"
-                        label={<LabelAndTooltip title={"User.Name"} tooltip={"Enter your Last Name"} />}
-                        rules={[{ required: true, message: "Please input your Last Name!", whitespace: true }]}
+                        name="userName"
+                        label={<LabelAndTooltip title={"User.Name"} tooltip={"Enter your User Name"} />}
+                        rules={[{ required: true, message: "Please input your User Name!", whitespace: true }]}
                     >
                         <Input />
                     </Form.Item>
@@ -204,6 +205,20 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
                         ]}
                     >
                         <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="mobilePhone"
+                        label={<LabelAndTooltip title={"Mobile.Phone"} tooltip={"Enter your Mobile Number"} />}
+                        rules={[{ required: true, message: "Please input your Mobile Number!", whitespace: true }]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item label="Role" hasFeedback name="RoleId">
+                        <Select allowClear showSearch={true}>
+                            {(roles.map((role) => <Option key={role.id} value={role.id}>{role.name}</Option>))}
+                        </Select>
                     </Form.Item>
 
                     {off ? '' : <>
