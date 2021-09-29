@@ -142,12 +142,7 @@ const Model = memo(() => {
 				modalRender={Drag()}
 				forceRender
 			>
-				<Form
-					{...formItemLayout}
-					form={form}
-					name="register"
-					scrollToFirstError
-				>
+				<Form {...formItemLayout} form={form} name="register" scrollToFirstError>
 					<Form.Item
 						name="accountName"
 						label={<LabelAndTooltip title={"Account.Name"} tooltip={"Enter your company name"} />}
