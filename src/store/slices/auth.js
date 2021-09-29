@@ -7,7 +7,7 @@ const slice = createSlice({
   initialState: {
     isAuthenticated: false,
     permissions: {},
-    loader: false,
+    loader: {},
     user: null,
     token: null,
     hasErrors: false
@@ -42,6 +42,16 @@ const slice = createSlice({
     changePassword: (state) => {
       state.loader = false;
     },
+    forgetPassword: (state) => {
+      state.loader = false;
+    },
+    resetPassword: (state) => {
+      state.loader = false;
+    },
+    setLoader: (state, action) => {
+      const { key , value } = action.payload
+      state.loader = {[key]:value, ...state.loader}
+    },
     failed: (state) => {
       state.loader = false;
       state.hasErrors = true
@@ -49,7 +59,7 @@ const slice = createSlice({
   }
 });
 
-export const { loading, login, logout, update, changePassword, failed } = slice.actions;
+export const { loading, login, logout, update, changePassword, forgetPassword, resetPassword, setLoader, failed } = slice.actions;
 
 export const onLogin = (data) => (dispatch) => {
   return dispatch(
@@ -83,6 +93,35 @@ export const updatePassword = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: `v1/auth/changepassword`,
+      method: "post",
+      data,
+      onStart: loading.type,
+      onSuccess: changePassword.type,
+      onError: failed.type,
+      notify: true
+    })
+  );
+};
+
+export const onForgetPassword = (data) => (dispatch) => {
+  dispatch(
+    apiCallBegan({
+      url: `v1/auth/forgetpassword`,
+      method: "post",
+      data,
+      onStart: loading.type,
+      onSuccess: forgetPassword.type,
+      onError: failed.type,
+      notify: true
+    })
+  );
+  return dispatch(setLoader({key: 'forget', value:false}))
+};
+
+export const onResetPassword = (data) => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      url: `v1/auth/resetpassword`,
       method: "post",
       data,
       onStart: loading.type,

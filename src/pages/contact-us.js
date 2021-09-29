@@ -10,7 +10,7 @@ const ContactUs = memo(() => {
         <h1>Contact us Page or support page</h1>
         <br />
         <br />
-        <Link url={"/a/login"} passHref={true}>
+        <Link url={"/auth/login"} passHref={true}>
           <Button type="primary"> Back </Button>
         </Link>
       </center>
