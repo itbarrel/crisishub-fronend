@@ -1,9 +1,9 @@
 // auth menu
-export const LOGIN_PAGE = "/a/login";
-export const REGISTER_PAGE = "/a/register"; // player registration
-export const USER_REGISTER_PAGE = "/a/signup"; // player registration
-export const FORGOT_PASSWORD_PAGE = "/a/forgot-password";
-export const RESET_PASSWORD_PAGE = "/a/reset-password";
+export const LOGIN_PAGE = "/auth/login";
+export const REGISTER_PAGE = "/auth/register"; // player registration
+export const USER_REGISTER_PAGE = "/auth/signup"; // player registration
+export const FORGOT_PASSWORD_PAGE = "/auth/forgot-password";
+export const RESET_PASSWORD_PAGE = "/auth/reset-password";
 export const LOGOUT = "#";
 // user
 export const USER_PROFILE = "/profile";

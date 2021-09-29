@@ -146,7 +146,6 @@ const Model = memo(() => {
 					{...formItemLayout}
 					form={form}
 					name="register"
-					// onFinish={onSubmit}
 					scrollToFirstError
 				>
 					<Form.Item
