@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
     "less": "lessc --js src/assets/styles/wieldy.less src/assets/styles/style.css"
   },
   "dependencies": {

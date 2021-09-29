@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPathName } from "../../store/slices/ui/settings";
 import permissionCheck from "../../utils/PermissionGuard";
 
-const {SubMenu} = Menu;
+const { SubMenu } = Menu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const SidebarContent = () => {
@@ -47,21 +47,6 @@ const SidebarContent = () => {
 
   const selectedKeys = pathname.substr(1);
   const defaultOpenKeys = selectedKeys.split("/")[1];
-
-  console.log(
-    permissionCheck({
-      Accounts: ["update"],
-      Accounts: ["create"],
-      Users: ["update"],
-      Roles: ["update"],
-    })
-  );
-  const y = {
-    Accounts: { update: true },
-    Accounts: ["create"],
-    Users: ["update"],
-    Roles: ["update"],
-  };
 
   return (
     <>
@@ -186,7 +171,7 @@ const SidebarContent = () => {
                       </a>
                     </Link>
                   </Menu.Item>
-                )}
+                  )}
               </MenuItemGroup>
             }
 

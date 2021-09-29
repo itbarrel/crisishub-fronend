@@ -47,8 +47,8 @@ const Sidebar = () => {
   } else if (navStyle === NAV_STYLE_DRAWER) {
     drawerStyle = "gx-collapsed-sidebar"
   }
-  if ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR
-    || navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR) && width < TAB_SIZE) {
+  if ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR ||
+    navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR) && width < TAB_SIZE) {
     drawerStyle = "gx-collapsed-sidebar"
   }
   return (
@@ -59,16 +59,16 @@ const Sidebar = () => {
       theme={themeType === THEME_TYPE_LITE ? "lite" : "dark"}
       collapsible>
       {
-        navStyle === NAV_STYLE_DRAWER || width < TAB_SIZE ?
-          <Drawer
+        navStyle === NAV_STYLE_DRAWER || width < TAB_SIZE
+          ? <Drawer
             className={`gx-drawer-sidebar ${themeType !== THEME_TYPE_LITE ? 'gx-drawer-sidebar-dark' : null}`}
             placement="left"
             closable={false}
             onClose={onToggleCollapsedNav}
             visible={navCollapsed}>
             <SidebarContent />
-          </Drawer> :
-          <SidebarContent />
+          </Drawer>
+          : <SidebarContent />
       }
     </Sider>)
 };

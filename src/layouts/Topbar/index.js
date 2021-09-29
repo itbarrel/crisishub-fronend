@@ -25,9 +25,7 @@ const Topbar = () => {
   const languageMenu = () => (
     <CustomScrollbars className="gx-popover-lang-scroll">
       <ul className="gx-sub-popover">
-        {languageData.map(language =>
-          <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) =>
-            dispatch(switchLanguage(language))
+        {languageData.map(language => <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) => dispatch(switchLanguage(language))
           }>
             <i className={`flag flag-24 gx-mr-2 flag-${language.icon}`} />
             <span className="gx-language-text">{language.name}</span>
@@ -41,8 +39,8 @@ const Topbar = () => {
   };
   return (
     <Header>
-      {navStyle === NAV_STYLE_DRAWER || ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR) && width < TAB_SIZE) ?
-        <div className="gx-linebar gx-mr-3">
+      {navStyle === NAV_STYLE_DRAWER || ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR) && width < TAB_SIZE)
+        ? <div className="gx-linebar gx-mr-3">
           <i className="gx-icon-btn icon icon-menu"
             onClick={() => {
               dispatch(toggleCollapsedSideNav(!navCollapsed));
@@ -67,8 +65,8 @@ const Topbar = () => {
             <span className="gx-pointer gx-d-block"><i className="icon icon-search-new" /></span>
           </Popover>
         </li>
-        {width >= TAB_SIZE ? null :
-          <>
+        {width >= TAB_SIZE ? null
+          : <>
             <li className="gx-notify">
               <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={<AppNotification />}
                 trigger="click">
@@ -97,8 +95,8 @@ const Topbar = () => {
             </span>
           </Popover>
         </li>
-        {width >= TAB_SIZE ? null :
-          <>
+        {width >= TAB_SIZE ? null
+          : <>
             <li className="gx-user-nav"><UserInfo /></li>
           </>
         }

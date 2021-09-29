@@ -17,7 +17,7 @@ import IntlMessages from "../../../utils/IntlMessages";
 
 const { Header } = Layout;
 
-const Option = Select.Option;
+const {Option} = Select;
 const menu = (
   <Menu onClick={handleMenuClick}>
     <Menu.Item key="1">Products</Menu.Item>
@@ -47,9 +47,7 @@ const AboveHeader = () => {
   const languageMenu = () => (
     <CustomScrollbars className="gx-popover-lang-scroll">
       <ul className="gx-sub-popover">
-        {languageData.map(language =>
-          <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) =>
-            dispatch(switchLanguage(language))
+        {languageData.map(language => <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) => dispatch(switchLanguage(language))
           }>
             <i className={`flag flag-24 gx-mr-2 flag-${language.icon}`} />
             <span className="gx-language-text">{language.name}</span>

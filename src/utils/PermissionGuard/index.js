@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-const verifyPermission = require('./checker')
+import verifyPermission from './checker'
 
 const permissionCheck = (permissionsToChk) => {
     const { permissions } = useSelector(({ auth }) => auth);
