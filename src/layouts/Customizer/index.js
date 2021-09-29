@@ -230,19 +230,19 @@ const CustomizerSystem = () => {
       <li>
         <span onClick={() => handleLayoutTypes(LAYOUT_TYPE_FRAMED)}
           className={`gx-pointer ${layoutType === LAYOUT_TYPE_FRAMED && 'active'}`}>
-          <img src={('/images/layouts/framed.png')} alt='framed' />
+          <img src={('/images/layouts/framed.png')} alt="framed" />
         </span>
       </li>
       <li>
         <span onClick={() => handleLayoutTypes(LAYOUT_TYPE_FULL)}
           className={`gx-pointer ${layoutType === LAYOUT_TYPE_FULL && 'active'}`}>
-          <img src={('/images/layouts/full width.png')} alt='full width' />
+          <img src={('/images/layouts/full width.png')} alt="full width" />
         </span>
       </li>
       <li>
         <span onClick={() => handleLayoutTypes(LAYOUT_TYPE_BOXED)}
           className={`gx-pointer ${layoutType === LAYOUT_TYPE_BOXED && 'active'}`}>
-          <img src={('/images/layouts/boxed.png')} alt='boxed' />
+          <img src={('/images/layouts/boxed.png')} alt="boxed" />
         </span>
       </li>
     </ul>
@@ -253,31 +253,31 @@ const CustomizerSystem = () => {
       <li>
         <span onClick={() => onNavStyleChanges(NAV_STYLE_FIXED)}
           className={`gx-pointer ${navStyle === NAV_STYLE_FIXED && 'active'}`}>
-          <img src={('/images/layouts/fixed.png')} alt='fixed' />
+          <img src={('/images/layouts/fixed.png')} alt="fixed" />
         </span>
       </li>
       <li>
         <span onClick={() => onNavStyleChanges(NAV_STYLE_MINI_SIDEBAR)}
           className={`gx-pointer ${navStyle === NAV_STYLE_MINI_SIDEBAR && 'active'}`}>
-          <img src={('/images/layouts/mini sidebar.png')} alt='mini sidebar' />
+          <img src={('/images/layouts/mini sidebar.png')} alt="mini sidebar" />
         </span>
       </li>
       <li>
         <span onClick={() => onNavStyleChanges(NAV_STYLE_DRAWER)}
           className={`gx-pointer ${navStyle === NAV_STYLE_DRAWER && 'active'}`}>
-          <img src={('/images/layouts/drawer nav.png')} alt='drawer nav' />
+          <img src={('/images/layouts/drawer nav.png')} alt="drawer nav" />
         </span>
       </li>
       <li>
         <span onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_MINI_SIDEBAR)}
           className={`gx-pointer ${navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && 'active'}`}>
-          <img src={('/images/layouts/no header mini sidebar.png')} alt='no hader mini sidebar' />
+          <img src={('/images/layouts/no header mini sidebar.png')} alt="no hader mini sidebar" />
         </span>
       </li>
       <li>
         <span onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR)}
           className={`gx-pointer ${navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR && 'active'}`}>
-          <img src={('/images/layouts/vertical no header.png')} alt='vertical no header' />
+          <img src={('/images/layouts/vertical no header.png')} alt="vertical no header" />
         </span>
       </li>
       {/* <li>

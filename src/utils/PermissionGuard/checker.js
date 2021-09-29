@@ -1,16 +1,17 @@
-module.exports = (permissions, permissionsToChk) => {
+export default (permissions, permissionsToChk) => {
     let granted = false;
     let missed = false;
-    const chkKeys = Object.keys(permissionsToChk)
+    const entities = Object.keys(permissionsToChk)
 
-    if (Object.keys(permissions).length > 0 && chkKeys.length > 0) {
-        chkKeys.forEach(per => {
+    if (Object.keys(permissions).length > 0 && entities.length > 0) {
+        entities.forEach(per => {
+            const actionToChk = permissionsToChk[per];
+
             if (permissions[per] && !missed) {
                 const actions = permissions[per];
-
                 if (actions.includes('*')) { granted = true; }
                 else {
-                    per.actionsTocheck.forEach(action => {
+                    actionToChk.forEach(action => {
                         granted = granted || ((!actions.includes(action)) ? false : true);
                     });
                 }

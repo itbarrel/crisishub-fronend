@@ -152,9 +152,7 @@ const Model = memo(() => {
 					<Form.Item
 						name="accountName"
 						label={<LabelAndTooltip title={"Account.Name"} tooltip={"Enter your company name"} />}
-						rules={[
-							{ required: true, message: "Please input your Account name!", whitespace: true },
-						]}
+						rules={[{ required: true, message: "Please input your Account name!", whitespace: true },]}
 					>
 						<Input />
 					</Form.Item>

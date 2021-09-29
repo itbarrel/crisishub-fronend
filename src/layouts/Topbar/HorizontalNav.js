@@ -11,7 +11,7 @@ import {
 } from "../../constants/ThemeSetting";
 
 
-const SubMenu = Menu.SubMenu;
+const {SubMenu} = Menu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const HorizontalNav = () => {
