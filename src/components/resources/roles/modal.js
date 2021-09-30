@@ -20,39 +20,41 @@ const formItemLayout = {
 };
 
 const ModalWindow = memo(({ title, visible, setVisible }) => {
-  const draggleRef = useRef(null);
-  const dispatch = useDispatch();
-  const [form] = Form.useForm();
+    const draggleRef = useRef(null);
+    const dispatch = useDispatch();
+    const [form] = Form.useForm();
 
-  const {
-    loading: loader,
-    entities,
-    operations,
-    record,
-  } = useSelector(({ resources }) => resources.Role);
-  console.log(title, visible, record);
+    const { loading: loader, entities, operations, record } = useSelector(({ resources }) => resources.Role)
 
-  const [loading, setLoading] = useState(loader);
-  const [disabled, setDisabled] = useState(true);
+    const [loading, setLoading] = useState(loader);
+    const [disabled, setDisabled] = useState(true);
 
-  const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
+    const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
 
-  const [permissions, setPermissions] = useState({});
+    const [permissions, setPermissions] = useState({})
 
-  const processPermissions = (permissionsSet = {}) => {
-    let permissionObj = {};
+    const processPermissions = (permissionsSet = {}) => {
+        let permissionObj = {}
 
-    entities.forEach((entity) => {
-      permissionObj[entity] ||= {};
-      operations.forEach((operation) => {
-        permissionObj[entity] ||= false;
-        if (permissionsSet[entity] && permissionsSet[entity].includes(operation)) {
-          permissionObj[entity][operation] = true;
-        } else {
-          permissionObj[entity][operation] = false;
-        }
-      });
-    });
+        entities.forEach((entity) => {
+            permissionObj[entity] ||= {}
+            operations.forEach((operation) => {
+                permissionObj[entity] ||= false
+                if (permissionsSet[entity] && permissionsSet[entity].includes(operation)) {
+                    permissionObj[entity][operation] = true
+                } else {
+                    permissionObj[entity][operation] = false
+                }
+            })
+        })
+
+        return permissionObj
+    }
+
+    const onCloseModal = () => {
+        setVisible(false);
+        form.resetFields();
+    };
 
     return permissionObj;
   };

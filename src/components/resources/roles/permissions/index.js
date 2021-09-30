@@ -41,15 +41,16 @@ const PermissionTable = memo(({ permissions, setPermissions }) => {
         dataIndex: element,
         key: element,
         width: 500 / entities.length,
-        render: (text, record, _index) => (permissions[element] ? (
-          <Checkbox
-            onChange={() => onChange(event, element, record.key)}
-            checked={permissions[element][record.key]}
-            disabled={false}
-          ></Checkbox>
-        ) : (
-          text
-        )),
+        render: (text, record, _index) =>
+          permissions[element] ? (
+            <Checkbox
+              onChange={() => onChange(event, element, record.key)}
+              checked={permissions[element][record.key]}
+              disabled={false}
+            ></Checkbox>
+          ) : (
+            text
+          ),
       });
     });
 

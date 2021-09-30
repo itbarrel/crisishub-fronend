@@ -49,8 +49,8 @@ const slice = createSlice({
       state.loader = false;
     },
     setLoader: (state, action) => {
-      const { key , value } = action.payload
-      state.loader = {[key]:value, ...state.loader}
+      const { key, value } = action.payload
+      state.loader = { [key]: value, ...state.loader }
     },
     failed: (state) => {
       state.loader = false;
@@ -115,7 +115,7 @@ export const onForgetPassword = (data) => (dispatch) => {
       notify: true
     })
   );
-  return dispatch(setLoader({key: 'forget', value:false}))
+  return dispatch(setLoader({ key: 'forget', value: false }))
 };
 
 export const onResetPassword = (data) => (dispatch) => {
@@ -133,8 +133,8 @@ export const onResetPassword = (data) => (dispatch) => {
 };
 
 export const onLogOut = () => (dispatch) => {
-  dispatch(resetAll())
-  return dispatch(logout())
+  dispatch(logout())
+  return dispatch(resetAll())
 };
 
 export default slice.reducer;

@@ -13,11 +13,8 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const Role = memo(({ setVisible, setTitle }) => {
   const dispatch = useDispatch();
-  const {
-    records,
-    loading: loader,
-    record: loginRole,
-  } = useSelector(({ resources }) => resources.Role);
+  const { records, loading: loader } = useSelector(({ resources }) => resources.Role);
+  const loginUser = useSelector(({ auth }) => auth.user);
   const [loading] = useState(loader);
   const [sort, setSort] = useState({});
 
@@ -73,7 +70,7 @@ const Role = memo(({ setVisible, setTitle }) => {
       width: 80,
       render: (text, record, index) => (
         <>
-          {loginRole.id !== record.id && (
+          {loginUser && loginUser.RoleId !== record.id && (
             <Button size="large" icon={<EditOutlined />} onClick={() => handleEdit(record)} />
           )}
           {!record.default && (
