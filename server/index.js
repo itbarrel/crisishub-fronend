@@ -7,7 +7,6 @@ const nextI18next = require('../modules/I18n')
 const cookieParser = require('cookie-parser')
 const sessionCookie = require('./middlewares/sessionCookie')
 
-console.log(process.env)
 const dev = process.env.NODE_ENV !== 'production'
 // const prod = process.env.NODE_ENV === 'production'
 const app = next({ dev, dir: path.join(__dirname, '..') })

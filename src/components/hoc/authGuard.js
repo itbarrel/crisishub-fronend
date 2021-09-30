@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo, useEffect } from 'react'
 import Router from 'next/router'
 import nextCookie from 'next-cookies'
 
@@ -28,36 +28,31 @@ const auth = (ctx) => {
 }
 
 export const withAuthSync = (Page) => {
-    return class extends React.Component {
-        // static displayName = `withAuthSync(${getDisplayName(Page)})`
+    const HOC = memo((props) => {
 
-        static async getInitialProps(ctx) {
-            const token = auth(ctx)
-            const componentProps = Page.getInitialProps && (await Page.getInitialProps(ctx))
-
-            return { ...componentProps, token }
-        }
-
-        constructor(props) {
-            super(props)
-            this.syncLogout = this.syncLogout.bind(this)
-        }
-
-        componentDidMount() {
-            window.addEventListener('storage', this.syncLogout)
-        }
-
-        componentWillUnmount() {
-            window.removeEventListener('storage', this.syncLogout)
-            window.localStorage.removeItem('logout')
-        }
-
-        syncLogout(event) {
+        const syncLogout = (event) => {
             if (event.key === 'logout') { Router.push('/') }
         }
 
-        render() {
-            return <Page {...this.props} />
-        }
-    }
+        useEffect(() => {
+            window.addEventListener('storage', syncLogout)
+            return () => {
+                window.removeEventListener('storage', syncLogout)
+                window.localStorage.removeItem('logout')
+            }
+        }, [])
+
+        return <Page {...props} />
+    });
+
+    HOC.displayName = `withLayout(${getDisplayName(Page)})`
+
+    HOC.getInitialProps = async (ctx) => {
+        const token = auth(ctx)
+        const componentProps = Page.getInitialProps && (await Page.getInitialProps(ctx))
+
+        return { ...componentProps, token }
+    };
+
+    return HOC
 }

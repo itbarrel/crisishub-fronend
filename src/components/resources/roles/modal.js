@@ -32,7 +32,6 @@ const ModalWindow = memo(({ title, visible, setVisible }) => {
     const [form] = Form.useForm();
 
     const { loading: loader, entities, operations, record } = useSelector(({ resources }) => resources.Role)
-    console.log(title, visible, record)
 
     const [loading, setLoading] = useState(loader);
     const [disabled, setDisabled] = useState(true);
