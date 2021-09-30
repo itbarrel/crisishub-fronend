@@ -107,7 +107,7 @@ const Accounts = memo((props) => {
 
     return (
         <>
-            <UpdateUser onShow={visible} selectedUser={selectedUser} title={'Update User'} off />
+            <UpdateUser visible={visible} setVisible={setVisible} selectedUser={selectedUser} title={'Update User'} off />
             <Table className="gx-table-responsive" {...tableSetting} onChange={handleSortChange} columns={columns} dataSource={list} />
         </>
     );

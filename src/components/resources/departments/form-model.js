@@ -23,11 +23,10 @@ const formItemLayout = {
     },
 };
 
-const DepartmentModel = memo(({ onShow, selected, title, off }) => {
+const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => {
     const draggleRef = useRef(null);
     const dispatch = useDispatch();
     const loader = useSelector(({ resources }) => resources.Departments.loading)
-    const [visible, setVisible] = useState(onShow);
     const [loading, setLoading] = useState(loader);
     const [modelTitle, setModelTitle] = useState(title);
     const [disabled, setDisabled] = useState(true);
@@ -47,7 +46,7 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
         let data = {
             name: formData.name,
         };
-        if (onShow) {
+        if (visible) {
             dispatch(updateDepartment(selected.id, data));
         } else {
             dispatch(addDepartment(data));
@@ -97,9 +96,9 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
     };
 
     useEffect(() => {
-        if (onShow) { onShowModal() }
+        if (visible) { onShowModal() }
         form.setFieldsValue(selected)
-    }, [onShow, selected])
+    }, [visible, selected])
 
     useEffect(() => {
         if (loading) {
@@ -154,13 +153,12 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
                     {...formItemLayout}
                     form={form}
                     name="register"
-                    // onFinish={onSubmit}
                     scrollToFirstError
                 >
 
                     <Form.Item
                         name="name"
-                        label={<LabelAndTooltip title={"Department Name"} tooltip={"Enter your department name you want to create "} />}
+                        label={<LabelAndTooltip title={"Department.Name"} tooltip={"Enter your department name you want to create "} />}
                         rules={[{ required: true, message: "Please input your First Name!", whitespace: true }]}
                     >
                         <Input />

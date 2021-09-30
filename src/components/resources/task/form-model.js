@@ -18,11 +18,10 @@ const formItemLayout = {
   },
 };
 
-const DepartmentModel = memo(({ onShow, selected, title, off }) => {
+const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => {
   const draggleRef = useRef(null);
   const dispatch = useDispatch();
   const loader = useSelector(({ resources }) => resources.Task.loading);
-  const [visible, setVisible] = useState(onShow);
   const [loading, setLoading] = useState(loader);
   const [modelTitle, setModelTitle] = useState(title);
   const [disabled, setDisabled] = useState(true);
@@ -46,7 +45,7 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
       links,
       description,
     };
-    if (onShow) {
+    if (visible) {
       dispatch(updateTask(selected.id, data));
     } else {
       dispatch(addTask(data));
@@ -70,8 +69,8 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
           onMouseOut={() => {
             setDisabled(true);
           }}
-          onFocus={() => {}}
-          onBlur={() => {}}
+          onFocus={() => { }}
+          onBlur={() => { }}
         >
           {modelTitle}
         </div>
@@ -93,9 +92,9 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
   };
 
   useEffect(() => {
-    if (onShow) { onShowModal(); }
+    if (visible) { onShowModal(); }
     form.setFieldsValue(selected);
-  }, [onShow, selected]);
+  }, [visible, selected]);
 
   useEffect(() => {
     if (loading) {
@@ -148,7 +147,6 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
         footer={<ModalFooter />}
         width={800}
         modalRender={Drag()}
-        getContainer={false}
         forceRender
       >
         <Form
@@ -162,7 +160,7 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
             name="title"
             label={
               <LabelAndTooltip
-                title={"Task Name"}
+                title={"Task.Name"}
                 tooltip={"Enter your Author name you want to create "}
               />
             }
@@ -175,7 +173,7 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
             name="author"
             label={
               <LabelAndTooltip
-                title={"Author Name"}
+                title={"Author.Name"}
                 tooltip={"Enter your Author name you want to create "}
               />
             }
@@ -186,7 +184,7 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
 
           <Form.Item
             name="type"
-            label={<LabelAndTooltip title={"type "} />}
+            label={<LabelAndTooltip title={"Type"} />}
             rules={[{ required: true, message: "Please input incident type", whitespace: true }]}
           >
             <Input />
@@ -202,7 +200,7 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
 
           <Form.Item
             name="description"
-            label={<LabelAndTooltip title={"Task Description"} />}
+            label={<LabelAndTooltip title={"Task.Description"} />}
             rules={[{ required: true, message: "Please enter task description", whitespace: true }]}
           >
             <Input />

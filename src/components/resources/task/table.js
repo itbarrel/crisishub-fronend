@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTaskList, removeTask , current_item } from '../../../store/slices/resources/tasks'
-import { Table, Button , Popconfirm} from "antd";
+import { getTaskList, removeTask, current_item } from '../../../store/slices/resources/tasks'
+import { Table, Button, Popconfirm } from "antd";
 import { log } from '../../../utils/console-log'
 import UpdateTask from './form-model'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -10,17 +10,16 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 const Accounts = memo((props) => {
 
     const dispatch = useDispatch();
-    const taskList  = useSelector(({resources}) => resources.Task.list);
+    const taskList = useSelector(({ resources }) => resources.Task.list);
     const loader = useSelector(({ resources }) => resources.Task.loading)
     const [loading, setLoading] = useState(loader)
     const [selectedTask, setSelectedTask] = useState({})
     const [visible, setVisible] = useState(false);
     const [sort, setSort] = useState({});
-    sort ||= {};
-	const handleSortChange = (pagination, filters, sorter) => {
-		console.log("Various parameters", pagination, filters, sorter);
-		setSort(sorter);
-	};
+    const handleSortChange = (pagination, filters, sorter) => {
+        console.log("Various parameters", pagination, filters, sorter);
+        setSort(sorter);
+    };
 
 
     const handleDelete = (Current_user) => {
@@ -42,7 +41,7 @@ const Accounts = memo((props) => {
             key: "title",
             width: 80,
             sorter: (a, b) => a.title.localeCompare(b.title),
-			sortOrder: sort.columnKey === "title" && sort.order,
+            sortOrder: sort.columnKey === "title" && sort.order,
         },
         {
             title: "Status",
@@ -50,7 +49,7 @@ const Accounts = memo((props) => {
             key: "active",
             width: 5,
             render: (text, record) => <span className="">{record.active ? 'Active' : "Un-Active"}</span>,
-        }, 
+        },
         {
             title: "Author",
             dataIndex: "author",
@@ -58,15 +57,15 @@ const Accounts = memo((props) => {
             width: 5,
             render: (text, record) => <span className="gx-link">{record.author}</span>,
             sorter: (a, b) => a.author.localeCompare(b.author),
-			sortOrder: sort.columnKey === "author" && sort.order,
-        }, 
+            sortOrder: sort.columnKey === "author" && sort.order,
+        },
         {
             title: "Type",
             dataIndex: "type",
             key: "type",
             width: 10,
             render: (text, record) => <span className="">{record.type}</span>,
-        }, 
+        },
         {
             title: "Links",
             dataIndex: "links",
@@ -74,8 +73,8 @@ const Accounts = memo((props) => {
             width: 80,
             render: (text, record) => <span className="gx-link">{record.links}</span>,
             sorter: (a, b) => a.links.localeCompare(b.links),
-			sortOrder: sort.columnKey === "links" && sort.order,
-        }, 
+            sortOrder: sort.columnKey === "links" && sort.order,
+        },
         {
             title: "Description",
             dataIndex: "description",
@@ -83,8 +82,8 @@ const Accounts = memo((props) => {
             width: 200,
             render: (text, record) => record.description,
             sorter: (a, b) => a.description.localeCompare(b.description),
-			sortOrder: sort.columnKey === "description" && sort.order,
-        }, 
+            sortOrder: sort.columnKey === "description" && sort.order,
+        },
         {
             title: 'Action',
             dataIndex: "Action",
@@ -92,9 +91,9 @@ const Accounts = memo((props) => {
             width: 5,
             render: (text, record) => (
                 <>
-                    <Button size="large" icon={<EditOutlined />}  onClick={() => handleUpdate(record)} />
+                    <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record)} />
                     <Popconfirm title="Are you sure delete this incident?" okText="Yes" cancelText="No" onConfirm={() => handleDelete(record)}>
-                        <Button size="default" icon={<DeleteOutlined />}/>
+                        <Button size="default" icon={<DeleteOutlined />} />
                     </Popconfirm>
                 </>
             ),
@@ -117,13 +116,17 @@ const Accounts = memo((props) => {
         rowKey: 'id'
     });
 
-      useEffect(() => {
+    useEffect(() => {
         dispatch(getTaskList())
     }, [])
 
+    const handleChange = (event) => {
+        console.log("asdf handle change", event)
+    }
+
     return (
         <>
-            <UpdateTask onShow={visible} selected={selectedTask} title={'Update Task'} off />
+            <UpdateTask visible={visible} setVisible={setVisible} selected={selectedTask} title={'Update Task'} off />
             <Table className="gx-table-responsive" {...tableSetting} onChange={handleSortChange} columns={columns} dataSource={taskList} />
         </>
     );

@@ -25,17 +25,17 @@ const formItemLayout = {
     },
 };
 
-const Model = memo(({ onShow, selectedUser, title, off }) => {
+const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
     const draggleRef = useRef(null);
     const dispatch = useDispatch();
     const loader = useSelector(({ resources }) => resources.Account.loading)
     const { records: roles } = useSelector(({ resources }) => resources.Role)
-    const [visible, setVisible] = useState(onShow);
     const [loading, setLoading] = useState(loader);
     const [modelTitle, setModelTitle] = useState(title);
     const [disabled, setDisabled] = useState(true);
     const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
     const [form] = Form.useForm();
+    const { Option } = Select;
 
     const onShowModal = () => {
         setVisible(true);
@@ -55,7 +55,7 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
             lastName: formData.lastName,
             mobilePhone: formData.mobilePhone,
         };
-        if (onShow) {
+        if (visible) {
             dispatch(updateUser(selectedUser.id, data));
         } else {
             dispatch(addUser(data));
@@ -105,9 +105,9 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
     };
 
     useEffect(() => {
-        if (onShow) { onShowModal() }
+        if (visible) { onShowModal() }
         form.setFieldsValue(selectedUser)
-    }, [onShow, selectedUser])
+    }, [visible, selectedUser])
 
     useEffect(() => {
         if (loading) {
@@ -156,13 +156,12 @@ const Model = memo(({ onShow, selectedUser, title, off }) => {
                 footer={<ModalFooter />}
                 width={800}
                 modalRender={Drag()}
-                getContainer={false}
+                forceRender
             >
                 <Form
                     {...formItemLayout}
                     form={form}
-                    name="register"
-                    // onFinish={onSubmit}
+                    name={title}
                     scrollToFirstError
                 >
 
