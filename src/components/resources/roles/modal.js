@@ -177,14 +177,14 @@ const ModalWindow = memo(({ title, visible, setVisible }) => {
                 onOk={onSubmit}
                 onCancel={onCloseModal}
                 footer={<ModalFooter />}
-                width={800}
+                width={1000}
                 modalRender={Drag()}
+                forceRender
             >
                 <Form
                     {...formItemLayout}
                     form={form}
                     name="manageRole"
-                    // onFinish={onSubmit}
                     scrollToFirstError
                 >
 

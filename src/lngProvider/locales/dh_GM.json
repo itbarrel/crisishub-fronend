@@ -39,6 +39,13 @@
   "Phone": "Telefoon",
   "Mobile.Phone": "Mobiele telefoon",
   "Status": "Toestand",
-  "sample": "sample",
-  "Name": "Naam"
+  "Name": "Naam",
+  "Task.Description": "Taakomschrijving",
+  "Links": "Links",
+  "Type": "Type",
+  "Author.Name": "Auteur Naam",
+  "Task.Name": "Opdrachtnaam",
+  "Incident.Name": "Naam incident",
+  "Department.Name": "Afdelingsnaam",
+  "sample": "sample"
 }

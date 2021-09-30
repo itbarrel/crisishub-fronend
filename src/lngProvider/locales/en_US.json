@@ -347,6 +347,13 @@
   "Phone": "Phone",
   "Mobile.Phone": "Mobile Phone",
   "Status": "Status",
-  "sample": "sample",
-  "Name": "Name"
+  "Name": "Name",
+  "Task.Description": "Task Description",
+  "Links": "Links",
+  "Type": "Type",
+  "Author.Name": "Author Name",
+  "Task.Name": "Task Name",
+  "Incident.Name": "Incident Name",
+  "Department.Name": "Department Name",
+  "sample": "sample"
 }

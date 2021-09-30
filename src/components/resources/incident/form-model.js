@@ -18,11 +18,10 @@ const formItemLayout = {
   },
 };
 
-const DepartmentModel = memo(({ onShow, selected, title, off }) => {
+const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => {
   const draggleRef = useRef(null);
   const dispatch = useDispatch();
   const loader = useSelector(({ resources }) => resources.Incidents.list);
-  const [visible, setVisible] = useState(onShow);
   const [loading, setLoading] = useState(loader);
   const [modelTitle, setModelTitle] = useState(title);
   const [disabled, setDisabled] = useState(true);
@@ -42,7 +41,7 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
     let data = {
       name: formData.name,
     };
-    if (onShow) {
+    if (visible) {
       dispatch(updateIncident(selected.id, data));
     } else {
       dispatch(addIncident(data));
@@ -66,8 +65,8 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
           onMouseOut={() => {
             setDisabled(true);
           }}
-          onFocus={() => {}}
-          onBlur={() => {}}
+          onFocus={() => { }}
+          onBlur={() => { }}
         >
           {modelTitle}
         </div>
@@ -89,9 +88,9 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
   };
 
   useEffect(() => {
-    if (onShow) { onShowModal(); }
+    if (visible) { onShowModal(); }
     form.setFieldsValue(selected);
-  }, [onShow, selected]);
+  }, [visible, selected]);
 
   useEffect(() => {
     if (loading) {
@@ -157,7 +156,7 @@ const DepartmentModel = memo(({ onShow, selected, title, off }) => {
             name="name"
             label={
               <LabelAndTooltip
-                title={"Incident Name"}
+                title={"Incident.Name"}
                 tooltip={"Enter your Incident name you want to create "}
               />
             }
