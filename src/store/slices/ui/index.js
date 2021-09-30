@@ -1,5 +1,3 @@
 import settings from "./settings";
 
-export {
-    settings,
-};
+export { settings };

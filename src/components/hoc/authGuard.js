@@ -5,59 +5,59 @@ import nextCookie from 'next-cookies'
 import { getDisplayName } from '../../utils'
 
 const serverRedirect = ({ res, location }) => {
-    res.writeHead(302, { location: location || '/' })
-    res.end()
+  res.writeHead(302, { location: location || '/' })
+  res.end()
 }
 
 const clientRedirect = ({ location }) => {
-    Router.push(location || '/')
+  Router.push(location || '/')
 }
 
 const auth = (ctx) => {
-    const { token } = nextCookie(ctx)
-    if (ctx.req && !token) {
-        serverRedirect(ctx)
-        return
-    }
+  const { token } = nextCookie(ctx)
+  if (ctx.req && !token) {
+    serverRedirect(ctx)
+    return
+  }
 
-    if (!token) {
-        clientRedirect()
-    }
+  if (!token) {
+    clientRedirect()
+  }
 
-    return token
+  return token
 }
 
 export const withAuthSync = (Page) => {
-    return class extends React.Component {
-        // static displayName = `withAuthSync(${getDisplayName(Page)})`
+  return class extends React.Component {
+    // static displayName = `withAuthSync(${getDisplayName(Page)})`
 
-        static async getInitialProps(ctx) {
-            const token = auth(ctx)
-            const componentProps = Page.getInitialProps && (await Page.getInitialProps(ctx))
+    static async getInitialProps(ctx) {
+      const token = auth(ctx)
+      const componentProps = Page.getInitialProps && (await Page.getInitialProps(ctx))
 
-            return { ...componentProps, token }
-        }
-
-        constructor(props) {
-            super(props)
-            this.syncLogout = this.syncLogout.bind(this)
-        }
-
-        componentDidMount() {
-            window.addEventListener('storage', this.syncLogout)
-        }
-
-        componentWillUnmount() {
-            window.removeEventListener('storage', this.syncLogout)
-            window.localStorage.removeItem('logout')
-        }
-
-        syncLogout(event) {
-            if (event.key === 'logout') { Router.push('/') }
-        }
-
-        render() {
-            return <Page {...this.props} />
-        }
+      return { ...componentProps, token }
     }
+
+    constructor(props) {
+      super(props)
+      this.syncLogout = this.syncLogout.bind(this)
+    }
+
+    componentDidMount() {
+      window.addEventListener('storage', this.syncLogout)
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('storage', this.syncLogout)
+      window.localStorage.removeItem('logout')
+    }
+
+    syncLogout(event) {
+      if (event.key === 'logout') { Router.push('/') }
+    }
+
+    render() {
+      return <Page {...this.props} />
+    }
+  }
 }

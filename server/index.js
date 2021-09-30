@@ -15,23 +15,23 @@ const handler = app.getRequestHandler()
 const port = parseInt(process.env.PORT, 10) || 4000
 
 app.prepare().then(() => {
-    const server = express()
+  const server = express()
 
-    // if (!dev && !prod) {
-    //   server.use(basicAuth({
-    //     users: { argo: process.env.BASIC_AUTH_PWD },
-    //     challenge: true
-    //   }))
-    // }
+  // if (!dev && !prod) {
+  //   server.use(basicAuth({
+  //     users: { argo: process.env.BASIC_AUTH_PWD },
+  //     challenge: true
+  //   }))
+  // }
 
-    server
-        .use(cookieParser())
-        .use(sessionCookie)
-        .use(nextI18NextMiddleware(nextI18next))
-        .use(handler)
+  server
+    .use(cookieParser())
+    .use(sessionCookie)
+    .use(nextI18NextMiddleware(nextI18next))
+    .use(handler)
 
-    server.listen(port, err => {
-        if (err) { throw err }
-        console.log(`> Ready on http://localhost:${port}`)
-    })
+  server.listen(port, err => {
+    if (err) { throw err }
+    console.log(`> Ready on http://localhost:${port}`)
+  })
 })

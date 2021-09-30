@@ -12,9 +12,9 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  "globals": {
-    "Promise": "off",
-    "module": "off"
+  globals: {
+    Promise: "off",
+    module: "off",
   },
   plugins: ["react", "react-hooks"],
   rules: {
@@ -77,10 +77,7 @@ module.exports = {
     "id-length": "off",
     "id-match": "error",
     "implicit-arrow-linebreak": ["error", "beside"],
-    "indent": [
-      "error",
-      2
-    ],
+    indent: ["error", 2],
     "indent-legacy": "off",
     "init-declarations": "error",
     "jsx-quotes": ["error", "prefer-double"],
@@ -257,4 +254,3 @@ module.exports = {
     yoda: ["error", "never"],
   },
 };
-

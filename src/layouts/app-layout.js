@@ -1,7 +1,8 @@
-import React from 'react'
+/* eslint-disable indent */
+import React from "react";
 import { ConfigProvider, Layout } from "antd";
-import { IntlProvider } from 'react-intl';
-import { connect, useSelector, useDispatch } from "react-redux";
+import { IntlProvider } from "react-intl";
+import { useSelector } from "react-redux";
 import AppLocale from "../lngProvider";
 import Sidebar from "./Sidebar";
 import HorizontalDefault from "./Topbar/HorizontalDefault";
@@ -24,20 +25,18 @@ import {
   NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR,
   NAV_STYLE_NO_HEADER_MINI_SIDEBAR,
   TAB_SIZE,
-  THEME_TYPE_DARK
+  THEME_TYPE_DARK,
 } from "../constants/ThemeSetting";
 
 import NoHeaderNotification from "./Topbar/NoHeaderNotification";
 import Customizer from "./Customizer";
-import { withAuthSync } from '../components/hoc/authGuard'
+import { withAuthSync } from "../components/hoc/authGuard";
 
 const { Content, Footer } = Layout;
-// const currentAppLocale = AppLocale.en;
 
-
+// eslint-disable-next-line react/display-name
 const withLayout = (Page) => (props) => {
-
-  const { width, themeType, layoutType, locale, navStyle, } = useSelector(({ ui }) => ui.settings)
+  const { width, themeType, locale, navStyle } = useSelector(({ ui }) => ui.settings);
 
   const getContainerClass = (navStyle) => {
     switch (navStyle) {
@@ -52,7 +51,7 @@ const withLayout = (Page) => (props) => {
       case NAV_STYLE_ABOVE_HEADER:
         return "gx-container-wrap";
       default:
-        return '';
+        return "";
     }
   };
 
@@ -105,7 +104,7 @@ const withLayout = (Page) => (props) => {
 
   let bodyClass = "";
   if (themeType === THEME_TYPE_DARK) {
-    bodyClass = "dark-theme"
+    bodyClass = "dark-theme";
   }
 
   const currentAppLocale = AppLocale[locale.locale];
@@ -123,9 +122,7 @@ const withLayout = (Page) => (props) => {
                   <Page {...props} />
                 </div>
                 <Footer>
-                  <div className="gx-layout-footer-content">
-                    {FOOTER_TEXT}
-                  </div>
+                  <div className="gx-layout-footer-content">{FOOTER_TEXT}</div>
                 </Footer>
               </Content>
             </Layout>
@@ -134,7 +131,9 @@ const withLayout = (Page) => (props) => {
         </IntlProvider>
       </ConfigProvider>
     </>
-  )
-}
+  );
+};
 
-export default (Page) => withAuthSync(withLayout(Page))
+withLayout.displayName = "someName"
+
+export default (Page) => withAuthSync(withLayout(Page));

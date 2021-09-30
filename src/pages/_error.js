@@ -36,7 +36,9 @@ const Error = memo(() => {
 Error.displayName = Error;
 
 Error.getInitialProps = ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  const error = err ? err.statusCode : 404;
+  const statusCode = res ? res.statusCode : error;
+
   return { statusCode };
 };
 

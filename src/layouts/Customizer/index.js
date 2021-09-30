@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Button, Drawer, Radio } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -335,15 +337,3 @@ const CustomizerSystem = () => {
 };
 
 export default CustomizerSystem;
-
-// import React from 'react';
-
-// const Index = () => {
-//   return (
-//     <div>
-
-//     </div>
-//   );
-// };
-
-// export default Index;

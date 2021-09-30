@@ -1,4 +1,4 @@
-import react, { memo } from "react";
+import { memo } from "react";
 import asyncComponent from "../utils/asyncComponent";
 
 const Login = asyncComponent(() => import("../pages/auth/login"));

@@ -1,3 +1,5 @@
+/* eslint-disable require-unicode-regexp */
+/* eslint-disable prefer-named-capture-group */
 export const USERNAME_REGEX = /^[a-zA-Z][^#&<>"~;$^%{}?]{2,32}$/u; // minimum 3 and max 32 characters allowed
 export const NICKNAME_REGEX = /^[a-zA-Z][^#&<>"~;$^%{}?]{2,25}$/u; // minimum 3 and max 25 characters allowed
 export const USER_BIO_REGEX = /^[a-zA-Z][^#&<>"~;$^%{}?]{0,500}$/u; // minimum 1 and max 300 characters allowed

@@ -7,21 +7,21 @@ import SEO from "../../components/seo";
 import Widget from "../../components/Widget";
 
 const Task = memo(() => {
-	const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-	return (
-		<>
-			<SEO title={"Tasks"} />
-			<Widget title="Tasks">
-				<Row justify="end">
-					<Col span={4}>
-						<AddTask title={"Add Task"} visible={visible} setVisible={setVisible} />
-					</Col>
-				</Row>
-				<TaskList />
-			</Widget>
-		</>
-	);
+  return (
+    <>
+      <SEO title={"Tasks"} />
+      <Widget title="Tasks">
+        <Row justify="end">
+          <Col span={4}>
+            <AddTask title={"Add Task"} visible={visible} setVisible={setVisible} />
+          </Col>
+        </Row>
+        <TaskList />
+      </Widget>
+    </>
+  );
 });
 
 Task.displayName = Task;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { memo, useEffect, useRef, useState } from "react";
 import { Button, Form, Input, Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +7,7 @@ import { isClient } from "../../../utils/is-client";
 import Draggable from "react-draggable";
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
 import { PlusCircleOutlined } from "@ant-design/icons";
+import PropTypes from "prop-types";
 
 const formItemLayout = {
   labelCol: {
@@ -23,7 +25,7 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
   const dispatch = useDispatch();
   const loader = useSelector(({ resources }) => resources.Task.loading);
   const [loading, setLoading] = useState(loader);
-  const [modelTitle, setModelTitle] = useState(title);
+  const [modelTitle] = useState(title);
   const [disabled, setDisabled] = useState(true);
   const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
   const [form] = Form.useForm();
@@ -69,8 +71,8 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
           onMouseOut={() => {
             setDisabled(true);
           }}
-          onFocus={() => { }}
-          onBlur={() => { }}
+          onFocus={(e) => e}
+          onBlur={(e) => e}
         >
           {modelTitle}
         </div>
@@ -92,7 +94,9 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
   };
 
   useEffect(() => {
-    if (visible) { onShowModal(); }
+    if (visible) {
+      onShowModal();
+    }
     form.setFieldsValue(selected);
   }, [visible, selected]);
 
@@ -103,7 +107,7 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
     }
   }, [loading]);
 
-  const Drag = () => (model) => {
+  const drag = () => (model) => {
     if (isClient) {
       const { clientWidth, clientHeight } = window?.document?.documentElement;
       const targetRect = draggleRef?.current?.getBoundingClientRect();
@@ -146,7 +150,7 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
         onCancel={onCloseModal}
         footer={<ModalFooter />}
         width={800}
-        modalRender={Drag()}
+        modalRender={drag()}
         forceRender
       >
         <Form
@@ -212,5 +216,14 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
 });
 
 DepartmentModel.displayName = DepartmentModel;
+
+DepartmentModel.propTypes = {
+  title: PropTypes.string,
+  visible: PropTypes.any,
+  setVisible: PropTypes.any,
+  selectedUser: PropTypes.any,
+  off: PropTypes.bool,
+  selected: PropTypes.any,
+};
 
 export default DepartmentModel;

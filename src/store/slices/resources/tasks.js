@@ -9,7 +9,7 @@ const slice = createSlice({
     update_item: [],
   },
   reducers: {
-    loading: (state, action) => {
+    loading: (state) => {
       state.loading = true;
     },
     all: (state, action) => {
@@ -20,7 +20,8 @@ const slice = createSlice({
       state.list.unshift(action.payload);
       state.loading = false;
     },
-    remove: (state, action) => {
+    remove: (state) => {
+      // eslint-disable-next-line no-negated-condition
       const update = state.list.filter((user) => (user.id !== state.update_item?.id ? user : null));
       state.list = update;
       state.loading = false;
@@ -33,25 +34,24 @@ const slice = createSlice({
     current_item: (state, action) => {
       state.update_item = action.payload;
     },
-    failed: (state, action) => {
+    failed: (state) => {
       state.loading = false;
       state.hasErrors = true;
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(resetAll, (state, action) => {
-        // action is inferred correctly here if using TS
-        state.loading = false
-        state.list = []
-        state.update_item = []
-      })
+    builder.addCase(resetAll, (state) => {
+      // action is inferred correctly here if using TS
+      state.loading = false;
+      state.list = [];
+      state.update_item = [];
+    });
   },
 });
 
 export const { loading, all, add, remove, update, current_item, failed } = slice.actions;
 
-export const getTaskList = () => (dispatch, getState) => {
+export const getTaskList = () => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: "v1/tasks",
@@ -63,7 +63,7 @@ export const getTaskList = () => (dispatch, getState) => {
   );
 };
 
-export const addTask = (data) => (dispatch, getState) => {
+export const addTask = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: "v1/tasks",
@@ -72,12 +72,12 @@ export const addTask = (data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: add.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
 };
 
-export const removeTask = (id) => (dispatch, getState) => {
+export const removeTask = (id) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: `v1/tasks/${id}`,
@@ -85,12 +85,12 @@ export const removeTask = (id) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: remove.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
 };
 
-export const updateTask = (id, data) => (dispatch, getState) => {
+export const updateTask = (id, data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: `v1/tasks/${id}`,
@@ -99,7 +99,7 @@ export const updateTask = (id, data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: update.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
 };

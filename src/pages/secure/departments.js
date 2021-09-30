@@ -7,21 +7,21 @@ import SEO from "../../components/seo/";
 import Widget from "../../components/Widget";
 
 const Departments = memo(() => {
-	const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-	return (
-		<>
-			<SEO title={"Departments"} />
-			<Widget title="Departments">
-				<Row justify="end">
-					<Col span={4}>
-						<AddDepartments title={"Add Department"} visible={visible} setVisible={setVisible} />
-					</Col>
-				</Row>
-				<DepartmentList />
-			</Widget>
-		</>
-	);
+  return (
+    <>
+      <SEO title={"Departments"} />
+      <Widget title="Departments">
+        <Row justify="end">
+          <Col span={4}>
+            <AddDepartments title={"Add Department"} visible={visible} setVisible={setVisible} />
+          </Col>
+        </Row>
+        <DepartmentList />
+      </Widget>
+    </>
+  );
 });
 
 Departments.displayName = Departments;

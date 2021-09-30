@@ -1,7 +1,10 @@
-import ApiClient from './client'
+import ApiClient from "./client";
+import env from "../../configs/";
 
-const apiUrl = process.env.NEXT_PUBLIC_HOST_URL
+const apiUrl = env.baseURL;
 
-const apiClient = new ApiClient(apiUrl)
+// const apiUrl = process.env.NEXT_PUBLIC_HOST_URL;
 
-export default apiClient
+const apiClient = new ApiClient(apiUrl);
+
+export default apiClient;

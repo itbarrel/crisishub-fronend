@@ -1,10 +1,8 @@
+/* eslint-disable react/display-name */
 import React, { useState } from "react";
-import { Card, Divider, Form, Radio, Switch, Table, Button } from "antd";
-import Icon from "@ant-design/icons";
+import { Card, Table, Button } from "antd";
 
 const Dynamic = () => {
-  const FormItem = Form.Item;
-
   const columns = [
     {
       title: "Name*",
@@ -34,23 +32,23 @@ const Dynamic = () => {
   ];
 
   const data = [];
-  for (let i = 1; i <= 10; i++) {
-    data.push({
-      key: i,
-      name: "John Brown",
-      accountName: `Bluey ${i}`,
-      status: `Active`,
-      description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
-    });
-  }
+  // for (let i = 1; i <= 10; +=i) {
+  //   data.push({
+  //     key: i,
+  //     name: "John Brown",
+  //     accountName: `Bluey ${i}`,
+  //     status: `Active`,
+  //     description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
+  //   });
+  // }
 
-  const expandedRowRender = (record) => <p>{record.description}</p>;
-  const title = () => "Here is title";
+  // const expandedRowRender = (record) => <p>{record.description}</p>;
+  // const title = () => "Here is title";
   const showHeader = true;
-  const footer = () => "Here is footer";
-  const scroll = { y: 240 };
+  // const footer = () => "Here is footer";
+  // const scroll = { y: 240 };
   const pagination = { position: "bottom" };
-  const [state, setState] = useState({
+  const [state] = useState({
     bordered: "small", // false if instead
     loading: false,
     pagination,

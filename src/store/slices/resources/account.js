@@ -9,7 +9,7 @@ const slice = createSlice({
     item: {},
   },
   reducers: {
-    loading: (state, action) => {
+    loading: (state) => {
       state.loading = true;
     },
     all: (state, action) => {
@@ -25,25 +25,24 @@ const slice = createSlice({
       const { payload } = action;
       state.item = payload;
     },
-    failed: (state, action) => {
+    failed: (state) => {
       state.loading = false;
       state.hasErrors = true;
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(resetAll, (state, action) => {
-        // action is inferred correctly here if using TS
-        state.loading = false
-        state.list = []
-        state.item = {}
-      })
+    builder.addCase(resetAll, (state) => {
+      // action is inferred correctly here if using TS
+      state.loading = false;
+      state.list = [];
+      state.item = {};
+    });
   },
 });
 
 export const { loading, all, show, add, failed } = slice.actions;
 
-export const getAccountsList = () => (dispatch, getState) => {
+export const getAccountsList = () => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: "v1/accounts",
@@ -56,7 +55,7 @@ export const getAccountsList = () => (dispatch, getState) => {
   );
 };
 
-export const addAccount = (data) => (dispatch, getState) => {
+export const addAccount = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: "v1/accounts",
@@ -65,7 +64,7 @@ export const addAccount = (data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: add.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
 };

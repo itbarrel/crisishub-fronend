@@ -31610,7 +31610,7 @@ h6,
 .ant-drawer .ant-menu-vertical-left .ant-menu-submenu-title,
 .ant-drawer .ant-menu-vertical-right .ant-menu-submenu-title,
 .ant-drawer .ant-menu-inline .ant-menu-submenu-title {
-  padding-left: 30px !important;
+  padding-left: 40px !important;
 }
 .ant-menu-vertical .ant-menu-item .icon,
 .ant-menu-vertical-left .ant-menu-item .icon,

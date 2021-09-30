@@ -13,7 +13,7 @@ const Accounts = memo(() => {
       <Widget title="Accounts">
         <Row justify="end">
           <Col span={4}>
-            <AddAccounts  />
+            <AddAccounts />
           </Col>
         </Row>
         <AccountsList />
