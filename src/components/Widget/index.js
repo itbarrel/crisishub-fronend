@@ -1,20 +1,19 @@
 import React from "react";
 import { Card } from "antd";
 import PropTypes from "prop-types";
-import IntlMessages from '../../utils/IntlMessages'
+import IntlMessages from "../../utils/IntlMessages";
 
-const Widget = ({ title, text,children, styleName, cover, extra, actions }) => {
-	
+const Widget = ({ title, text, children, styleName, cover, extra, actions }) => {
   const Title = () => {
-    return(
+    return (
       <>
         <IntlMessages id={title} /> {text}
       </>
-    )
-  }
+    );
+  };
   return (
     <Card
-      title={<Title />}
+      title={(title && <Title />) || text}
       actions={actions}
       cover={cover}
       className={` ${styleName}`}

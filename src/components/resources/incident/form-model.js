@@ -23,7 +23,7 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
   const dispatch = useDispatch();
   const loader = useSelector(({ resources }) => resources.Incidents.list);
   const [loading, setLoading] = useState(loader);
-  const [modelTitle, setModelTitle] = useState(title);
+  const [modelTitle] = useState(title);
   const [disabled, setDisabled] = useState(true);
   const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
   const [form] = Form.useForm();
@@ -42,7 +42,7 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
       name: formData.name,
     };
     if (visible) {
-      dispatch(updateIncident(selected.id, data));
+      dispatch(updateIncident(selected?.id, data));
     } else {
       dispatch(addIncident(data));
     }
@@ -65,8 +65,8 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
           onMouseOut={() => {
             setDisabled(true);
           }}
-          onFocus={() => { }}
-          onBlur={() => { }}
+          onFocus={() => {}}
+          onBlur={() => {}}
         >
           {modelTitle}
         </div>
@@ -88,7 +88,9 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
   };
 
   useEffect(() => {
-    if (visible) { onShowModal(); }
+    if (visible) {
+      onShowModal();
+    }
     form.setFieldsValue(selected);
   }, [visible, selected]);
 

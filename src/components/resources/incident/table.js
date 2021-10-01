@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,30 +11,29 @@ import { log } from "../../../utils/console-log";
 import UpdateIncident from "./form-model";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
-const Accounts = memo((props) => {
+const IncidentTable = memo(() => {
   const dispatch = useDispatch();
   const incidentList = useSelector(({ resources }) => resources.Incidents.list);
   const loader = useSelector(({ resources }) => resources.Incidents.loading);
-  const [loading, setLoading] = useState(loader);
-  const [selectedDepartment, setSelectedDepartment] = useState({});
+  const [loading] = useState(loader);
+  const [selectedIncident, setSelectedIncident] = useState({});
   const [visible, setVisible] = useState(false);
   const [sort, setSort] = useState({});
-  sort ||= {};
   const handleSortChange = (pagination, filters, sorter) => {
     console.log("Various parameters", pagination, filters, sorter);
     setSort(sorter);
   };
 
   const handleDelete = (Current_user) => {
-    log("handleDelete department", Current_user.id);
+    log("handleDelete incident", Current_user.id);
     dispatch(removeIncident(Current_user.id));
     dispatch(current_item(Current_user));
   };
 
   const handleUpdate = (Current_user) => {
-    log("handleUpdate Department", Current_user);
+    log("handleUpdate incident", Current_user);
     setVisible(true);
-    setSelectedDepartment(Current_user);
+    setSelectedIncident(Current_user);
   };
 
   const columns = [
@@ -76,7 +76,7 @@ const Accounts = memo((props) => {
 
   const showHeader = true;
   const pagination = { position: "bottom" };
-  const [tableSetting, setTableSetting] = useState({
+  const [tableSetting] = useState({
     bordered: true,
     loading: loading,
     pagination,
@@ -98,7 +98,7 @@ const Accounts = memo((props) => {
       <UpdateIncident
         visible={visible}
         setVisible={setVisible}
-        selected={selectedDepartment}
+        selected={selectedIncident}
         title={"Update Incident"}
         off
       />
@@ -113,5 +113,5 @@ const Accounts = memo((props) => {
   );
 });
 
-Accounts.displayName = Accounts;
-export default Accounts;
+IncidentTable.displayName = IncidentTable;
+export default IncidentTable;

@@ -66,17 +66,29 @@ const SidebarContent = () => {
           >
             {/* Main text */}
             <MenuItemGroup
-              key="main"
+              key="dashboard"
               className="gx-menu-group"
-              title={<IntlMessages id="sidebar.main" />}
+              title={<IntlMessages id="dashBoard" />}
             >
-              {/* dashboard */}
-              <Menu.Item key={"/secure/dashboard"}>
-                <Link href="/secure/dashboard">
+              {/* main */}
+              <Menu.Item key={"/secure/dashboard/main"}>
+                <Link href="/secure/dashboard/main">
                   <a>
                     <i className="icon icon-widgets" />
                     <span>
-                      <IntlMessages id="dashBoard" />
+                      <IntlMessages id="sidebar.main" />
+                    </span>
+                  </a>
+                </Link>
+              </Menu.Item>
+
+              {/* incident */}
+              <Menu.Item key={"/secure/dashboard/incidents"}>
+                <Link href="/secure/dashboard/incidents">
+                  <a>
+                    <i className="icon icon-etherium" />
+                    <span>
+                      <IntlMessages id="incidents" />
                     </span>
                   </a>
                 </Link>

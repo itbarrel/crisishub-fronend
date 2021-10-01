@@ -39373,7 +39373,7 @@ textarea.gx-chat-textarea {
   right: 0;
   top: 0;
   z-index: 1;
-  background-color: #ff6bb3;
+  /* background-color: #bde5ec; */
   color: #ffffff;
   padding: 5px 12px;
   -webkit-border-radius: 0 10px 0 10px;
