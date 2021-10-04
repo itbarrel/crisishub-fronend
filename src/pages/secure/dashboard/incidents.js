@@ -1,10 +1,11 @@
 import React, { memo, useEffect, useState } from "react";
 import { Col, Row } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import withLayout from "../../../layouts/app-layout";
 import SEO from "../../../components/seo";
+import withLayout from "../../../layouts/app-layout";
 import Incidents from "../../../components/cards/Card";
 import { getIncidentList } from "../../../store/slices/resources/incidents";
+import ActionBar from "../../../components/dashbaord/incidents/action-bar";
 
 const IncidentDashboard = memo(() => {
   const [loading, setLoading] = useState(false);
@@ -19,6 +20,7 @@ const IncidentDashboard = memo(() => {
   return (
     <>
       <SEO title={"Incidents Dashboard"} />
+      <ActionBar />
       <Row>
         {!loading &&
           incidentList &&

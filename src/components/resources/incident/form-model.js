@@ -18,7 +18,7 @@ const formItemLayout = {
   },
 };
 
-const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => {
+const DepartmentModel = memo(({ visible, setVisible, selected, title, type, styleName, off }) => {
   const draggleRef = useRef(null);
   const dispatch = useDispatch();
   const loader = useSelector(({ resources }) => resources.Incidents.list);
@@ -41,7 +41,7 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
     let data = {
       name: formData.name,
     };
-    if (visible) {
+    if (visible && selected) {
       dispatch(updateIncident(selected?.id, data));
     } else {
       dispatch(addIncident(data));
@@ -133,7 +133,12 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
       {off ? (
         ""
       ) : (
-        <Button type="primary" onClick={onShowModal} icon={<PlusCircleOutlined />}>
+        <Button
+          type={type ? type : "primary"}
+          onClick={onShowModal}
+          icon={<PlusCircleOutlined />}
+          className={`${styleName && styleName}`}
+        >
           {title}
         </Button>
       )}

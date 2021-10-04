@@ -18,7 +18,8 @@
     "reduxjs",
     "resourses",
     "stylelint",
-    "submenu"
+    "submenu",
+    "Usergroup"
   ],
   "editor.formatOnSave": true
 }
