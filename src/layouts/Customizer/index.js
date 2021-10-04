@@ -49,12 +49,11 @@ import {
   RED_SEC,
   THEME_TYPE_DARK,
   THEME_TYPE_LITE,
-  THEME_TYPE_SEMI_DARK
+  THEME_TYPE_SEMI_DARK,
 } from "../../constants/ThemeSetting";
-import { log } from '../../utils/console-log'
+import { log } from "../../utils/console-log";
 
 const CustomizerSystem = () => {
-
   const [isCustomizerOpened, setIsCustomizerOpened] = useState(false);
   const dispatch = useDispatch();
 
@@ -65,26 +64,26 @@ const CustomizerSystem = () => {
 
   const handleColorChange = (filename) => {
     log("handleColorChange", filename);
-    // let link = document.createElement('link');
-    // link.type = 'text/css';
-    // link.rel = 'stylesheet';
-    // link.className = 'gx-style';
-    // link.href = `/css/${filename}.css`;
+    let link = document.createElement("link");
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    link.className = "gx-style";
+    link.href = `/css/${filename}.css`;
 
-    // setTimeout(() => {
-    //   const children = document.getElementsByClassName('gx-style');
+    setTimeout(() => {
+      const children = document.getElementsByClassName("gx-style");
 
-    //   if (children.length > 1) {
-    //     for (let index = 0; index < children.length; index++) {
-    //       if ((index + 1) < children.length) {
-    //         const child = children[index];
-    //         child.parentNode.removeChild(child);
-    //       }
-    //     }
-    //   }
-    // }, 10000);
-    // console.log("my link ", link);
-    // document.body.appendChild(link);
+      if (children.length > 1) {
+        for (let index = 0; index < children.length; index++) {
+          if (index + 1 < children.length) {
+            const child = children[index];
+            child.parentNode.removeChild(child);
+          }
+        }
+      }
+    }, 1000);
+    console.log("my link ", link);
+    document.body.appendChild(link);
     // dispatch(setThemeColor(filename));
   };
 
@@ -101,188 +100,223 @@ const CustomizerSystem = () => {
   };
 
   const getCustomizerContent = () => {
-    log("getCustomizerContent")
-    // if (themeType === THEME_TYPE_DARK) {
-    //   document.body.classList.add('dark-theme');
-    //   let link = document.createElement('link');
-    //   link.type = 'text/css';
-    //   link.rel = 'stylesheet';
-    //   link.href = "/css/dark_theme.css";
-    //   link.className = 'style_dark_theme';
-    //   document.body.appendChild(link);
-    // } else if (document.body.classList.contains('dark-theme')) {
-    //   document.body.classList.remove('dark-theme');
-    //   const children = document.getElementsByClassName('style_dark_theme');
-    //   if (children.length > 1) {
-    //     for (let index = 0; index < children.length; index++) {
-    //       if (index < children.length) {
-    //         const child = children[index];
-    //         child.parentNode.removeChild(child);
-    //       }
-    //     }
-    //   }
-    // }
+    log("getCustomizerContent");
+    if (themeType === THEME_TYPE_DARK) {
+      document.body.classList.add("dark-theme");
+      let link = document.createElement("link");
+      link.type = "text/css";
+      link.rel = "stylesheet";
+      link.href = "/css/dark_theme.css";
+      link.className = "style_dark_theme";
+      document.body.appendChild(link);
+    } else if (document.body.classList.contains("dark-theme")) {
+      document.body.classList.remove("dark-theme");
+      const children = document.getElementsByClassName("style_dark_theme");
+      if (children.length > 1) {
+        for (let index = 0; index < children.length; index++) {
+          if (index < children.length) {
+            const child = children[index];
+            child.parentNode.removeChild(child);
+          }
+        }
+      }
+    }
 
-    return <CustomScrollbars className="gx-customizer">
-      <div className="gx-customizer-item">
-        <h6 className="gx-mb-3 gx-text-uppercase">Theme</h6>
-        <Radio.Group value={themeType} onChange={onThemeTypeChange}>
-          <Radio.Button value={THEME_TYPE_LITE}>Lite</Radio.Button>
-          <Radio.Button value={THEME_TYPE_SEMI_DARK}>Semi Dark</Radio.Button>
-          <Radio.Button value={THEME_TYPE_DARK}>Dark</Radio.Button>
-        </Radio.Group>
-      </div>
-      <div className="gx-customizer-item">
-        {getPresetColors(themeColor)}
-      </div>
+    return (
+      <CustomScrollbars className="gx-customizer">
+        <div className="gx-customizer-item">
+          <h6 className="gx-mb-3 gx-text-uppercase">Theme</h6>
+          <Radio.Group value={themeType} onChange={onThemeTypeChange}>
+            <Radio.Button value={THEME_TYPE_LITE}>Lite</Radio.Button>
+            <Radio.Button value={THEME_TYPE_SEMI_DARK}>Semi Dark</Radio.Button>
+            <Radio.Button value={THEME_TYPE_DARK}>Dark</Radio.Button>
+          </Radio.Group>
+        </div>
+        <div className="gx-customizer-item">{getPresetColors(themeColor)}</div>
 
-      <h6 className="gx-mb-3 gx-text-uppercase">Nav Style</h6>
+        <h6 className="gx-mb-3 gx-text-uppercase">Nav Style</h6>
 
-      {getNavStyles(navStyle)}
+        {getNavStyles(navStyle)}
 
-      {/* <h6 className="gx-mb-3 gx-text-uppercase">Layout</h6> */}
+        {/* <h6 className="gx-mb-3 gx-text-uppercase">Layout</h6> */}
 
-      {/* {getLayoutsTypes(layoutType)} */}
-    </CustomScrollbars>
+        {/* {getLayoutsTypes(layoutType)} */}
+      </CustomScrollbars>
+    );
   };
 
   const handleThemeColor = (fileName) => {
-    console.log("handleThemeColor >>>>>")
+    console.log("handleThemeColor >>>>>");
     handleColorChange(fileName);
   };
 
   const handleLayoutTypes = (layoutType) => {
-    console.log("handleLayoutTypes >>>>>")
+    console.log("handleLayoutTypes >>>>>");
     dispatch(onLayoutTypeChange(layoutType));
   };
 
   const getPresetColors = (themeColor) => {
-    return <ul className="gx-color-option gx-list-inline">
+    return (
+      <ul className="gx-color-option gx-list-inline">
+        <li>
+          <span
+            onClick={() => handleThemeColor("light_purple")}
+            style={{ backgroundColor: LIGHT_PURPLE_SEC, color: LIGHT_PURPLE_DARK_TEXT_COLOR }}
+            className={`gx-link gx-color-light-purple ${themeColor === LIGHT_PURPLE && "active"}`}
+          />
+        </li>
+        <li>
+          <span
+            onClick={() => handleThemeColor("red")}
+            style={{ backgroundColor: RED_SEC, color: RED_DARK_TEXT_COLOR }}
+            className={`gx-link gx-color-red ${themeColor === RED && "active"}`}
+          />
+        </li>
+        <li>
+          <span
+            onClick={() => handleThemeColor("blue")}
+            style={{ backgroundColor: BLUE_SEC, color: BLUE_DARK_TEXT_COLOR }}
+            className={`gx-link gx-color-blue ${themeColor === BLUE && "active"}`}
+          />
+        </li>
+        <li>
+          <span
+            onClick={() => handleThemeColor("dark_blue")}
+            style={{ backgroundColor: DARK_BLUE_SEC, color: DARK_BLUE_DARK_TEXT_COLOR }}
+            className={`gx-link gx-color-dark-blue ${themeColor === DARK_BLUE && "active"}`}
+          />
+        </li>
 
-      <li>
-        <span
-          onClick={() => handleThemeColor("light_purple")}
-          style={{ backgroundColor: LIGHT_PURPLE_SEC, color: LIGHT_PURPLE_DARK_TEXT_COLOR }}
-          className={`gx-link gx-color-light-purple ${themeColor === LIGHT_PURPLE && 'active'}`} />
-      </li>
-      <li>
-        <span
-          onClick={() => handleThemeColor("red")}
-          style={{ backgroundColor: RED_SEC, color: RED_DARK_TEXT_COLOR }}
-          className={`gx-link gx-color-red ${themeColor === RED && 'active'}`} />
-      </li>
-      <li>
-        <span
-          onClick={() => handleThemeColor("blue")}
-          style={{ backgroundColor: BLUE_SEC, color: BLUE_DARK_TEXT_COLOR }}
-          className={`gx-link gx-color-blue ${themeColor === BLUE && 'active'}`} />
-      </li>
-      <li>
-        <span
-          onClick={() => handleThemeColor("dark_blue")}
-          style={{ backgroundColor: DARK_BLUE_SEC, color: DARK_BLUE_DARK_TEXT_COLOR }}
-          className={`gx-link gx-color-dark-blue ${themeColor === DARK_BLUE && 'active'}`} />
-      </li>
+        <li>
+          <span
+            onClick={() => handleThemeColor("orange")}
+            style={{ backgroundColor: ORANGE_SEC, color: ORANGE_DARK_TEXT_COLOR }}
+            className={`gx-link gx-color-orange ${themeColor === ORANGE && "active"}`}
+          />
+        </li>
 
-      <li>
-        <span
-          onClick={() => handleThemeColor("orange")}
-          style={{ backgroundColor: ORANGE_SEC, color: ORANGE_DARK_TEXT_COLOR }}
-          className={`gx-link gx-color-orange ${themeColor === ORANGE && 'active'}`} />
-      </li>
+        <li>
+          <span
+            onClick={() => handleThemeColor("light_blue")}
+            style={{ backgroundColor: LIGHT_BLUE_SEC, color: LIGHT_BLUE_DARK_TEXT_COLOR }}
+            className={`gx-link gx-color-light-blue ${themeColor === LIGHT_BLUE && "active"}`}
+          />
+        </li>
 
-      <li>
-        <span
-          onClick={() => handleThemeColor("light_blue")}
-          style={{ backgroundColor: LIGHT_BLUE_SEC, color: LIGHT_BLUE_DARK_TEXT_COLOR }}
-          className={`gx-link gx-color-light-blue ${themeColor === LIGHT_BLUE && 'active'}`} />
-      </li>
+        <li>
+          <span
+            onClick={() => handleThemeColor("deep_orange")}
+            style={{ backgroundColor: DEEP_ORANGE_SEC, color: DEEP_ORANGE_DARK_TEXT_COLOR }}
+            className={`gx-link gx-color-deep-orange ${themeColor === DEEP_ORANGE && "active"}`}
+          />
+        </li>
 
-      <li>
-        <span
-          onClick={() => handleThemeColor("deep_orange")}
-          style={{ backgroundColor: DEEP_ORANGE_SEC, color: DEEP_ORANGE_DARK_TEXT_COLOR }}
-          className={`gx-link gx-color-deep-orange ${themeColor === DEEP_ORANGE && 'active'}`} />
-      </li>
+        <li>
+          <span
+            onClick={() => handleThemeColor("light_purple_1")}
+            style={{
+              backgroundColor: LIGHT_PURPLE_1_SEC,
+              color: LIGHT_PURPLE_1_DARK_TEXT_COLOR,
+            }}
+            className={`gx-link gx-color-light-purple1 ${
+              themeColor === LIGHT_PURPLE_1 && "active"
+            }`}
+          />
+        </li>
 
-      <li>
-        <span
-          onClick={() => handleThemeColor("light_purple_1")}
-          style={{
-            backgroundColor: LIGHT_PURPLE_1_SEC,
-            color: LIGHT_PURPLE_1_DARK_TEXT_COLOR
-          }}
-          className={`gx-link gx-color-light-purple1 ${themeColor === LIGHT_PURPLE_1 && 'active'}`} />
-      </li>
-
-      <li>
-        <span
-          onClick={() => handleThemeColor("light_purple_2")}
-          style={{
-            backgroundColor: LIGHT_PURPLE_2_SEC,
-            color: LIGHT_PURPLE_2_DARK_TEXT_COLOR
-          }}
-          className={`gx-link gx-color-light-purple2 ${themeColor === LIGHT_PURPLE_2 && 'active'}`} />
-      </li>
-    </ul>
+        <li>
+          <span
+            onClick={() => handleThemeColor("light_purple_2")}
+            style={{
+              backgroundColor: LIGHT_PURPLE_2_SEC,
+              color: LIGHT_PURPLE_2_DARK_TEXT_COLOR,
+            }}
+            className={`gx-link gx-color-light-purple2 ${
+              themeColor === LIGHT_PURPLE_2 && "active"
+            }`}
+          />
+        </li>
+      </ul>
+    );
   };
 
   const getLayoutsTypes = (layoutType) => {
-    return <ul className="gx-layout-option gx-list-inline">
-      <li>
-        <span onClick={() => handleLayoutTypes(LAYOUT_TYPE_FRAMED)}
-          className={`gx-pointer ${layoutType === LAYOUT_TYPE_FRAMED && 'active'}`}>
-          <img src={('/images/layouts/framed.png')} alt="framed" />
-        </span>
-      </li>
-      <li>
-        <span onClick={() => handleLayoutTypes(LAYOUT_TYPE_FULL)}
-          className={`gx-pointer ${layoutType === LAYOUT_TYPE_FULL && 'active'}`}>
-          <img src={('/images/layouts/full width.png')} alt="full width" />
-        </span>
-      </li>
-      <li>
-        <span onClick={() => handleLayoutTypes(LAYOUT_TYPE_BOXED)}
-          className={`gx-pointer ${layoutType === LAYOUT_TYPE_BOXED && 'active'}`}>
-          <img src={('/images/layouts/boxed.png')} alt="boxed" />
-        </span>
-      </li>
-    </ul>
+    return (
+      <ul className="gx-layout-option gx-list-inline">
+        <li>
+          <span
+            onClick={() => handleLayoutTypes(LAYOUT_TYPE_FRAMED)}
+            className={`gx-pointer ${layoutType === LAYOUT_TYPE_FRAMED && "active"}`}
+          >
+            <img src={"/images/layouts/framed.png"} alt="framed" />
+          </span>
+        </li>
+        <li>
+          <span
+            onClick={() => handleLayoutTypes(LAYOUT_TYPE_FULL)}
+            className={`gx-pointer ${layoutType === LAYOUT_TYPE_FULL && "active"}`}
+          >
+            <img src={"/images/layouts/full width.png"} alt="full width" />
+          </span>
+        </li>
+        <li>
+          <span
+            onClick={() => handleLayoutTypes(LAYOUT_TYPE_BOXED)}
+            className={`gx-pointer ${layoutType === LAYOUT_TYPE_BOXED && "active"}`}
+          >
+            <img src={"/images/layouts/boxed.png"} alt="boxed" />
+          </span>
+        </li>
+      </ul>
+    );
   };
 
   const getNavStyles = (navStyle) => {
-    return <ul className="gx-nav-option gx-list-inline">
-      <li>
-        <span onClick={() => onNavStyleChanges(NAV_STYLE_FIXED)}
-          className={`gx-pointer ${navStyle === NAV_STYLE_FIXED && 'active'}`}>
-          <img src={('/images/layouts/fixed.png')} alt="fixed" />
-        </span>
-      </li>
-      <li>
-        <span onClick={() => onNavStyleChanges(NAV_STYLE_MINI_SIDEBAR)}
-          className={`gx-pointer ${navStyle === NAV_STYLE_MINI_SIDEBAR && 'active'}`}>
-          <img src={('/images/layouts/mini sidebar.png')} alt="mini sidebar" />
-        </span>
-      </li>
-      <li>
-        <span onClick={() => onNavStyleChanges(NAV_STYLE_DRAWER)}
-          className={`gx-pointer ${navStyle === NAV_STYLE_DRAWER && 'active'}`}>
-          <img src={('/images/layouts/drawer nav.png')} alt="drawer nav" />
-        </span>
-      </li>
-      <li>
-        <span onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_MINI_SIDEBAR)}
-          className={`gx-pointer ${navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && 'active'}`}>
-          <img src={('/images/layouts/no header mini sidebar.png')} alt="no hader mini sidebar" />
-        </span>
-      </li>
-      <li>
-        <span onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR)}
-          className={`gx-pointer ${navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR && 'active'}`}>
-          <img src={('/images/layouts/vertical no header.png')} alt="vertical no header" />
-        </span>
-      </li>
-      {/* <li>
+    return (
+      <ul className="gx-nav-option gx-list-inline">
+        <li>
+          <span
+            onClick={() => onNavStyleChanges(NAV_STYLE_FIXED)}
+            className={`gx-pointer ${navStyle === NAV_STYLE_FIXED && "active"}`}
+          >
+            <img src={"/images/layouts/fixed.png"} alt="fixed" />
+          </span>
+        </li>
+        <li>
+          <span
+            onClick={() => onNavStyleChanges(NAV_STYLE_MINI_SIDEBAR)}
+            className={`gx-pointer ${navStyle === NAV_STYLE_MINI_SIDEBAR && "active"}`}
+          >
+            <img src={"/images/layouts/mini sidebar.png"} alt="mini sidebar" />
+          </span>
+        </li>
+        <li>
+          <span
+            onClick={() => onNavStyleChanges(NAV_STYLE_DRAWER)}
+            className={`gx-pointer ${navStyle === NAV_STYLE_DRAWER && "active"}`}
+          >
+            <img src={"/images/layouts/drawer nav.png"} alt="drawer nav" />
+          </span>
+        </li>
+        <li>
+          <span
+            onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_MINI_SIDEBAR)}
+            className={`gx-pointer ${navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && "active"}`}
+          >
+            <img src={"/images/layouts/no header mini sidebar.png"} alt="no hader mini sidebar" />
+          </span>
+        </li>
+        <li>
+          <span
+            onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR)}
+            className={`gx-pointer ${
+              navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR && "active"
+            }`}
+          >
+            <img src={"/images/layouts/vertical no header.png"} alt="vertical no header" />
+          </span>
+        </li>
+        {/* <li>
         <span onClick={() => onNavStyleChanges(NAV_STYLE_DEFAULT_HORIZONTAL)}
           className={`gx-pointer ${navStyle === NAV_STYLE_DEFAULT_HORIZONTAL && 'active'}`}>
           <img src={('/images/layouts/default horizontal.png')} alt='default horizontal' />
@@ -294,7 +328,7 @@ const CustomizerSystem = () => {
           <img src={('/images/layouts/dark horizontal.png')} alt='dark horizontal' />
         </span>
       </li> */}
-      {/* <li>
+        {/* <li>
         <span onClick={() => onNavStyleChanges(NAV_STYLE_INSIDE_HEADER_HORIZONTAL)}
           className={`gx-pointer ${navStyle === NAV_STYLE_INSIDE_HEADER_HORIZONTAL && 'active'}`}>
           <img src={('/images/layouts/inside header horizontal.png')} alt='inside header horizontal' />
@@ -313,7 +347,8 @@ const CustomizerSystem = () => {
           <img src={('/images/layouts/top to header.png')} alt='top to header' />
         </span>
       </li> */}
-    </ul>
+      </ul>
+    );
   };
 
   return (
@@ -322,10 +357,9 @@ const CustomizerSystem = () => {
         placement="right"
         closable={false}
         onClose={toggleCustomizer}
-        visible={isCustomizerOpened}>
-        {
-          getCustomizerContent()
-        }
+        visible={isCustomizerOpened}
+      >
+        {getCustomizerContent()}
       </Drawer>
       <div className="gx-customizer-option">
         <Button type="primary" onClick={toggleCustomizer}>
