@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button, Drawer, Radio } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import CustomScrollbars from "../../utils/CustomScrollbars";
-import { setThemeType, onNavStyleChange, onLayoutTypeChange } from "../../store/slices/ui/settings";
+import { setThemeType, onNavStyleChange, onLayoutTypeChange, setThemeColor } from "../../store/slices/ui/settings";
 
 import {
   BLUE,
@@ -59,10 +59,11 @@ const CustomizerSystem = () => {
 
   const themeType = useSelector(({ ui }) => ui.settings.themeType);
   const themeColor = useSelector(({ ui }) => ui.settings.themeColor);
+  const colorSelection = useSelector(({ ui }) => ui.settings.colorSelection);
   const navStyle = useSelector(({ ui }) => ui.settings.navStyle);
   const layoutType = useSelector(({ ui }) => ui.settings.layoutType);
 
-  const handleColorChange = (filename) => {
+  const handleColorChange = (filename, label) => {
     log("handleColorChange", filename);
     let link = document.createElement("link");
     link.type = "text/css";
@@ -84,7 +85,7 @@ const CustomizerSystem = () => {
     }, 1000);
     console.log("my link ", link);
     document.body.appendChild(link);
-    // dispatch(setThemeColor(filename));
+    dispatch(setThemeColor(label));
   };
 
   const toggleCustomizer = () => {
@@ -145,9 +146,9 @@ const CustomizerSystem = () => {
     );
   };
 
-  const handleThemeColor = (fileName) => {
+  const handleThemeColor = (fileName, label) => {
     console.log("handleThemeColor >>>>>");
-    handleColorChange(fileName);
+    handleColorChange(fileName, label);
   };
 
   const handleLayoutTypes = (layoutType) => {
@@ -160,28 +161,28 @@ const CustomizerSystem = () => {
       <ul className="gx-color-option gx-list-inline">
         <li>
           <span
-            onClick={() => handleThemeColor("light_purple")}
+            onClick={() => handleThemeColor("light_purple", LIGHT_PURPLE)}
             style={{ backgroundColor: LIGHT_PURPLE_SEC, color: LIGHT_PURPLE_DARK_TEXT_COLOR }}
             className={`gx-link gx-color-light-purple ${themeColor === LIGHT_PURPLE && "active"}`}
           />
         </li>
         <li>
           <span
-            onClick={() => handleThemeColor("red")}
+            onClick={() => handleThemeColor("red", RED)}
             style={{ backgroundColor: RED_SEC, color: RED_DARK_TEXT_COLOR }}
             className={`gx-link gx-color-red ${themeColor === RED && "active"}`}
           />
         </li>
         <li>
           <span
-            onClick={() => handleThemeColor("blue")}
+            onClick={() => handleThemeColor("blue", BLUE)}
             style={{ backgroundColor: BLUE_SEC, color: BLUE_DARK_TEXT_COLOR }}
             className={`gx-link gx-color-blue ${themeColor === BLUE && "active"}`}
           />
         </li>
         <li>
           <span
-            onClick={() => handleThemeColor("dark_blue")}
+            onClick={() => handleThemeColor("dark_blue", DARK_BLUE)}
             style={{ backgroundColor: DARK_BLUE_SEC, color: DARK_BLUE_DARK_TEXT_COLOR }}
             className={`gx-link gx-color-dark-blue ${themeColor === DARK_BLUE && "active"}`}
           />
@@ -189,7 +190,7 @@ const CustomizerSystem = () => {
 
         <li>
           <span
-            onClick={() => handleThemeColor("orange")}
+            onClick={() => handleThemeColor("orange", ORANGE)}
             style={{ backgroundColor: ORANGE_SEC, color: ORANGE_DARK_TEXT_COLOR }}
             className={`gx-link gx-color-orange ${themeColor === ORANGE && "active"}`}
           />
@@ -197,7 +198,7 @@ const CustomizerSystem = () => {
 
         <li>
           <span
-            onClick={() => handleThemeColor("light_blue")}
+            onClick={() => handleThemeColor("light_blue", LIGHT_BLUE)}
             style={{ backgroundColor: LIGHT_BLUE_SEC, color: LIGHT_BLUE_DARK_TEXT_COLOR }}
             className={`gx-link gx-color-light-blue ${themeColor === LIGHT_BLUE && "active"}`}
           />
@@ -205,7 +206,7 @@ const CustomizerSystem = () => {
 
         <li>
           <span
-            onClick={() => handleThemeColor("deep_orange")}
+            onClick={() => handleThemeColor("deep_orange", DEEP_ORANGE)}
             style={{ backgroundColor: DEEP_ORANGE_SEC, color: DEEP_ORANGE_DARK_TEXT_COLOR }}
             className={`gx-link gx-color-deep-orange ${themeColor === DEEP_ORANGE && "active"}`}
           />
@@ -213,27 +214,25 @@ const CustomizerSystem = () => {
 
         <li>
           <span
-            onClick={() => handleThemeColor("light_purple_1")}
+            onClick={() => handleThemeColor("light_purple_1", LIGHT_PURPLE_1)}
             style={{
               backgroundColor: LIGHT_PURPLE_1_SEC,
               color: LIGHT_PURPLE_1_DARK_TEXT_COLOR,
             }}
-            className={`gx-link gx-color-light-purple1 ${
-              themeColor === LIGHT_PURPLE_1 && "active"
-            }`}
+            className={`gx-link gx-color-light-purple1 ${themeColor === LIGHT_PURPLE_1 && "active"
+              }`}
           />
         </li>
 
         <li>
           <span
-            onClick={() => handleThemeColor("light_purple_2")}
+            onClick={() => handleThemeColor("light_purple_2", LIGHT_PURPLE_2)}
             style={{
               backgroundColor: LIGHT_PURPLE_2_SEC,
               color: LIGHT_PURPLE_2_DARK_TEXT_COLOR,
             }}
-            className={`gx-link gx-color-light-purple2 ${
-              themeColor === LIGHT_PURPLE_2 && "active"
-            }`}
+            className={`gx-link gx-color-light-purple2 ${themeColor === LIGHT_PURPLE_2 && "active"
+              }`}
           />
         </li>
       </ul>
@@ -309,9 +308,8 @@ const CustomizerSystem = () => {
         <li>
           <span
             onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR)}
-            className={`gx-pointer ${
-              navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR && "active"
-            }`}
+            className={`gx-pointer ${navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR && "active"
+              }`}
           >
             <img src={"/images/layouts/vertical no header.png"} alt="vertical no header" />
           </span>

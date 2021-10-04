@@ -15,6 +15,7 @@ const slice = createSlice({
     layoutType: LAYOUT_TYPE_FULL,
     themeType: THEME_TYPE_SEMI_DARK,
     colorSelection: THEME_COLOR_SELECTION_PRESET,
+    themeColor: '#8A2BE2',
 
     pathname: "",
     // width: "WINDOW_WIDTH",
@@ -55,6 +56,10 @@ const slice = createSlice({
       const { payload } = action;
       state.layoutType = payload;
     },
+    themeColor: (state, action) => {
+      const { payload } = action;
+      state.themeColor = payload;
+    },
     themeColorSelected: (state, action) => {
       const { payload } = action;
       state.colorSelection = payload;
@@ -76,6 +81,7 @@ export const {
   setPathName,
   windowWidth,
   themeType,
+  themeColor,
   navStyle,
   layoutType,
   themeColorSelected,
@@ -91,6 +97,9 @@ export const updateWindowWidth = (width) => (dispatch) => {
 };
 export const setThemeType = (data) => (dispatch) => {
   return dispatch(themeType(data));
+};
+export const setThemeColor = (data) => (dispatch) => {
+  return dispatch(themeColor(data));
 };
 export const onNavStyleChange = (data) => (dispatch) => {
   return dispatch(navStyle(data));
