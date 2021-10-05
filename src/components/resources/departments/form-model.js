@@ -41,7 +41,7 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
     let data = {
       name: formData.name,
     };
-    if (visible) {
+    if (visible && selected) {
       dispatch(updateDepartment(selected.id, data));
     } else {
       dispatch(addDepartment(data));

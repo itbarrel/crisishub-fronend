@@ -84,10 +84,10 @@ const Model = memo(() => {
     return (
       <>
         <Button key="back" onClick={onCloseModal}>
-					Return
+          Return
         </Button>
         <Button key="submit" type="primary" loading={loading} onClick={onSubmit}>
-					Add Account
+          Add Account
         </Button>
       </>
     );
@@ -130,7 +130,7 @@ const Model = memo(() => {
   return (
     <>
       <Button type="primary" onClick={onShowModal}>
-				Create Account
+        Create Account
       </Button>
       <Modal
         title={<ModalHeader />}
@@ -146,7 +146,9 @@ const Model = memo(() => {
           <Form.Item
             name="accountName"
             label={<LabelAndTooltip title={"Account.Name"} tooltip={"Enter your company name"} />}
-            rules={[{ required: true, message: "Please input your Account name!", whitespace: true },]}
+            rules={[
+              { required: true, message: "Please input your Account name!", whitespace: true },
+            ]}
           >
             <Input />
           </Form.Item>

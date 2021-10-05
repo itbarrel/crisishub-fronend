@@ -46,14 +46,16 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
     setLoading(true);
     const formData = await form.validateFields();
     let data = {
-      userName: formData.username,
+      userName: formData.userName,
       email: formData.email,
       password: formData.password,
       firstName: formData.firstName,
       lastName: formData.lastName,
-      mobilePhone: formData.mobilePhone,
+      len: formData.mobilePhone,
+      RoleId: formData.RoleId,
     };
-    if (visible) {
+    console.log("asdf", data);
+    if (visible && selectedUser) {
       dispatch(updateUser(selectedUser.id, data));
     } else {
       dispatch(addUser(data));
@@ -207,7 +209,9 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
           <Form.Item
             name="mobilePhone"
             label={<LabelAndTooltip title={"Mobile.Phone"} tooltip={"Enter your Mobile Number"} />}
-            rules={[{ required: true, message: "Please input your Mobile Number!", whitespace: true }]}
+            rules={[
+              { required: true, message: "Please input your Mobile Number!", whitespace: true },
+            ]}
           >
             <Input />
           </Form.Item>

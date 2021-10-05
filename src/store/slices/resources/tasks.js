@@ -7,13 +7,18 @@ const slice = createSlice({
     loading: false,
     list: [],
     update_item: [],
+    currentPage: 1,
+    totalPages: 0,
   },
   reducers: {
     loading: (state) => {
       state.loading = true;
     },
     all: (state, action) => {
-      state.list = action.payload;
+      const { payload } = action;
+      state.list = payload.data;
+      state.currentPage = payload.pages;
+      state.totalPages = payload.total;
       state.loading = false;
     },
     add: (state, action) => {

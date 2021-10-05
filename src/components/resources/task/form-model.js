@@ -47,7 +47,7 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, off }) => 
       links,
       description,
     };
-    if (visible) {
+    if (visible && selected) {
       dispatch(updateTask(selected.id, data));
     } else {
       dispatch(addTask(data));

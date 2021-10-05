@@ -18,7 +18,7 @@ const slice = createSlice({
     },
     all: (state, action) => {
       const { payload } = action;
-      state.records = payload;
+      state.records = payload.data;
       state.loading = false;
     },
     add: (state, action) => {
