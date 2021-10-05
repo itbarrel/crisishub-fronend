@@ -4,7 +4,12 @@ import React, { useState } from "react";
 import { Button, Drawer, Radio } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import CustomScrollbars from "../../utils/CustomScrollbars";
-import { setThemeType, onNavStyleChange, onLayoutTypeChange, setThemeColor } from "../../store/slices/ui/settings";
+import {
+  setThemeType,
+  onNavStyleChange,
+  onLayoutTypeChange,
+  setThemeColor,
+} from "../../store/slices/ui/settings";
 
 import {
   BLUE,
@@ -69,7 +74,7 @@ const CustomizerSystem = () => {
     link.type = "text/css";
     link.rel = "stylesheet";
     link.className = "gx-style";
-    link.href = `/css/${filename}.css`;
+    link.href = `https://wieldy.g-axon.work/css/${filename}.css`;
 
     setTimeout(() => {
       const children = document.getElementsByClassName("gx-style");
@@ -107,7 +112,7 @@ const CustomizerSystem = () => {
       let link = document.createElement("link");
       link.type = "text/css";
       link.rel = "stylesheet";
-      link.href = "/css/dark_theme.css";
+      link.href = "https://wieldy.g-axon.work/css/dark_theme.css";
       link.className = "style_dark_theme";
       document.body.appendChild(link);
     } else if (document.body.classList.contains("dark-theme")) {
@@ -219,8 +224,9 @@ const CustomizerSystem = () => {
               backgroundColor: LIGHT_PURPLE_1_SEC,
               color: LIGHT_PURPLE_1_DARK_TEXT_COLOR,
             }}
-            className={`gx-link gx-color-light-purple1 ${themeColor === LIGHT_PURPLE_1 && "active"
-              }`}
+            className={`gx-link gx-color-light-purple1 ${
+              themeColor === LIGHT_PURPLE_1 && "active"
+            }`}
           />
         </li>
 
@@ -231,8 +237,9 @@ const CustomizerSystem = () => {
               backgroundColor: LIGHT_PURPLE_2_SEC,
               color: LIGHT_PURPLE_2_DARK_TEXT_COLOR,
             }}
-            className={`gx-link gx-color-light-purple2 ${themeColor === LIGHT_PURPLE_2 && "active"
-              }`}
+            className={`gx-link gx-color-light-purple2 ${
+              themeColor === LIGHT_PURPLE_2 && "active"
+            }`}
           />
         </li>
       </ul>
@@ -308,8 +315,9 @@ const CustomizerSystem = () => {
         <li>
           <span
             onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR)}
-            className={`gx-pointer ${navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR && "active"
-              }`}
+            className={`gx-pointer ${
+              navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR && "active"
+            }`}
           >
             <img src={"/images/layouts/vertical no header.png"} alt="vertical no header" />
           </span>

@@ -1,33 +1,43 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Row, Button, Dropdown, Menu } from "antd";
 import Widget from "../../Widget";
 import AddIncident from "../../../components/resources/incident/form-model";
 import { TeamOutlined, UsergroupDeleteOutlined, DownOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { getFilteredIncidentList } from "../../../store/slices/resources/incidents";
 
 const ActionBar = memo(() => {
   const [visible, setVisible] = useState(false);
-  const [dropDownState, setDropDownState] = useState(false);
-  const [filterIncidents, setFilterIncidents] = useState("Active Incidents");
+  const [filterIncidents, setFilterIncidents] = useState("open");
+  const dispatch = useDispatch();
 
   const handleMenuClick = (e) => {
     setFilterIncidents(e.key);
-    setDropDownState(false);
-  };
-  const handleVisibleChange = (flag) => {
-    setDropDownState({ visible: flag });
   };
 
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="Active Incidents">Active Incidents</Menu.Item>
-      <Menu.Item key="On Hold Incidents">On Hold Incidents</Menu.Item>
-      <Menu.Item key="Closed Incidents">Closed Incidents</Menu.Item>
+      <Menu.Item key="open">Active Incidents</Menu.Item>
+      <Menu.Item key="hold">On Hold Incidents</Menu.Item>
+      <Menu.Item key="close">Closed Incidents</Menu.Item>
     </Menu>
   );
 
+  const filterValues = {
+    open: "Active Incidents",
+    hold: "On Hold Incidents",
+    close: "Closed Incidents",
+  };
+
+  useEffect(() => {
+    console.log("Incident page dashboard", filterIncidents);
+    const onFilter = { status: filterIncidents };
+    dispatch(getFilteredIncidentList(onFilter));
+  }, [filterIncidents]);
+
   return (
     <>
-      <Widget styleName={"gx-card-widget"}>
+      <Widget styleName={"gx-card-widget"} align="middle">
         <Row justify="space-between ">
           <div>
             <AddIncident
@@ -47,13 +57,12 @@ const ActionBar = memo(() => {
               Action Plan Wizard
             </Button>
           </div>
-          <div>
-            <Dropdown overlay={menu} onVisibleChange={handleVisibleChange} visible={dropDownState}>
-              <span className="gx-link ant-dropdown-link">
-                {filterIncidents} <DownOutlined />
-              </span>
-            </Dropdown>
-          </div>
+          <Dropdown overlay={menu} className={"gx-my-auto"}>
+            <span className="ant-dropdown-link gx-mx-3 gx-my-3 ">
+              {(filterValues[filterIncidents] ||= "Filter Incident")}
+              <DownOutlined />
+            </span>
+          </Dropdown>
         </Row>
       </Widget>
     </>

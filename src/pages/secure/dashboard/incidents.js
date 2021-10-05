@@ -1,30 +1,25 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
 import { Col, Row } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import SEO from "../../../components/seo";
 import withLayout from "../../../layouts/app-layout";
 import Incidents from "../../../components/cards/Card";
-import { getIncidentList } from "../../../store/slices/resources/incidents";
 import ActionBar from "../../../components/dashbaord/incidents/action-bar";
+import { sNO_RESULT_FOUND_BY } from "../../../constants/messages";
+import NotFound from "../../../components/helpers/errors";
 
 const IncidentDashboard = memo(() => {
-  const [loading, setLoading] = useState(false);
   const incidentList = useSelector(({ resources }) => resources.Incidents.list);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    console.log("object incident page", incidentList);
-    dispatch(getIncidentList());
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
       <SEO title={"Incidents Dashboard"} />
       <ActionBar />
       <Row>
-        {!loading &&
+        {!isLoading &&
           incidentList &&
-          incidentList.length &&
+          incidentList.length > 0 &&
           incidentList.map((incident, index) => {
             return (
               <Col xl={6} lg={8} md={12} sm={12} xs={24} key={incident.id}>
@@ -36,6 +31,13 @@ const IncidentDashboard = memo(() => {
               </Col>
             );
           })}
+        {!isLoading && !incidentList.length && (
+          <>
+            <Col span={24} align="middle">
+              <NotFound message={<h1>{sNO_RESULT_FOUND_BY}</h1>} />
+            </Col>
+          </>
+        )}
       </Row>
     </>
   );

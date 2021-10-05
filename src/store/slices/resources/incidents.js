@@ -63,6 +63,19 @@ export const getIncidentList = () => (dispatch) => {
   );
 };
 
+export const getFilteredIncidentList = (filter) => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      url: "v1/incidents",
+      method: "get",
+      data: filter,
+      onStart: loading.type,
+      onSuccess: all.type,
+      onError: failed.type,
+    })
+  );
+};
+
 export const addIncident = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
