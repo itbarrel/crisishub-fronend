@@ -6,7 +6,7 @@ import {
   removeIncident,
   current_item,
 } from "../../../store/slices/resources/incidents";
-import { Table, Button, Popconfirm } from "antd";
+import { Table, Button, Popconfirm, Pagination } from "antd";
 import { log } from "../../../utils/console-log";
 import UpdateIncident from "./form-model";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -14,15 +14,15 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 const IncidentTable = memo(() => {
   const dispatch = useDispatch();
   const incidentList = useSelector(({ resources }) => resources.Incidents.list);
+  const totalItems = useSelector(({ resources }) => resources.Incidents.total_items);
   const loader = useSelector(({ resources }) => resources.Incidents.loading);
   const [loading] = useState(loader);
   const [selectedIncident, setSelectedIncident] = useState({});
   const [visible, setVisible] = useState(false);
   const [sort, setSort] = useState({});
-  const handleSortChange = (pagination, filters, sorter) => {
-    console.log("Various parameters", pagination, filters, sorter);
-    setSort(sorter);
-  };
+
+  const [itemsPerPage, setDataItemsPerPage] = useState();
+  const [pageNumber, setPageNumber] = useState(1);
 
   const handleDelete = (Current_user) => {
     log("handleDelete incident", Current_user.id);
@@ -74,8 +74,15 @@ const IncidentTable = memo(() => {
     },
   ];
 
-  const showHeader = true;
-  const pagination = { position: "bottom" };
+  const [pagination, setPagination] = useState({
+    hideOnSinglePage: true,
+    total: totalItems,
+    defaultPageSize: 8,
+    showSizeChanger: true,
+    pageSizeOptions: [8, 10, 20, 50, 100],
+    showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+  });
+
   const [tableSetting] = useState({
     bordered: true,
     loading: loading,
@@ -83,15 +90,27 @@ const IncidentTable = memo(() => {
     size: "small",
     expandedRowRender: false,
     title: undefined,
-    showHeader,
+    showHeader: true,
     footer: false,
     scroll: undefined,
     rowKey: "id",
   });
 
+  const handleChange = (pagination, filters, sorter) => {
+    log("Various parameters of Table, change in Incident page", pagination, filters, sorter);
+    setSort(sorter);
+    setPageNumber(pagination.current);
+    setDataItemsPerPage(pagination.pageSize);
+    setPagination(pagination);
+  };
+
   useEffect(() => {
-    dispatch(getIncidentList());
-  }, []);
+    const query = {
+      limit: itemsPerPage,
+      offset: pageNumber,
+    };
+    dispatch(getIncidentList(query));
+  }, [itemsPerPage, pageNumber, pagination]);
 
   return (
     <>
@@ -105,9 +124,9 @@ const IncidentTable = memo(() => {
       <Table
         className="gx-table-responsive"
         {...tableSetting}
-        onChange={handleSortChange}
         columns={columns}
         dataSource={incidentList}
+        onChange={handleChange}
       />
     </>
   );

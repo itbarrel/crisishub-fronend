@@ -7,12 +7,18 @@ import { Table } from "antd";
 
 const Accounts = memo((props) => {
   const { list } = useSelector(({ resources }) => resources.Account);
+  const totalItems = useSelector(({ resources }) => resources.Account.total_items);
   const dispatch = useDispatch();
   const [sort, setSort] = useState({});
-  sort ||= {};
+  const [itemsPerPage, setDataItemsPerPage] = useState();
+  const [pageNumber, setPageNumber] = useState(1);
+
   const handleChange = (pagination, filters, sorter) => {
-    console.log("Various parameters", pagination, filters, sorter);
+    log("Various parameters of Table, change in Accounts page", pagination, filters, sorter);
     setSort(sorter);
+    setPageNumber(pagination.current);
+    setDataItemsPerPage(pagination.pageSize);
+    setPagination(pagination);
   };
 
   const columns = [
@@ -47,12 +53,14 @@ const Accounts = memo((props) => {
     },
   ];
 
-  // const expandedRowRender = (record) => <p>{record.description}</p>;
-  // const title = () => "Here is title";
-  const showHeader = true;
-  // const footer = () => "Here is footer";
-  const scroll = { y: 240 };
-  const pagination = { position: "bottom" };
+  const [pagination, setPagination] = useState({
+    hideOnSinglePage: true,
+    total: totalItems,
+    defaultPageSize: 8,
+    showSizeChanger: true,
+    pageSizeOptions: [8, 10, 20, 50, 100],
+    showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+  });
 
   const [tableSetting, setTableSetting] = useState({
     bordered: true,
@@ -61,7 +69,7 @@ const Accounts = memo((props) => {
     size: "default",
     expandedRowRender: false,
     title: undefined,
-    showHeader,
+    showHeader: true,
     footer: false,
     rowSelection: false,
     scroll: undefined,
@@ -69,8 +77,12 @@ const Accounts = memo((props) => {
   });
 
   useEffect(() => {
-    dispatch(getAccountsList());
-  }, []);
+    const query = {
+      limit: itemsPerPage,
+      offset: pageNumber,
+    };
+    dispatch(getAccountsList(query));
+  }, [itemsPerPage, pageNumber, pagination]);
 
   return (
     <>
