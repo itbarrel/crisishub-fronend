@@ -47,5 +47,10 @@
   "Task.Name": "Opdrachtnaam",
   "Incident.Name": "Naam incident",
   "Department.Name": "Afdelingsnaam",
+  "sure.for.delete": "Weet je zeker dat je dit verwijdert?",
+  "Yes": "Ja",
+  "yes": "ja",
+  "No": "Nee",
+  "no": "nee",
   "sample": "sample"
 }

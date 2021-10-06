@@ -1,25 +1,21 @@
-import React from 'react'
 import Router from "next/router";
 import NProgress from "nprogress";
-import { log } from '../utils/console-log'
+import { log } from "../utils/console-log";
 
 const nprofress = () => {
+  Router.events.on("routeChangeStart", (url) => {
+    log("App Layout - start loading", url);
+    NProgress.start();
+  });
 
-    Router.events.on("routeChangeStart", (url) => {
-        log("App Layout - start loading", url);
-        NProgress.start();
-    });
+  Router.events.on("routeChangeComplete", () => {
+    log("App Layout - route change complete");
+    NProgress.done();
+  });
+  Router.events.on("routeChangeError", () => {
+    log("App Layout - route change error");
+    NProgress.done();
+  });
+};
 
-    Router.events.on("routeChangeComplete", () => {
-        log("App Layout - route change complete");
-        NProgress.done();
-    });
-    Router.events.on("routeChangeError", () => {
-        log("App Layout - route change error");
-        NProgress.done();
-    });
-}
-
-export default nprofress
-
-
+export default nprofress;

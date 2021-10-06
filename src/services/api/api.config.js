@@ -9,7 +9,7 @@ export const api = axios.create({
     Accept: "application/json",
     "Content-Type": "application/json",
     Device: "web",
-    timeout: 2
+    timeout: 2,
   },
 });
 
@@ -36,6 +36,7 @@ const ApiService = {
   removeAuthorization() {
     // can keep one ;)
     api.defaults.headers.Authorization = ``;
+    // eslint-disable-next-line prefer-reflect
     delete api.defaults.headers.common.Authorization;
   },
 

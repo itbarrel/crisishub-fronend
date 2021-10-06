@@ -1,3 +1,4 @@
+/* eslint-disable no-negated-condition */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Drawer, Layout } from "antd";

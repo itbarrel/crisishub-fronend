@@ -1,14 +1,11 @@
 // local store :: token *may need to shift to cookies.
 import localforage from "localforage";
-import {
-  TOKEN_KEY,
-  USER,
-  PERMISSIONS
-} from "../../constants/local-forage";
+import { TOKEN_KEY, USER, PERMISSIONS } from "../../constants/local-forage";
 
 const StorageService = {
   async getToken() {
-    return await localforage.getItem(TOKEN_KEY);
+    const res = await localforage.getItem(TOKEN_KEY);
+    return res;
   },
 
   async setToken(accessToken) {
@@ -20,7 +17,7 @@ const StorageService = {
   },
 
   async getUser() {
-    return await localforage.getItem(USER);
+    await localforage.getItem(USER);
   },
 
   async setUser(user) {
@@ -32,7 +29,7 @@ const StorageService = {
   },
 
   async getPermissions() {
-    return await localforage.getItem(PERMISSIONS);
+    return localforage.getItem(PERMISSIONS);
   },
 
   async setPermissions(permissions) {
@@ -44,17 +41,16 @@ const StorageService = {
   },
 
   async get(key) {
-    return await localforage.getItem(key);
+    await localforage.getItem(key);
   },
 
   async set(key, value) {
     await localforage.setItem(key, value);
   },
 
-  async remove() {
+  async remove(key) {
     await localforage.removeItem(key);
   },
 };
 
 export default StorageService;
-

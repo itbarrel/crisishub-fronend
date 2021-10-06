@@ -1,14 +1,13 @@
-import React, { memo } from "react";
+import React from "react";
 import dynamic from "next/dynamic";
 import CircularProgress from "../components/CircularProgress";
 
 const AsyncComponent = (importComponent) => {
-    return dynamic(importComponent, {
-        loding: () => {
-            <CircularProgress />;
-            // <CircularProgress />;
-        },
-    });
+  return dynamic(importComponent, {
+    loadings: () => {
+      <CircularProgress />;
+    },
+  });
 };
 
 AsyncComponent.displayName = AsyncComponent;

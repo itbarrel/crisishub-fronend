@@ -7,21 +7,26 @@ const slice = createSlice({
     loading: false,
     list: [],
     update_item: [],
+    currentPage: 1,
+    totalPages: 0,
   },
   reducers: {
-    loading: (state, action) => {
+    loading: (state) => {
       state.loading = true;
     },
     all: (state, action) => {
       const { payload } = action;
-      state.list = payload;
+      state.list = payload.data;
+      state.currentPage = payload.pages;
+      state.totalPages = payload.total;
       state.loading = false;
     },
     add: (state, action) => {
       state.list.unshift(action.payload.user);
       state.loading = false;
     },
-    remove: (state, action) => {
+    remove: (state) => {
+      // eslint-disable-next-line no-negated-condition
       const update = state.list.filter((user) => (user.id !== state.update_item?.id ? user : null));
       state.list = update;
       state.loading = false;
@@ -40,25 +45,24 @@ const slice = createSlice({
       const { payload } = action;
       state.accounts = payload;
     },
-    failed: (state, action) => {
+    failed: (state) => {
       state.loading = false;
       state.hasErrors = true;
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(resetAll, (state, action) => {
-        // action is inferred correctly here if using TS
-        state.loading = false
-        state.list = []
-        state.update_item = []
-      })
+    builder.addCase(resetAll, (state) => {
+      // action is inferred correctly here if using TS
+      state.loading = false;
+      state.list = [];
+      state.update_item = [];
+    });
   },
 });
 
 export const { loading, all, add, remove, update, current_item, show, failed } = slice.actions;
 
-export const getUserList = () => (dispatch, getState) => {
+export const getUserList = () => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: "v1/users",
@@ -70,7 +74,7 @@ export const getUserList = () => (dispatch, getState) => {
   );
 };
 
-export const addUser = (data) => (dispatch, getState) => {
+export const addUser = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: "v1/users",
@@ -79,12 +83,12 @@ export const addUser = (data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: add.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
 };
 
-export const removeUser = (id) => (dispatch, getState) => {
+export const removeUser = (id) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: `v1/users/${id}`,
@@ -92,12 +96,12 @@ export const removeUser = (id) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: remove.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
 };
 
-export const updateUser = (id, data) => (dispatch, getState) => {
+export const updateUser = (id, data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: `v1/users/${id}`,
@@ -106,7 +110,7 @@ export const updateUser = (id, data) => (dispatch, getState) => {
       onStart: loading.type,
       onSuccess: update.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
 };

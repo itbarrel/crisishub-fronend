@@ -4,17 +4,22 @@
   "editor.unfoldOnClickAfterEndOfLine": true,
   "files.insertFinalNewline": true,
   "html.format.endWithNewline": true,
-  "eslint.validate": [
-    "javascript",
-    "html"
-  ],
+  "eslint.validate": ["javascript", "html"],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
   "cSpell.words": [
+    "gaxon",
+    "nafirst",
+    "Nameme",
+    "neature",
+    "ogimg",
     "Popconfirm",
     "reduxjs",
+    "resourses",
     "stylelint",
-    "submenu"
-  ]
+    "submenu",
+    "Usergroup"
+  ],
+  "editor.formatOnSave": true
 }

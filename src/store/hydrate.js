@@ -1,6 +1,7 @@
 import combineReducers from "./reducer";
 import { HYDRATE } from "next-redux-wrapper";
 
+// eslint-disable-next-line default-param-last
 const reducer = (state = {}, action) => {
   if (action.type === HYDRATE) {
     // xPOINT:: Attention! This will overwrite client state! Real apps should use proper reconciliation.

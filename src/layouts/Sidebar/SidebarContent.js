@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable prefer-destructuring */
 import React, { useEffect } from "react";
 import { Menu } from "antd";
 import Link from "next/link";
@@ -6,7 +8,6 @@ import { useRouter } from "next/router";
 import CustomScrollbars from "../../utils/CustomScrollbars";
 import SidebarLogo from "./SidebarLogo";
 import UserProfile from "./UserProfile";
-import AppsNavigation from "./AppsNavigation";
 import {
   NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR,
   NAV_STYLE_NO_HEADER_MINI_SIDEBAR,
@@ -17,7 +18,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPathName } from "../../store/slices/ui/settings";
 import permissionCheck from "../../utils/PermissionGuard";
 
-const { SubMenu } = Menu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const SidebarContent = () => {
@@ -34,12 +34,12 @@ const SidebarContent = () => {
     }
     return "";
   };
-  const getNavStyleSubMenuClass = (navStyle) => {
-    if (navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR) {
-      return "gx-no-header-submenu-popup";
-    }
-    return "";
-  };
+  // const getNavStyleSubMenuClass = (navStyle) => {
+  //   if (navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR) {
+  //     return "gx-no-header-submenu-popup";
+  //   }
+  //   return "";
+  // };
 
   useEffect(() => {
     dispatch(setPathName(router.pathname));
@@ -66,17 +66,29 @@ const SidebarContent = () => {
           >
             {/* Main text */}
             <MenuItemGroup
-              key="main"
+              key="dashboard"
               className="gx-menu-group"
-              title={<IntlMessages id="sidebar.main" />}
+              title={<IntlMessages id="dashBoard" />}
             >
-              {/* dashboard */}
-              <Menu.Item key={"/secure/dashboard"}>
-                <Link href="/secure/dashboard">
+              {/* main */}
+              <Menu.Item key={"/secure/dashboard/main"}>
+                <Link href="/secure/dashboard/main">
                   <a>
                     <i className="icon icon-widgets" />
                     <span>
-                      <IntlMessages id="dashBoard" />
+                      <IntlMessages id="sidebar.main" />
+                    </span>
+                  </a>
+                </Link>
+              </Menu.Item>
+
+              {/* incident */}
+              <Menu.Item key={"/secure/dashboard/incidents"}>
+                <Link href="/secure/dashboard/incidents">
+                  <a>
+                    <i className="icon icon-etherium" />
+                    <span>
+                      <IntlMessages id="incidents" />
                     </span>
                   </a>
                 </Link>
@@ -90,8 +102,8 @@ const SidebarContent = () => {
                 title={<IntlMessages id="settings" />}
               >
                 {/* Accounts */}
-                {permissionCheck({ Accounts: ['view'] }) &&
-                  (<Menu.Item key="accounts">
+                {permissionCheck({ Accounts: ["view"] }) && (
+                  <Menu.Item key="accounts">
                     <Link href="/secure/accounts">
                       <a>
                         <i className="icon icon-crm" />
@@ -100,12 +112,12 @@ const SidebarContent = () => {
                         </span>
                       </a>
                     </Link>
-                  </Menu.Item>)
-                }
+                  </Menu.Item>
+                )}
 
                 {/* Users */}
-                {permissionCheck({ Users: ['view'] }) &&
-                  (<Menu.Item key="users">
+                {permissionCheck({ Users: ["view"] }) && (
+                  <Menu.Item key="users">
                     <Link href="/secure/users">
                       <a>
                         <i className="icon icon-widgets" />
@@ -114,12 +126,12 @@ const SidebarContent = () => {
                         </span>
                       </a>
                     </Link>
-                  </Menu.Item>)
-                }
+                  </Menu.Item>
+                )}
 
                 {/* roles */}
-                {permissionCheck({ Roles: ['view'] }) &&
-                  (<Menu.Item key="roles">
+                {permissionCheck({ Roles: ["view"] }) && (
+                  <Menu.Item key="roles">
                     <Link href="/secure/roles">
                       <a>
                         <i className="icon icon-culture-calendar" />
@@ -128,12 +140,12 @@ const SidebarContent = () => {
                         </span>
                       </a>
                     </Link>
-                  </Menu.Item>)
-                }
+                  </Menu.Item>
+                )}
 
                 {/* Department */}
-                {permissionCheck({ Departments: ["view"] }) &&
-                  (<Menu.Item key="departments">
+                {permissionCheck({ Departments: ["view"] }) && (
+                  <Menu.Item key="departments">
                     <Link href="/secure/departments">
                       <a>
                         <i className="icon icon-basic-calendar" />
@@ -142,12 +154,12 @@ const SidebarContent = () => {
                         </span>
                       </a>
                     </Link>
-                  </Menu.Item>)
-                }
+                  </Menu.Item>
+                )}
 
                 {/* incident */}
-                {permissionCheck({ Incidents: ["view"] }) &&
-                  (<Menu.Item key="incident">
+                {permissionCheck({ Incidents: ["view"] }) && (
+                  <Menu.Item key="incident">
                     <Link href="/secure/incidents">
                       <a>
                         <i className="icon icon-cards-list-view" />
@@ -156,12 +168,12 @@ const SidebarContent = () => {
                         </span>
                       </a>
                     </Link>
-                  </Menu.Item>)
-                }
+                  </Menu.Item>
+                )}
 
                 {/* Task */}
-                {permissionCheck({ Tasks: ["view"] }) &&
-                  (<Menu.Item key="Task">
+                {permissionCheck({ Tasks: ["view"] }) && (
+                  <Menu.Item key="Task">
                     <Link href="/secure/tasks">
                       <a>
                         <i className="icon icon-tasks" />
@@ -171,13 +183,12 @@ const SidebarContent = () => {
                       </a>
                     </Link>
                   </Menu.Item>
-                  )}
+                )}
               </MenuItemGroup>
             }
-
-          </Menu >
-        </CustomScrollbars >
-      </div >
+          </Menu>
+        </CustomScrollbars>
+      </div>
     </>
   );
 };

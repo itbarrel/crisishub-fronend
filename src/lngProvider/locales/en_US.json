@@ -355,5 +355,10 @@
   "Task.Name": "Task Name",
   "Incident.Name": "Incident Name",
   "Department.Name": "Department Name",
+  "sure.for.delete": "Are you sure delete this",
+  "Yes": "Yes",
+  "yes": "yes",
+  "No": "No",
+  "no": "no",
   "sample": "sample"
 }
