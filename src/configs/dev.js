@@ -1,14 +1,12 @@
+console.log()
 const dev = {
-  dev: "DEV",
-
-  appURL: "https://crisishub.co/", // prod
-  baseURL: "https://new.crisishub.co/", // prod api
+  dev: "dev",
+  baseURL: process.env.NEXT_PUBLIC_HOST_URL, // prod api
   siteName: "CrisisHub",
   siteDescription:
     "CrisisHub is a software platform that helps organizations take control of the chaotic crisis management process.",
 
   siteLogoUrl: "",
-
   consoleLog: true,
 };
 

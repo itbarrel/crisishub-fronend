@@ -1,25 +1,30 @@
 import React, { memo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import SEO from "../../../components/seo";
 import { Button, Form, Input } from "antd";
 import IntlMessages from "../../../utils/IntlMessages";
 import getlanguage from "../../../components/hoc/withLang";
-import { onForgetPassword } from "../../../store/slices/auth";
+import { onForgetPassword, setLoader } from "../../../store/slices/auth";
 import { log } from "../../../utils/console-log";
 import { validateForgetPassword } from "../../../constants/validations";
 
 const ForgotPassword = memo(() => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const { loader } = useSelector(({ auth }) => auth)
+
+  const router = useRouter();
+
 
   const onFinish = (formData) => {
     log("Forget Page form submit", formData);
-    const { domain, email } = formData;
+    const { domain, email } = formData
     const data = {
       domain,
-      email,
-    };
+      email
+    }
+    // dispatch(setLoader({ key: 'forget', value: true}))
     dispatch(onForgetPassword(data));
     form.resetFields();
   };
@@ -84,9 +89,7 @@ const ForgotPassword = memo(() => {
                   </Link>
                 </Form.Item>
               </Form>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                <br key={item} />
-              ))}
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => <br key={item} />)}
               or contact to
               <Link href="/contact-us">
                 <a>

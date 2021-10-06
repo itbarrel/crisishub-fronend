@@ -137,4 +137,18 @@ export const onLogOut = () => (dispatch) => {
   return dispatch(resetAll())
 };
 
+export const confirmLogin = () => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      url: 'v1/auth/me',
+      method: "post",
+      data: {},
+      onStart: loading.type,
+      onSuccess: login.type,
+      onError: failed.type,
+      notify: true
+    })
+  )
+};
+
 export default slice.reducer;

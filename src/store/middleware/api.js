@@ -2,6 +2,7 @@ import * as actions from "../apiActions";
 import apiClient from "../../services/ApiClient";
 import { log } from "../../utils/console-log";
 import { notification } from "antd";
+import { onLogOut } from "../../store/slices/auth";
 
 const api =
   ({ dispatch }) => (next) => async (action) => {
@@ -36,6 +37,9 @@ const api =
       })
       .catch((err) => {
         // General
+        if (err.response && err.response.status === 401) {
+          dispatch(onLogOut())
+        }
         err.response.json().then((error) => {
           dispatch(actions.apiCallFailed(error.message));
           notification.error({

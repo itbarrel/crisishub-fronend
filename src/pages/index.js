@@ -4,16 +4,12 @@ import Router from 'next/router'
 import { CookieService } from "../services/storage.service";
 
 const Login = asyncComponent(() => import("../pages/auth/login"));
+const Dasboard = asyncComponent(() => import("../pages/secure/dashboard/main"));
 
 const Home = memo(() => {
   const token = CookieService.getToken()
 
-  useEffect(() => {
-    if (token) { Router.push('/secure/dashboard') }
-    console.log(token)
-  }, [token]);
-
-  return <Login />
+  return (token) ? <Dasboard /> : <Login />
 });
 
 Home.displayName = Home;

@@ -10,8 +10,16 @@ import getlanguage from "../../../components/hoc/withLang";
 import { onLogin } from "../../../store/slices/auth";
 import { log } from "../../../utils/console-log";
 
+import { confirmLogin } from "../../../store/slices/auth";
+import { CookieService } from "../../../services/storage.service";
+
 const Login = memo(() => {
   const dispatch = useDispatch();
+  const token = CookieService.getToken();
+
+  if (token) {
+    dispatch(confirmLogin())
+  }
 
   const onFinishFailed = (errorInfo) => {
     log("Failed:", errorInfo);

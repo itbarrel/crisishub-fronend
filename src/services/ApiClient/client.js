@@ -6,7 +6,6 @@ import withQuery from "with-query";
 import Router from "next/router";
 
 import { CookieService } from "../../services/storage.service";
-
 import { logout } from "../Auth";
 
 const checkStatus = (response) => {
@@ -21,7 +20,7 @@ const checkStatus = (response) => {
 
 const handleError = (error) => {
   if (error.response.status === 401) {
-    logout();
+    logout()
   }
   if (error.response.status === 403) {
     Router.push("/secure/dashboard");
