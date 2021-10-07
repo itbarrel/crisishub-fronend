@@ -1,9 +1,8 @@
 import React, { memo, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import { getAccountsList } from "../../../store/slices/resources/account";
-
 import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getAccountsList } from "../../../store/slices/resources/account";
+import { log } from "../../../utils/console-log";
 
 const Accounts = memo((props) => {
   const { list } = useSelector(({ resources }) => resources.Account);
