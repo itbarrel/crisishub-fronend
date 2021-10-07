@@ -12,14 +12,11 @@ const Accounts = memo(() => {
   const dispatch = useDispatch();
   const taskList = useSelector(({ resources }) => resources.Task.list);
   const loader = useSelector(({ resources }) => resources.Task.loading);
+  const totalItems = useSelector(({ resources }) => resources.Task.total_items);
   const [loading] = useState(loader);
   const [selectedTask, setSelectedTask] = useState({});
   const [visible, setVisible] = useState(false);
   const [sort, setSort] = useState({});
-  const handleSortChange = (pagination, filters, sorter) => {
-    console.log("Various parameters", pagination, filters, sorter);
-    setSort(sorter);
-  };
 
   const handleDelete = (Current_user) => {
     log("handleDelete department", Current_user.id);
@@ -104,8 +101,16 @@ const Accounts = memo(() => {
     },
   ];
 
-  const showHeader = true;
-  const pagination = { position: "bottom" };
+  const [pagination, setPagination] = useState({
+    defaultCurrent: 1,
+    hideOnSinglePage: true,
+    total: totalItems,
+    defaultPageSize: 8,
+    showSizeChanger: true,
+    pageSizeOptions: [8, 10, 20, 50, 100],
+    showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+  });
+
   const [tableSetting] = useState({
     bordered: true,
     loading: loading,
@@ -113,15 +118,24 @@ const Accounts = memo(() => {
     size: "small",
     expandedRowRender: false,
     title: undefined,
-    showHeader,
+    showHeader: true,
     footer: false,
     scroll: undefined,
     rowKey: "id",
   });
+  const handleChange = (pagination, filters, sorter) => {
+    log("Various parameters of Table, change in Tasks page", pagination, filters, sorter);
+    setSort(sorter);
+    setPagination(pagination);
+  };
 
   useEffect(() => {
-    dispatch(getTaskList());
-  }, []);
+    const query = {
+      limit: pagination.defaultPageSize,
+      offset: pagination.current || pagination.defaultCurrent,
+    };
+    dispatch(getTaskList(query));
+  }, [pagination]);
 
   return (
     <>
@@ -135,9 +149,9 @@ const Accounts = memo(() => {
       <Table
         className="gx-table-responsive"
         {...tableSetting}
-        onChange={handleSortChange}
         columns={columns}
         dataSource={taskList}
+        onChange={handleChange}
       />
     </>
   );

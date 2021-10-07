@@ -40,4 +40,4 @@ export const sNO_BRACKETS = "Brackets not generated yet";
 export const oRESET_PASS_TOKEN_EXPIRE = "This password reset token is invalid.";
 
 // Footer Text
-export const FOOTER_TEXT = "This password reset token is invalid.";
+export const FOOTER_TEXT = "Copyright CrisisHub © 2021.";

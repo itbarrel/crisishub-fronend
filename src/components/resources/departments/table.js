@@ -14,15 +14,34 @@ const Accounts = memo((props) => {
   const dispatch = useDispatch();
   const departmentList = useSelector(({ resources }) => resources.Departments.list);
   const loader = useSelector(({ resources }) => resources.Departments.loading);
-  const [loading, setLoading] = useState(loader);
+  const totalItems = useSelector(({ resources }) => resources.Departments.total_items);
+  const [loading] = useState(loader);
   const [selectedDepartment, setSelectedDepartment] = useState({});
   const [visible, setVisible] = useState(false);
   const [sort, setSort] = useState({});
-  sort ||= {};
-  const handleSortChange = (pagination, filters, sorter) => {
-    console.log("Various parameters", pagination, filters, sorter);
-    setSort(sorter);
-  };
+
+  const [pagination, setPagination] = useState({
+    defaultCurrent: 1,
+    hideOnSinglePage: true,
+    total: totalItems,
+    defaultPageSize: 8,
+    showSizeChanger: true,
+    pageSizeOptions: [8, 10, 20, 50, 100],
+    showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+  });
+
+  const [tableSetting] = useState({
+    bordered: true,
+    loading: loading,
+    pagination,
+    size: "small",
+    expandedRowRender: false,
+    title: undefined,
+    showHeader: true,
+    footer: false,
+    scroll: undefined,
+    rowKey: "id",
+  });
 
   const handleDelete = (Current_user) => {
     log("handleDelete department", Current_user.id);
@@ -74,24 +93,19 @@ const Accounts = memo((props) => {
     },
   ];
 
-  const showHeader = true;
-  const pagination = { position: "bottom" };
-  const [tableSetting, setTableSetting] = useState({
-    bordered: true,
-    loading: loading,
-    pagination,
-    size: "small",
-    expandedRowRender: false,
-    title: undefined,
-    showHeader,
-    footer: false,
-    scroll: undefined,
-    rowKey: "id",
-  });
+  const handleChange = (pagination, filters, sorter) => {
+    log("Various parameters of Table, change in Department page", pagination, filters, sorter);
+    setSort(sorter);
+    setPagination(pagination);
+  };
 
   useEffect(() => {
-    dispatch(getDepartmentsList());
-  }, []);
+    const query = {
+      limit: pagination.defaultPageSize,
+      offset: pagination.current || pagination.defaultCurrent,
+    };
+    dispatch(getDepartmentsList(query));
+  }, [pagination]);
 
   return (
     <>
@@ -105,9 +119,9 @@ const Accounts = memo((props) => {
       <Table
         className="gx-table-responsive"
         {...tableSetting}
-        onChange={handleSortChange}
         columns={columns}
         dataSource={departmentList}
+        onChange={handleChange}
       />
     </>
   );

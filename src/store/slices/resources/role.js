@@ -10,6 +10,7 @@ const slice = createSlice({
     record: {},
     entities: [],
     operations: [],
+    total_items: 0,
     hasErrors: false,
   },
   reducers: {
@@ -19,6 +20,7 @@ const slice = createSlice({
     all: (state, action) => {
       const { payload } = action;
       state.records = payload.data;
+      state.total_items = payload.total;
       state.loading = false;
     },
     add: (state, action) => {
@@ -72,11 +74,12 @@ const slice = createSlice({
 export const { loading, all, add, remove, update, setId, setRecord, setEntities, failed } =
   slice.actions;
 
-export const getRolesList = () => (dispatch) => {
+export const getRolesList = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
       url: "v1/roles",
       method: "get",
+      data,
       onStart: loading.type,
       onSuccess: all.type,
       onError: failed.type,
