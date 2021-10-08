@@ -30,8 +30,17 @@ const slice = createSlice({
       state.loading = false;
     },
     update: (state, action) => {
-      const haveID = state.list.findIndex((department) => department.id === action.payload.id);
-      state.list[haveID] = action.payload;
+      const { id, status } = action.payload;
+      const index = state.list.findIndex((incident) => incident.id === id);
+      const isStatusSame = state.list[index].status === status;
+
+      if (isStatusSame) state.list[index] = action.payload;
+      else state.list.splice(index, 1);
+
+      // state.list = isStatusSame
+      //   ? (state.list[index] = action.payload)
+      //   : state.list.splice(index, 1);
+
       state.loading = false;
     },
     current_item: (state, action) => {

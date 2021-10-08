@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import SEO from "../../../components/seo";
 import withLayout from "../../../layouts/app-layout";
 import Incidents from "../../../components/cards/Card";
-import ActionBar from "../../../components/dashbaord/incidents/action-bar";
+import ActionBar from "../../../components/dashboard/incidents/action-bar";
 import { sNO_RESULT_FOUND_BY } from "../../../constants/messages";
 import NotFound from "../../../components/helpers/errors";
 
 const IncidentDashboard = memo(() => {
   const incidentList = useSelector(({ resources }) => resources.Incidents.list);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   return (
     <>

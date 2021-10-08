@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { addIncident, updateIncident } from "../../../store/slices/resources/incidents";
 import { isClient } from "../../../utils/is-client";
@@ -27,6 +27,7 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, type, styl
   const [disabled, setDisabled] = useState(true);
   const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
   const [form] = Form.useForm();
+  const statusMap = { open: "Active", hold: "Hold", close: "Close" };
 
   const onShowModal = () => {
     setVisible(true);
@@ -40,7 +41,9 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, type, styl
     setLoading(true);
     let data = {
       name: formData.name,
+      status: formData.status,
     };
+
     if (visible && selected) {
       dispatch(updateIncident(selected?.id, data));
     } else {
@@ -152,13 +155,7 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, type, styl
         modalRender={Drag()}
         forceRender
       >
-        <Form
-          {...formItemLayout}
-          form={form}
-          name="register"
-          // onFinish={onSubmit}
-          scrollToFirstError
-        >
+        <Form {...formItemLayout} form={form} name="register" scrollToFirstError>
           <Form.Item
             name="name"
             label={
@@ -171,6 +168,21 @@ const DepartmentModel = memo(({ visible, setVisible, selected, title, type, styl
           >
             <Input />
           </Form.Item>
+          {off && (
+            <Form.Item label="status" hasFeedback name="status">
+              <Select allowClear showSearch={true}>
+                {Object.keys(statusMap).map((status) => {
+                  return (
+                    <>
+                      <Select key={status} value={status}>
+                        {statusMap[status]}
+                      </Select>
+                    </>
+                  );
+                })}
+              </Select>
+            </Form.Item>
+          )}
         </Form>
       </Modal>
     </>

@@ -54,7 +54,6 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
       len: formData.mobilePhone,
       RoleId: formData.RoleId,
     };
-    console.log("asdf", data);
     if (visible && selectedUser) {
       dispatch(updateUser(selectedUser.id, data));
     } else {
@@ -83,7 +82,6 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
           // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/mouse-events-have-key-events.md
           onFocus={(e) => e}
           onBlur={(e) => e}
-          // end
         >
           {modelTitle}
         </div>

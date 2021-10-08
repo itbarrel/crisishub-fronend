@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { Row, Button, Dropdown, Menu } from "antd";
 import Widget from "../../Widget";
-import AddIncident from "../../../components/resources/incident/form-model";
+import AddIncident from "../../resources/incident/form-model";
 import { TeamOutlined, UsergroupDeleteOutlined, DownOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { getFilteredIncidentList } from "../../../store/slices/resources/incidents";

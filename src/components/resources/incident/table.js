@@ -22,8 +22,6 @@ const IncidentTable = memo(() => {
   const [pagination, setPagination] = useState({ total: totalItems, ...PAGINATION });
   const [tableSetting] = useState({ pagination, ...TABLE_SETTING });
 
-  console.log("pagination", tableSetting);
-
   const handleDelete = (Current_user) => {
     log("handleDelete incident", Current_user.id);
     dispatch(removeIncident(Current_user.id));
