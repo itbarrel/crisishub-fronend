@@ -1,4 +1,3 @@
-console.log()
 const dev = {
   dev: "dev",
   baseURL: process.env.NEXT_PUBLIC_HOST_URL, // prod api

@@ -9,13 +9,13 @@ import { Table, Button, Popconfirm } from "antd";
 import { log } from "../../../utils/console-log";
 import UpdateDepartment from "./form-model";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { setLoading } from "../../../store/slices/loader";
 
 const Accounts = memo((props) => {
   const dispatch = useDispatch();
   const departmentList = useSelector(({ resources }) => resources.Departments.list);
-  const loader = useSelector(({ resources }) => resources.Departments.loading);
+  const loader = useSelector(({ loader }) => loader.loading?.departments);
   const totalItems = useSelector(({ resources }) => resources.Departments.total_items);
-  const [loading] = useState(loader);
   const [selectedDepartment, setSelectedDepartment] = useState({});
   const [visible, setVisible] = useState(false);
   const [sort, setSort] = useState({});
@@ -32,7 +32,7 @@ const Accounts = memo((props) => {
 
   const [tableSetting] = useState({
     bordered: true,
-    loading: loading,
+    loading: loader,
     pagination,
     size: "small",
     expandedRowRender: false,

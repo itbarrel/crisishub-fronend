@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan, resetAll } from "../apiActions";
 import { login as _login, logout as _logout } from "../../services/Auth";
+import { CHANGE_PASSWORD, UPDATE_PROFILE } from "../../constants/loaderKeys";
 
 const slice = createSlice({
   name: "auth",
@@ -10,30 +11,28 @@ const slice = createSlice({
     loader: {},
     user: null,
     token: null,
-    hasErrors: false
+    hasErrors: false,
   },
   reducers: {
-    loading: (state) => {
-      state.loader = true;
-    },
+    start: () => {},
     login: (state, action) => {
-      const { token, user, permissions } = action.payload
+      const { token, user, permissions } = action.payload;
       state.loader = false;
       state.token = token;
       state.isAuthenticated = !!token;
-      state.permissions = permissions
-      state.user = user
-      state.hasErrors = false
-      _login(token)
+      state.permissions = permissions;
+      state.user = user;
+      state.hasErrors = false;
+      _login(token);
     },
     logout: (state) => {
-      _logout()
+      _logout();
       state.isAuthenticated = false;
       state.loader = false;
-      state.user = null
-      state.token = null
-      state.permissions = {}
-      state.hasErrors = false
+      state.user = null;
+      state.token = null;
+      state.permissions = {};
+      state.hasErrors = false;
     },
     update: (state, action) => {
       state.user = action.payload;
@@ -49,30 +48,40 @@ const slice = createSlice({
       state.loader = false;
     },
     setLoader: (state, action) => {
-      const { key, value } = action.payload
-      state.loader = { [key]: value, ...state.loader }
+      const { key, value } = action.payload;
+      state.loader = { [key]: value, ...state.loader };
     },
     failed: (state) => {
       state.loader = false;
-      state.hasErrors = true
+      state.hasErrors = true;
     },
-  }
+  },
 });
 
-export const { loading, login, logout, update, changePassword, forgetPassword, resetPassword, setLoader, failed } = slice.actions;
+export const {
+  start,
+  login,
+  logout,
+  update,
+  changePassword,
+  forgetPassword,
+  resetPassword,
+  setLoader,
+  failed,
+} = slice.actions;
 
 export const onLogin = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      url: 'v1/auth/login',
+      url: "v1/auth/login",
       method: "post",
       data: data,
-      onStart: loading.type,
+      onStart: start.type,
       onSuccess: login.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
-  )
+  );
 };
 
 export const updateProfile = (id, data) => (dispatch) => {
@@ -81,10 +90,11 @@ export const updateProfile = (id, data) => (dispatch) => {
       url: `v1/users/${id}`,
       method: "put",
       data,
-      onStart: loading.type,
+      loadingKey: UPDATE_PROFILE,
+      onStart: start.type,
       onSuccess: update.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
 };
@@ -95,10 +105,11 @@ export const updatePassword = (data) => (dispatch) => {
       url: `v1/auth/changepassword`,
       method: "post",
       data,
-      onStart: loading.type,
+      loadingKey: CHANGE_PASSWORD,
+      onStart: start.type,
       onSuccess: changePassword.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
 };
@@ -109,13 +120,13 @@ export const onForgetPassword = (data) => (dispatch) => {
       url: `v1/auth/forgetpassword`,
       method: "post",
       data,
-      onStart: loading.type,
+      onStart: start.type,
       onSuccess: forgetPassword.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
-  return dispatch(setLoader({ key: 'forget', value: false }))
+  return dispatch(setLoader({ key: "forget", value: false }));
 };
 
 export const onResetPassword = (data) => (dispatch) => {
@@ -124,31 +135,31 @@ export const onResetPassword = (data) => (dispatch) => {
       url: `v1/auth/resetpassword`,
       method: "post",
       data,
-      onStart: loading.type,
+      onStart: start.type,
       onSuccess: changePassword.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
   );
 };
 
 export const onLogOut = () => (dispatch) => {
-  dispatch(logout())
-  return dispatch(resetAll())
+  dispatch(logout());
+  return dispatch(resetAll());
 };
 
 export const confirmLogin = () => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      url: 'v1/auth/me',
+      url: "v1/auth/me",
       method: "post",
       data: {},
-      onStart: loading.type,
+      onStart: start.type,
       onSuccess: login.type,
       onError: failed.type,
-      notify: true
+      notify: true,
     })
-  )
+  );
 };
 
 export default slice.reducer;

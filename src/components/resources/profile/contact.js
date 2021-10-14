@@ -45,7 +45,7 @@ const Contact = memo(() => {
         />
         <Item
           id={"Webpage"}
-          title={"Account Name OR Domain Name"}
+          title={"Account.Name"}
           description={"www.CrisisHub.co"}
           icon={"link"}
         />

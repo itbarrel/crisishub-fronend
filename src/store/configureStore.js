@@ -23,6 +23,6 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 
 const store = configureStore({ reducer: persistedReducer, middleware, preloadedState: {} });
 
-const persistor = persistStore(store);
+export const persistor = persistStore(store);
 
-export { store, persistor };
+export default store;

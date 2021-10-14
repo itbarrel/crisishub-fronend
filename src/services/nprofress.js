@@ -2,7 +2,7 @@ import Router from "next/router";
 import NProgress from "nprogress";
 import { log } from "../utils/console-log";
 
-const nprofress = () => {
+export function nprofress() {
   Router.events.on("routeChangeStart", (url) => {
     log("App Layout - start loading", url);
     NProgress.start();
@@ -16,6 +16,4 @@ const nprofress = () => {
     log("App Layout - route change error");
     NProgress.done();
   });
-};
-
-export default nprofress;
+}

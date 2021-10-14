@@ -1,4 +1,4 @@
-import { store } from "./configureStore";
+import store from "./configureStore";
 import { createWrapper } from "next-redux-wrapper";
 
 // (context)  -or-  (initialState, options)

@@ -17,6 +17,7 @@ import IntlMessages from "../../utils/IntlMessages";
 import { useDispatch, useSelector } from "react-redux";
 import { setPathName } from "../../store/slices/ui/settings";
 import permissionCheck from "../../utils/PermissionGuard";
+import { setLoading } from "../../store/slices/loader";
 
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -42,7 +43,10 @@ const SidebarContent = () => {
   // };
 
   useEffect(() => {
-    dispatch(setPathName(router.pathname));
+    // dispatch(setPathName(router.pathname));
+    return () => {
+      dispatch({ type: setLoading.type, payload: {} });
+    };
   }, [router.pathname]);
 
   const selectedKeys = pathname.substr(1);
