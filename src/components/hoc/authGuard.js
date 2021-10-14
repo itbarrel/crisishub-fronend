@@ -50,7 +50,8 @@ export const withAuthSync = (Page) => {
 
   HOC.getInitialProps = async (ctx) => {
     const token = auth(ctx);
-    const componentProps = Page.getInitialProps && (await Page.getInitialProps(ctx));
+    const componentProps =
+      Page.getInitialProps && (await Page.getInitialProps(ctx));
 
     return { ...componentProps, token };
   };

@@ -15,7 +15,7 @@ import {
 } from "../../constants/ThemeSetting";
 import IntlMessages from "../../utils/IntlMessages";
 import { useDispatch, useSelector } from "react-redux";
-import { setPathName } from "../../store/slices/ui/settings";
+// import { setPathName } from "../../store/slices/ui/settings";
 import permissionCheck from "../../utils/PermissionGuard";
 import { setLoading } from "../../store/slices/loader";
 
@@ -56,7 +56,9 @@ const SidebarContent = () => {
     <>
       <SidebarLogo />
       <div className="gx-sidebar-content">
-        <div className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}>
+        <div
+          className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}
+        >
           <UserProfile />
           {/* <AppsNavigation /> */}
         </div>

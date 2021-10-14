@@ -7,7 +7,11 @@ const CustomScrollbars = (props) => (
     autoHide
     universal
     renderTrackHorizontal={(props) => (
-      <div {...props} style={{ display: "none" }} className="track-horizontal" />
+      <div
+        {...props}
+        style={{ display: "none" }}
+        className="track-horizontal"
+      />
     )}
   />
 );

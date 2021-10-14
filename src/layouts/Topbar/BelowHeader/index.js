@@ -8,7 +8,10 @@ import SearchBox from "../../../components/SearchBox";
 import UserInfo from "../../../components/UserInfo";
 import AppNotification from "../../../components/AppNotification";
 import MailNotification from "../../../components/MailNotification";
-import { switchLanguage, toggleCollapsedSideNav } from "../../../store/slices/ui/settings";
+import {
+  switchLanguage,
+  toggleCollapsedSideNav,
+} from "../../../store/slices/ui/settings";
 import HorizontalNav from "../HorizontalNav";
 import Link from "next/link";
 import IntlMessages from "../../../utils/IntlMessages";
@@ -112,7 +115,11 @@ const BelowHeader = () => {
                 value={searchText}
               />
 
-              <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
+              <Select
+                defaultValue="lucy"
+                style={{ width: 120 }}
+                onChange={handleChange}
+              >
                 <Option value="jack">Products</Option>
                 <Option value="lucy">Apps</Option>
                 <Option value="Yiminghe">Blogs</Option>

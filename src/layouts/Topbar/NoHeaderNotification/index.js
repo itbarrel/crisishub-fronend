@@ -4,14 +4,14 @@ import { toggleCollapsedSideNav } from "../../../store/slices/ui/settings";
 import IntlMessages from "../../../utils/IntlMessages";
 
 const NoHeaderNotification = () => {
-
   const dispatch = useDispatch();
   const navCollapsed = useSelector(({ ui }) => ui.settings.navCollapsed);
 
   return (
     <div className="gx-no-header-horizontal">
       <div className="gx-d-block gx-d-lg-none gx-linebar gx-mr-xs-3">
-        <i className="gx-icon-btn icon icon-menu"
+        <i
+          className="gx-icon-btn icon icon-menu"
           onClick={() => {
             dispatch(toggleCollapsedSideNav(!navCollapsed));
           }}
@@ -20,11 +20,13 @@ const NoHeaderNotification = () => {
       <div className="gx-no-header-horizontal-top">
         <div className="gx-no-header-horizontal-top-center">
           <i className="icon icon-alert gx-mr-3" />
-          <p className="gx-mb-0 gx-text-truncate"><IntlMessages id="app.announced" /></p>
+          <p className="gx-mb-0 gx-text-truncate">
+            <IntlMessages id="app.announced" />
+          </p>
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default NoHeaderNotification;

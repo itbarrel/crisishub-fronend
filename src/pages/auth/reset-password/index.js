@@ -86,12 +86,19 @@ const ForgotPassword = memo(() => {
                     <Form.Item rules={validate.password} name="password">
                       <Input placeholder={"password"} />
                     </Form.Item>
-                    <Form.Item rules={validate.confirmPassword} name={"confirm"}>
+                    <Form.Item
+                      rules={validate.confirmPassword}
+                      name={"confirm"}
+                    >
                       <Input placeholder={"confirm password"} />
                     </Form.Item>
 
                     <Form.Item>
-                      <Button type="primary" className="gx-mb-0" htmlType="submit">
+                      <Button
+                        type="primary"
+                        className="gx-mb-0"
+                        htmlType="submit"
+                      >
                         <IntlMessages id="app.userAuth.reset" />
                       </Button>
                     </Form.Item>

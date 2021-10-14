@@ -20,7 +20,7 @@ const checkStatus = (response) => {
 
 const handleError = (error) => {
   if (error.response.status === 401) {
-    logout()
+    logout();
   }
   if (error.response.status === 403) {
     Router.push("/secure/dashboard");
@@ -117,7 +117,9 @@ export default class ApiClient {
   makeRequest(url, config, token) {
     const { headers } = config;
 
-    const configuration = token ? { ...config, headers: { ...headers, token: token } } : config;
+    const configuration = token
+      ? { ...config, headers: { ...headers, token: token } }
+      : config;
 
     return fetch(url, configuration).then(checkStatus).catch(handleError);
   }

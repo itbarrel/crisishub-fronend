@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,10 +11,13 @@ import {
 import { Table, Button, Popconfirm } from "antd";
 import { log } from "../../../utils/console-log";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import PropTypes from "prop-types";
 
 const Role = memo(({ setVisible, setTitle }) => {
   const dispatch = useDispatch();
-  const { records, loading: loader } = useSelector(({ resources }) => resources.Role);
+  const { records, loading: loader } = useSelector(
+    ({ resources }) => resources.Role
+  );
   const loginUser = useSelector(({ auth }) => auth.user);
   const totalItems = useSelector(({ resources }) => resources.Role.total_items);
   const [loading] = useState(loader);
@@ -51,7 +55,9 @@ const Role = memo(({ setVisible, setTitle }) => {
       dataIndex: "default",
       key: "default",
       width: 120,
-      render: (text) => <span className="gx-link">{text == true ? "Yes" : "No"}</span>,
+      render: text => (
+        <span className="gx-link">{text === true ? "Yes" : "No"}</span>
+      ),
     },
     {
       title: "Status",
@@ -64,10 +70,14 @@ const Role = memo(({ setVisible, setTitle }) => {
       title: "Action",
       key: "action",
       width: 80,
-      render: (text, record, index) => (
+      render: (record,) => (
         <>
           {loginUser && loginUser.RoleId !== record.id && (
-            <Button size="large" icon={<EditOutlined />} onClick={() => handleEdit(record)} />
+            <Button
+              size="large"
+              icon={<EditOutlined />}
+              onClick={() => handleEdit(record)}
+            />
           )}
           {!record.default && (
             <Popconfirm
@@ -108,8 +118,12 @@ const Role = memo(({ setVisible, setTitle }) => {
   });
 
   const handleChange = (pagination, filters, sorter) => {
-    log("Various parameters of Table, change in Role page", pagination, filters, sorter);
-    const {} = pagination;
+    log(
+      "Various parameters of Table, change in Role page",
+      pagination,
+      filters,
+      sorter
+    );
     setSort(sorter);
     setPagination(pagination);
   };
@@ -140,4 +154,10 @@ const Role = memo(({ setVisible, setTitle }) => {
 });
 
 Role.displayName = Role;
+
+Role.propTypes = {
+  setVisible : PropTypes.any,
+  setTitle : PropTypes.any
+}
+
 export default Role;

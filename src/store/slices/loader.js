@@ -13,7 +13,7 @@ const slice = createSlice({
         state.loading[key] = payload[key];
       });
     },
-    setLoading: (state, action) => {
+    setLoading: (state) => {
       state.loading = {};
     },
   },

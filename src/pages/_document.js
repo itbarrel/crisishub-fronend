@@ -10,7 +10,11 @@ class UGSports extends Document {
           <meta name="description" content={ENV.siteDescription} />
           <meta property="og:type" content="website" />
           <meta name="og:title" property="og:title" content={ENV.siteName} />
-          <meta name="og:description" property="og:description" content={ENV.siteDescription} />
+          <meta
+            name="og:description"
+            property="og:description"
+            content={ENV.siteDescription}
+          />
           <meta property="og:site_name" content={ENV.siteName} />
           <meta property="og:image" content="/images/ogimg.png" />
           <meta name="twitter:card" content="summary_large_image" />

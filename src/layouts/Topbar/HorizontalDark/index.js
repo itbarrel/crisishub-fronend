@@ -10,7 +10,10 @@ import AppNotification from "../../../components/AppNotification";
 import MailNotification from "../../../components/MailNotification";
 import Link from "next/link";
 import HorizontalNav from "../HorizontalNav";
-import { switchLanguage, toggleCollapsedSideNav } from "../../../store/slices/ui/settings";
+import {
+  switchLanguage,
+  toggleCollapsedSideNav,
+} from "../../../store/slices/ui/settings";
 import IntlMessages from "../../../utils/IntlMessages";
 
 const { Header } = Layout;
@@ -112,7 +115,11 @@ const HorizontalDark = () => {
                 value={searchText}
               />
 
-              <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
+              <Select
+                defaultValue="lucy"
+                style={{ width: 120 }}
+                onChange={handleChange}
+              >
                 <Option value="jack">Products</Option>
                 <Option value="lucy">Apps</Option>
                 <Option value="Yiminghe">Blogs</Option>

@@ -14,7 +14,9 @@ const slice = createSlice({
     hasErrors: false,
   },
   reducers: {
-    start: () => {},
+    start: (state) => {
+      return state;
+    },
     login: (state, action) => {
       const { token, user, permissions } = action.payload;
       state.loader = false;
@@ -76,7 +78,6 @@ export const onLogin = (data) => (dispatch) => {
       url: "v1/auth/login",
       method: "post",
       data: data,
-      onStart: start.type,
       onSuccess: login.type,
       onError: failed.type,
       notify: true,
@@ -91,7 +92,6 @@ export const updateProfile = (id, data) => (dispatch) => {
       method: "put",
       data,
       loadingKey: UPDATE_PROFILE,
-      onStart: start.type,
       onSuccess: update.type,
       onError: failed.type,
       notify: true,
@@ -106,7 +106,6 @@ export const updatePassword = (data) => (dispatch) => {
       method: "post",
       data,
       loadingKey: CHANGE_PASSWORD,
-      onStart: start.type,
       onSuccess: changePassword.type,
       onError: failed.type,
       notify: true,
@@ -120,7 +119,6 @@ export const onForgetPassword = (data) => (dispatch) => {
       url: `v1/auth/forgetpassword`,
       method: "post",
       data,
-      onStart: start.type,
       onSuccess: forgetPassword.type,
       onError: failed.type,
       notify: true,
@@ -135,8 +133,20 @@ export const onResetPassword = (data) => (dispatch) => {
       url: `v1/auth/resetpassword`,
       method: "post",
       data,
-      onStart: start.type,
       onSuccess: changePassword.type,
+      onError: failed.type,
+      notify: true,
+    })
+  );
+};
+
+export const confirmLogin = () => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      url: "v1/auth/me",
+      method: "post",
+      data: {},
+      onSuccess: login.type,
       onError: failed.type,
       notify: true,
     })
@@ -146,20 +156,6 @@ export const onResetPassword = (data) => (dispatch) => {
 export const onLogOut = () => (dispatch) => {
   dispatch(logout());
   return dispatch(resetAll());
-};
-
-export const confirmLogin = () => (dispatch) => {
-  return dispatch(
-    apiCallBegan({
-      url: "v1/auth/me",
-      method: "post",
-      data: {},
-      onStart: start.type,
-      onSuccess: login.type,
-      onError: failed.type,
-      notify: true,
-    })
-  );
 };
 
 export default slice.reducer;

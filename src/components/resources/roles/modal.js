@@ -1,12 +1,12 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-import { Button, Form, Input, Modal, Row, Col } from "antd";
+import { Button, Form, Input, Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { addRole, updateRole } from "../../../store/slices/resources/role";
 import { isClient } from "../../../utils/is-client";
 import Draggable from "react-draggable";
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
-import { PlusCircleOutlined } from "@ant-design/icons";
 import PermissionTable from "./permissions";
+import PropTypes from "prop-types";
 
 const formItemLayout = {
   labelCol: {
@@ -34,7 +34,12 @@ const ModalWindow = memo(({ title, visible, setVisible }) => {
   const [loading, setLoading] = useState(loader);
   const [disabled, setDisabled] = useState(true);
 
-  const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
+  const [bounds, setBounds] = useState({
+    left: 0,
+    top: 0,
+    bottom: 0,
+    right: 0,
+  });
 
   const [permissions, setPermissions] = useState({});
 
@@ -45,7 +50,10 @@ const ModalWindow = memo(({ title, visible, setVisible }) => {
       permissionObj[entity] ||= {};
       operations.forEach((operation) => {
         permissionObj[entity] ||= false;
-        if (permissionsSet[entity] && permissionsSet[entity].includes(operation)) {
+        if (
+          permissionsSet[entity] &&
+          permissionsSet[entity].includes(operation)
+        ) {
           permissionObj[entity][operation] = true;
         } else {
           permissionObj[entity][operation] = false;
@@ -105,8 +113,6 @@ const ModalWindow = memo(({ title, visible, setVisible }) => {
           onMouseOut={() => {
             setDisabled(true);
           }}
-          onFocus={() => {}}
-          onBlur={() => {}}
         >
           {title}
         </div>
@@ -120,7 +126,12 @@ const ModalWindow = memo(({ title, visible, setVisible }) => {
         <Button key="back" onClick={onCloseModal}>
           Return
         </Button>
-        <Button key="submit" type="primary" loading={loading} onClick={onSubmit}>
+        <Button
+          key="submit"
+          type="primary"
+          loading={loading}
+          onClick={onSubmit}
+        >
           Submit
         </Button>
       </>
@@ -140,7 +151,7 @@ const ModalWindow = memo(({ title, visible, setVisible }) => {
     form.setFieldsValue(record);
   }, [record]);
 
-  const Drag = () => (model) => {
+  const drag = () => (model) => {
     if (isClient) {
       const { clientWidth, clientHeight } = window?.document?.documentElement;
       const targetRect = draggleRef?.current?.getBoundingClientRect();
@@ -176,18 +187,34 @@ const ModalWindow = memo(({ title, visible, setVisible }) => {
         onCancel={onCloseModal}
         footer={<ModalFooter />}
         width={1000}
-        modalRender={Drag()}
+        modalRender={drag()}
         forceRender
       >
-        <Form {...formItemLayout} form={form} name="manageRole" scrollToFirstError>
+        <Form
+          {...formItemLayout}
+          form={form}
+          name="manageRole"
+          scrollToFirstError
+        >
           <Form.Item
             name="name"
-            label={<LabelAndTooltip title={"Name"} tooltip={"Enter Role Name"} />}
-            rules={[{ required: true, message: "Please input Role Name!", whitespace: true }]}
+            label={
+              <LabelAndTooltip title={"Name"} tooltip={"Enter Role Name"} />
+            }
+            rules={[
+              {
+                required: true,
+                message: "Please input Role Name!",
+                whitespace: true,
+              },
+            ]}
           >
             <Input />
           </Form.Item>
-          <PermissionTable permissions={permissions} setPermissions={setPermissions} />
+          <PermissionTable
+            permissions={permissions}
+            setPermissions={setPermissions}
+          />
         </Form>
       </Modal>
     </>
@@ -195,5 +222,11 @@ const ModalWindow = memo(({ title, visible, setVisible }) => {
 });
 
 ModalWindow.displayName = ModalWindow;
+
+ModalWindow.propTypes = {
+  title: PropTypes.string.isRequired,
+  visible: PropTypes.bool,
+  setVisible: PropTypes.func,
+};
 
 export default ModalWindow;

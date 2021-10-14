@@ -26,7 +26,7 @@ module.exports = {
     "array-element-newline": "off",
     "arrow-body-style": "off",
     "arrow-parens": "off",
-    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/rules-of-hooks": "warn", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
     "arrow-spacing": [
       "error",
@@ -85,7 +85,7 @@ module.exports = {
     "keyword-spacing": "off",
     "line-comment-position": "off",
     "linebreak-style": "off",
-    "lines-around-comment": "error",
+    "lines-around-comment": "off",
     "lines-around-directive": "error",
     "lines-between-class-members": "error",
     "max-classes-per-file": "error",

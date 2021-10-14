@@ -1,10 +1,7 @@
 // auth :: tokens :: cookies.
 // need to set the attributes for the cookies
 import Cookie from "js-cookie";
-import {
-  TOKEN_KEY,
-  COOKIE,
-} from "../../constants/local-forage";
+import { TOKEN_KEY, COOKIE } from "../../constants/local-forage";
 
 const CookieService = {
   acceptCookies() {

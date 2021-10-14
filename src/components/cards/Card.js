@@ -38,7 +38,10 @@ const Card = memo(({ title, createdAt, incident }) => {
             <LinkOutlined style={{ fontSize: "22px", color: "green" }} />
           </li>
           <li>
-            <i className="icon icon-map-drawing" style={{ fontSize: "22px", color: "blue" }}></i>
+            <i
+              className="icon icon-map-drawing"
+              style={{ fontSize: "22px", color: "blue" }}
+            ></i>
           </li>
           <li>
             <DashboardOutlined style={{ fontSize: "22px", color: "orange" }} />

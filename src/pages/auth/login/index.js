@@ -7,10 +7,9 @@ import FacebookOutlined from "@ant-design/icons/lib/icons/FacebookOutlined";
 import GoogleOutlined from "@ant-design/icons/lib/icons/GoogleOutlined";
 import IntlMessages from "../../../utils/IntlMessages";
 import getlanguage from "../../../components/hoc/withLang";
-import { onLogin } from "../../../store/slices/auth";
+import { onLogin, confirmLogin } from "../../../store/slices/auth";
 import { log } from "../../../utils/console-log";
 
-import { confirmLogin } from "../../../store/slices/auth";
 import { CookieService } from "../../../services/storage.service";
 
 const Login = memo(() => {
@@ -18,7 +17,7 @@ const Login = memo(() => {
   const token = CookieService.getToken();
 
   if (token) {
-    dispatch(confirmLogin())
+    dispatch(confirmLogin());
   }
 
   const onFinishFailed = (errorInfo) => {

@@ -6,10 +6,10 @@ import { onLogOut } from "../../store/slices/auth";
 import { loading } from "../../store/slices/loader";
 
 const api =
-  ({ dispatch }) =>
-  (next) =>
-  (action) => {
-    if (action.type !== actions.apiCallBegan.type) return next(action);
+  ({ dispatch }) => (next) => (action) => {
+    if (action.type !== actions.apiCallBegan.type) {
+      return next(action);
+    }
 
     const {
       url,
@@ -25,8 +25,12 @@ const api =
     if (onStart) {
       dispatch({ type: onStart });
     }
-    if (loadingKey)
-      dispatch({ type: loading.type, payload: loadingKey ? { [loadingKey]: true } : {} });
+    if (loadingKey) {
+      dispatch({
+        type: loading.type,
+        payload: loadingKey ? { [loadingKey]: true } : {},
+      });
+    }
 
     // eslint-disable-next-line callback-return
     next(action);
@@ -47,8 +51,12 @@ const api =
         if (onSuccess) {
           dispatch({ type: onSuccess, payload: response });
         }
-        if (loadingKey)
-          dispatch({ type: loading.type, payload: loadingKey ? { [loadingKey]: false } : {} });
+        if (loadingKey) {
+          dispatch({
+            type: loading.type,
+            payload: loadingKey ? { [loadingKey]: false } : {},
+          });
+        }
       })
       .catch((err) => {
         // General
@@ -57,8 +65,12 @@ const api =
         }
         err.response.json().then((error) => {
           dispatch(actions.apiCallFailed(error.message));
-          if (loadingKey)
-            dispatch({ type: loading.type, payload: loadingKey ? { [loadingKey]: false } : {} });
+          if (loadingKey) {
+            dispatch({
+              type: loading.type,
+              payload: loadingKey ? { [loadingKey]: false } : {},
+            });
+          }
           notification.error({
             message: "Something went wrong",
             description: error.message,

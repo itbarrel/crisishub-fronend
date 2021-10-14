@@ -1,7 +1,7 @@
 import React from "react";
 import NotificationItem from "./NotificationItem";
 import { notifications } from "./data";
-import CustomScrollbars from '../../utils/CustomScrollbars'
+import CustomScrollbars from "../../utils/CustomScrollbars";
 
 const MailNotification = () => {
   return (
@@ -12,12 +12,13 @@ const MailNotification = () => {
       </div>
       <CustomScrollbars className="gx-popover-scroll">
         <ul className="gx-sub-popover">
-          {notifications.map((notification, index) => <NotificationItem key={index}
-            notification={notification} />)}
+          {notifications.map((notification, index) => (
+            <NotificationItem key={index} notification={notification} />
+          ))}
         </ul>
       </CustomScrollbars>
     </>
-  )
+  );
 };
 
 export default MailNotification;

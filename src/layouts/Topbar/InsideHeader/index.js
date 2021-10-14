@@ -10,7 +10,10 @@ import AppNotification from "../../../components/AppNotification";
 import MailNotification from "../../../components/MailNotification";
 import HorizontalNav from "../HorizontalNav";
 import Link from "next/link";
-import { switchLanguage, toggleCollapsedSideNav } from "../../../store/slices/ui/settings";
+import {
+  switchLanguage,
+  toggleCollapsedSideNav,
+} from "../../../store/slices/ui/settings";
 import IntlMessages from "../../../utils/IntlMessages";
 
 const { Header } = Layout;

@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable max-lines */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
@@ -167,8 +168,13 @@ const CustomizerSystem = () => {
         <li>
           <span
             onClick={() => handleThemeColor("light_purple", LIGHT_PURPLE)}
-            style={{ backgroundColor: LIGHT_PURPLE_SEC, color: LIGHT_PURPLE_DARK_TEXT_COLOR }}
-            className={`gx-link gx-color-light-purple ${themeColor === LIGHT_PURPLE && "active"}`}
+            style={{
+              backgroundColor: LIGHT_PURPLE_SEC,
+              color: LIGHT_PURPLE_DARK_TEXT_COLOR,
+            }}
+            className={`gx-link gx-color-light-purple ${
+              themeColor === LIGHT_PURPLE && "active"
+            }`}
           />
         </li>
         <li>
@@ -182,38 +188,60 @@ const CustomizerSystem = () => {
           <span
             onClick={() => handleThemeColor("blue", BLUE)}
             style={{ backgroundColor: BLUE_SEC, color: BLUE_DARK_TEXT_COLOR }}
-            className={`gx-link gx-color-blue ${themeColor === BLUE && "active"}`}
+            className={`gx-link gx-color-blue ${
+              themeColor === BLUE && "active"
+            }`}
           />
         </li>
         <li>
           <span
             onClick={() => handleThemeColor("dark_blue", DARK_BLUE)}
-            style={{ backgroundColor: DARK_BLUE_SEC, color: DARK_BLUE_DARK_TEXT_COLOR }}
-            className={`gx-link gx-color-dark-blue ${themeColor === DARK_BLUE && "active"}`}
+            style={{
+              backgroundColor: DARK_BLUE_SEC,
+              color: DARK_BLUE_DARK_TEXT_COLOR,
+            }}
+            className={`gx-link gx-color-dark-blue ${
+              themeColor === DARK_BLUE && "active"
+            }`}
           />
         </li>
 
         <li>
           <span
             onClick={() => handleThemeColor("orange", ORANGE)}
-            style={{ backgroundColor: ORANGE_SEC, color: ORANGE_DARK_TEXT_COLOR }}
-            className={`gx-link gx-color-orange ${themeColor === ORANGE && "active"}`}
+            style={{
+              backgroundColor: ORANGE_SEC,
+              color: ORANGE_DARK_TEXT_COLOR,
+            }}
+            className={`gx-link gx-color-orange ${
+              themeColor === ORANGE && "active"
+            }`}
           />
         </li>
 
         <li>
           <span
             onClick={() => handleThemeColor("light_blue", LIGHT_BLUE)}
-            style={{ backgroundColor: LIGHT_BLUE_SEC, color: LIGHT_BLUE_DARK_TEXT_COLOR }}
-            className={`gx-link gx-color-light-blue ${themeColor === LIGHT_BLUE && "active"}`}
+            style={{
+              backgroundColor: LIGHT_BLUE_SEC,
+              color: LIGHT_BLUE_DARK_TEXT_COLOR,
+            }}
+            className={`gx-link gx-color-light-blue ${
+              themeColor === LIGHT_BLUE && "active"
+            }`}
           />
         </li>
 
         <li>
           <span
             onClick={() => handleThemeColor("deep_orange", DEEP_ORANGE)}
-            style={{ backgroundColor: DEEP_ORANGE_SEC, color: DEEP_ORANGE_DARK_TEXT_COLOR }}
-            className={`gx-link gx-color-deep-orange ${themeColor === DEEP_ORANGE && "active"}`}
+            style={{
+              backgroundColor: DEEP_ORANGE_SEC,
+              color: DEEP_ORANGE_DARK_TEXT_COLOR,
+            }}
+            className={`gx-link gx-color-deep-orange ${
+              themeColor === DEEP_ORANGE && "active"
+            }`}
           />
         </li>
 
@@ -252,7 +280,9 @@ const CustomizerSystem = () => {
         <li>
           <span
             onClick={() => handleLayoutTypes(LAYOUT_TYPE_FRAMED)}
-            className={`gx-pointer ${layoutType === LAYOUT_TYPE_FRAMED && "active"}`}
+            className={`gx-pointer ${
+              layoutType === LAYOUT_TYPE_FRAMED && "active"
+            }`}
           >
             <img src={"/images/layouts/framed.png"} alt="framed" />
           </span>
@@ -260,7 +290,9 @@ const CustomizerSystem = () => {
         <li>
           <span
             onClick={() => handleLayoutTypes(LAYOUT_TYPE_FULL)}
-            className={`gx-pointer ${layoutType === LAYOUT_TYPE_FULL && "active"}`}
+            className={`gx-pointer ${
+              layoutType === LAYOUT_TYPE_FULL && "active"
+            }`}
           >
             <img src={"/images/layouts/full width.png"} alt="full width" />
           </span>
@@ -268,7 +300,9 @@ const CustomizerSystem = () => {
         <li>
           <span
             onClick={() => handleLayoutTypes(LAYOUT_TYPE_BOXED)}
-            className={`gx-pointer ${layoutType === LAYOUT_TYPE_BOXED && "active"}`}
+            className={`gx-pointer ${
+              layoutType === LAYOUT_TYPE_BOXED && "active"
+            }`}
           >
             <img src={"/images/layouts/boxed.png"} alt="boxed" />
           </span>
@@ -291,7 +325,9 @@ const CustomizerSystem = () => {
         <li>
           <span
             onClick={() => onNavStyleChanges(NAV_STYLE_MINI_SIDEBAR)}
-            className={`gx-pointer ${navStyle === NAV_STYLE_MINI_SIDEBAR && "active"}`}
+            className={`gx-pointer ${
+              navStyle === NAV_STYLE_MINI_SIDEBAR && "active"
+            }`}
           >
             <img src={"/images/layouts/mini sidebar.png"} alt="mini sidebar" />
           </span>
@@ -299,7 +335,9 @@ const CustomizerSystem = () => {
         <li>
           <span
             onClick={() => onNavStyleChanges(NAV_STYLE_DRAWER)}
-            className={`gx-pointer ${navStyle === NAV_STYLE_DRAWER && "active"}`}
+            className={`gx-pointer ${
+              navStyle === NAV_STYLE_DRAWER && "active"
+            }`}
           >
             <img src={"/images/layouts/drawer nav.png"} alt="drawer nav" />
           </span>
@@ -307,19 +345,28 @@ const CustomizerSystem = () => {
         <li>
           <span
             onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_MINI_SIDEBAR)}
-            className={`gx-pointer ${navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && "active"}`}
+            className={`gx-pointer ${
+              navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && "active"
+            }`}
           >
-            <img src={"/images/layouts/no header mini sidebar.png"} alt="no hader mini sidebar" />
+            <img
+              src={"/images/layouts/no header mini sidebar.png"}
+              alt="no hader mini sidebar"
+            />
           </span>
         </li>
         <li>
           <span
-            onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR)}
+            onClick={() => onNavStyleChanges(NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR)
+            }
             className={`gx-pointer ${
               navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR && "active"
             }`}
           >
-            <img src={"/images/layouts/vertical no header.png"} alt="vertical no header" />
+            <img
+              src={"/images/layouts/vertical no header.png"}
+              alt="vertical no header"
+            />
           </span>
         </li>
         {/* <li>

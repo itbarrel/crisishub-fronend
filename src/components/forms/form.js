@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const FormWrapper = () => {
-  return (
-    <>
-      
-    </>
-  )
-}
+  return <></>;
+};
 
-export default FormWrapper
+export default FormWrapper;

@@ -25,7 +25,12 @@ const Model = memo(() => {
   const [loading, setLoading] = useState(loader);
   const [title, setTitle] = useState("Edit Account");
   const [disabled, setDisabled] = useState(true);
-  const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
+  const [bounds, setBounds] = useState({
+    left: 0,
+    top: 0,
+    bottom: 0,
+    right: 0,
+  });
 
   const onShowModal = () => {
     setVisible(true);
@@ -86,7 +91,12 @@ const Model = memo(() => {
         <Button key="back" onClick={onCloseModal}>
           Return
         </Button>
-        <Button key="submit" type="primary" loading={loading} onClick={onSubmit}>
+        <Button
+          key="submit"
+          type="primary"
+          loading={loading}
+          onClick={onSubmit}
+        >
           Add Account
         </Button>
       </>
@@ -142,12 +152,26 @@ const Model = memo(() => {
         modalRender={Drag()}
         forceRender
       >
-        <Form {...formItemLayout} form={form} name="register" scrollToFirstError>
+        <Form
+          {...formItemLayout}
+          form={form}
+          name="register"
+          scrollToFirstError
+        >
           <Form.Item
             name="accountName"
-            label={<LabelAndTooltip title={"Account.Name"} tooltip={"Enter your company name"} />}
+            label={
+              <LabelAndTooltip
+                title={"Account.Name"}
+                tooltip={"Enter your company name"}
+              />
+            }
             rules={[
-              { required: true, message: "Please input your Account name!", whitespace: true },
+              {
+                required: true,
+                message: "Please input your Account name!",
+                whitespace: true,
+              },
             ]}
           >
             <Input />
@@ -155,24 +179,57 @@ const Model = memo(() => {
 
           <Form.Item
             name="firstName"
-            label={<LabelAndTooltip title={"First.Name"} tooltip={"Enter your First Name"} />}
-            rules={[{ required: true, message: "Please input your First Name!", whitespace: true }]}
+            label={
+              <LabelAndTooltip
+                title={"First.Name"}
+                tooltip={"Enter your First Name"}
+              />
+            }
+            rules={[
+              {
+                required: true,
+                message: "Please input your First Name!",
+                whitespace: true,
+              },
+            ]}
           >
             <Input />
           </Form.Item>
 
           <Form.Item
             name="lastName"
-            label={<LabelAndTooltip title={"Last.Name"} tooltip={"Enter your Last Name"} />}
-            rules={[{ required: true, message: "Please input your Last Name!", whitespace: true }]}
+            label={
+              <LabelAndTooltip
+                title={"Last.Name"}
+                tooltip={"Enter your Last Name"}
+              />
+            }
+            rules={[
+              {
+                required: true,
+                message: "Please input your Last Name!",
+                whitespace: true,
+              },
+            ]}
           >
             <Input />
           </Form.Item>
 
           <Form.Item
             name="username1"
-            label={<LabelAndTooltip title={"User.Name"} tooltip={"Enter your Last Name"} />}
-            rules={[{ required: true, message: "Please input your Last Name!", whitespace: true }]}
+            label={
+              <LabelAndTooltip
+                title={"User.Name"}
+                tooltip={"Enter your Last Name"}
+              />
+            }
+            rules={[
+              {
+                required: true,
+                message: "Please input your Last Name!",
+                whitespace: true,
+              },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -223,7 +280,9 @@ const Model = memo(() => {
                   if (!value || getFieldValue("password") === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject("The two passwords that you entered do not match!");
+                  return Promise.reject(
+                    "The two passwords that you entered do not match!"
+                  );
                 },
               }),
             ]}
@@ -234,7 +293,9 @@ const Model = memo(() => {
           <Form.Item
             name="phone"
             label={<LabelAndTooltip title={"Phone"} />}
-            rules={[{ required: true, message: "Please input your phone number!" }]}
+            rules={[
+              { required: true, message: "Please input your phone number!" },
+            ]}
           >
             <Input style={{ width: "100%" }} />
           </Form.Item>

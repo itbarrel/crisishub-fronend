@@ -7,11 +7,21 @@ const SEO = memo(({ title, description, canonical, css, js, image }) => {
   return (
     <Head>
       <title>{`${title} ${title === "CrisisHub" ? "" : "| CrisisHub"}`}</title>
-      <meta name="description" content={description ? description : ENV.siteDescription} />
-      <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+      <meta
+        name="description"
+        content={description ? description : ENV.siteDescription}
+      />
+      <meta
+        name="viewport"
+        content="width=device-width,minimum-scale=1,initial-scale=1"
+      />
       <meta property="og:type" content="website" />
       <meta name="og:title" property="og:title" content={ENV.siteName} />
-      <meta name="og:description" property="og:description" content={ENV.siteDescription} />
+      <meta
+        name="og:description"
+        property="og:description"
+        content={ENV.siteDescription}
+      />
       <meta property="og:site_name" content={ENV.siteName} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={ENV.siteName} />

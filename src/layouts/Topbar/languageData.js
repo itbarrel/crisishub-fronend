@@ -6,16 +6,16 @@ const languageData = [
   //   icon: 'ru'            // To choose the flag of the country
   // },
   {
-    languageId: 'english',
-    locale: 'en',
-    name: 'English',
-    icon: 'us'
+    languageId: "english",
+    locale: "en",
+    name: "English",
+    icon: "us",
   },
   {
-    languageId: 'dutch',
-    locale: 'dh',
-    name: 'Dutch',
-    icon: 'cn'
+    languageId: "dutch",
+    locale: "dh",
+    name: "Dutch",
+    icon: "cn",
   },
   // {
   //   languageId: 'chinese',
@@ -47,6 +47,5 @@ const languageData = [
   //   name: 'Arabic',
   //   icon: 'sa'
   // }
-
 ];
 export default languageData;

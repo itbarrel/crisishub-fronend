@@ -20,7 +20,7 @@ const IncidentDashboard = memo(() => {
         {!isLoading &&
           incidentList &&
           incidentList.length > 0 &&
-          incidentList.map((incident, index) => {
+          incidentList.map((incident) => {
             return (
               <Col xl={6} lg={8} md={12} sm={12} xs={24} key={incident.id}>
                 <Incidents

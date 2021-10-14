@@ -10,7 +10,9 @@ const slice = createSlice({
     total_items: 0,
   },
   reducers: {
-    start: (state, action) => {},
+    start: (state) => {
+      return state;
+    },
     all: (state, action) => {
       const { payload } = action;
       state.list = payload.data;
@@ -21,11 +23,14 @@ const slice = createSlice({
     },
     remove: (state) => {
       // eslint-disable-next-line no-negated-condition
-      const update = state.list.filter((user) => (user.id !== state.update_item?.id ? user : null));
+      const update = state.list.filter((user) => (user.id !== state.update_item?.id ? user : null)
+      );
       state.list = update;
     },
     update: (state, action) => {
-      const haveID = state.list.findIndex((department) => department.id === action.payload.id);
+      const haveID = state.list.findIndex(
+        (department) => department.id === action.payload.id
+      );
       state.list[haveID] = action.payload;
     },
     current_item: (state, action) => {
@@ -44,7 +49,8 @@ const slice = createSlice({
   },
 });
 
-export const { start, all, add, remove, update, current_item, failed } = slice.actions;
+export const { start, all, add, remove, update, current_item, failed } =
+  slice.actions;
 
 export const getDepartmentsList = (data) => (dispatch) => {
   return dispatch(
@@ -53,7 +59,6 @@ export const getDepartmentsList = (data) => (dispatch) => {
       method: "get",
       data,
       loadingKey: "departments",
-      // onStart: start.type,
       onSuccess: all.type,
       onError: failed.type,
     })
@@ -66,7 +71,6 @@ export const addDepartment = (data) => (dispatch) => {
       url: "v1/departments",
       method: "post",
       data,
-      onStart: start.type,
       onSuccess: add.type,
       onError: failed.type,
       notify: true,
@@ -79,7 +83,6 @@ export const removeDepartment = (id) => (dispatch) => {
     apiCallBegan({
       url: `v1/departments/${id}`,
       method: "delete",
-      onStart: start.type,
       onSuccess: remove.type,
       onError: failed.type,
       notify: true,
@@ -93,7 +96,6 @@ export const updateDepartment = (id, data) => (dispatch) => {
       url: `v1/departments/${id}`,
       method: "put",
       data,
-      onStart: start.type,
       onSuccess: update.type,
       onError: failed.type,
       notify: true,

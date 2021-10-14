@@ -14,13 +14,19 @@ const UserInfo = () => {
   );
 
   return (
-    <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={userMenuOptions}
-      trigger="click">
-      <Avatar src={"/images/images/avatar/domnic-harris.png"}
-        className="gx-avatar gx-pointer" alt="" />
+    <Popover
+      overlayClassName="gx-popover-horizantal"
+      placement="bottomRight"
+      content={userMenuOptions}
+      trigger="click"
+    >
+      <Avatar
+        src={"/images/images/avatar/domnic-harris.png"}
+        className="gx-avatar gx-pointer"
+        alt=""
+      />
     </Popover>
-  )
-}
+  );
+};
 
-export default UserInfo
-
+export default UserInfo;

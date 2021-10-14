@@ -1,1 +1,1 @@
-export const useTranslation = () => ({ t: e => e, i18n: { language: 'en' } })
+export const useTranslation = () => ({ t: (e) => e, i18n: { language: "en" } });

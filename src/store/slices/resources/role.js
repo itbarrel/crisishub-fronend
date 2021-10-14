@@ -71,8 +71,17 @@ const slice = createSlice({
   },
 });
 
-export const { loading, all, add, remove, update, setId, setRecord, setEntities, failed } =
-  slice.actions;
+export const {
+  loading,
+  all,
+  add,
+  remove,
+  update,
+  setId,
+  setRecord,
+  setEntities,
+  failed,
+} = slice.actions;
 
 export const getRolesList = (data) => (dispatch) => {
   return dispatch(

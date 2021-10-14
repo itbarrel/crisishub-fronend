@@ -15,7 +15,11 @@ const Task = memo(() => {
       <Widget title="Tasks">
         <Row justify="end">
           <Col span={4}>
-            <AddTask title={"Add Task"} visible={visible} setVisible={setVisible} />
+            <AddTask
+              title={"Add Task"}
+              visible={visible}
+              setVisible={setVisible}
+            />
           </Col>
         </Row>
         <TaskList />

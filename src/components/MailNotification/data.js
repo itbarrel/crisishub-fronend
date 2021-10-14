@@ -5,7 +5,7 @@ export const notifications = [
     name: "Domnic Brown",
     time: "6:19 PM",
     message: "There are many variations of passages of...",
-    badge: 5
+    badge: 5,
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ export const notifications = [
     name: "John Smith",
     time: "7:10 PM",
     message: "The point of using Lorem Ipsum is that it has a...",
-    badge: 8
+    badge: 8,
   },
   {
     id: 4,
@@ -35,6 +35,6 @@ export const notifications = [
     name: "Domnic Harris",
     time: "7:35 PM",
     message: "All the Lorem Ipsum generators on the...",
-    badge: 3
-  }
+    badge: 3,
+  },
 ];

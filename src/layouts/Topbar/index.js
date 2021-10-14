@@ -4,7 +4,10 @@ import Link from "next/link";
 
 import CustomScrollbars from "../../utils/CustomScrollbars";
 import languageData from "./languageData";
-import { switchLanguage, toggleCollapsedSideNav } from "../../store/slices/ui/settings";
+import {
+  switchLanguage,
+  toggleCollapsedSideNav,
+} from "../../store/slices/ui/settings";
 import SearchBox from "../../components/SearchBox";
 import UserInfo from "../../components/UserInfo";
 import AppNotification from "../../components/AppNotification";
@@ -21,7 +24,9 @@ import { useDispatch, useSelector } from "react-redux";
 const { Header } = Layout;
 
 const Topbar = () => {
-  const { locale, width, navCollapsed, navStyle } = useSelector(({ ui }) => ui.settings);
+  const { locale, width, navCollapsed, navStyle } = useSelector(
+    ({ ui }) => ui.settings
+  );
   const { searchText } = useState("");
   const dispatch = useDispatch();
 
@@ -48,8 +53,8 @@ const Topbar = () => {
   return (
     <Header>
       {navStyle === NAV_STYLE_DRAWER ||
-        ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR) && width < TAB_SIZE)
-        ? (
+      ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR) &&
+        width < TAB_SIZE) ? (
           <div className="gx-linebar gx-mr-3">
             <i
               className="gx-icon-btn icon icon-menu"
@@ -58,11 +63,15 @@ const Topbar = () => {
               }}
             />
           </div>
-        )
-        : <></>
-      }
+        ) : (
+          <></>
+        )}
       <Link href="/">
-        <img alt="" className="gx-d-block gx-d-lg-none gx-pointer" src={"/images/w-logo.png"} />
+        <img
+          alt=""
+          className="gx-d-block gx-d-lg-none gx-pointer"
+          src={"/images/w-logo.png"}
+        />
       </Link>
 
       <SearchBox

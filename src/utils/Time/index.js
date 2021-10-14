@@ -35,7 +35,10 @@ export const formatDateTimeToLocale = (dateString, { locale, ...options }) => {
   };
 
   const date = new Date(dateString);
-  const formatter = new Intl.DateTimeFormat(locale, { ...baseOptions, ...options });
+  const formatter = new Intl.DateTimeFormat(locale, {
+    ...baseOptions,
+    ...options,
+  });
 
   return formatter.format(date);
 };

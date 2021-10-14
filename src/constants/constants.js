@@ -10,5 +10,5 @@ export const newsIcon = {
 
 export const HTTP_METHOD = {
   POST: "post",
-  GET: "get"
+  GET: "get",
 };

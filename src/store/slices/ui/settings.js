@@ -15,7 +15,7 @@ const slice = createSlice({
     layoutType: LAYOUT_TYPE_FULL,
     themeType: THEME_TYPE_SEMI_DARK,
     colorSelection: THEME_COLOR_SELECTION_PRESET,
-    themeColor: '#8A2BE2',
+    themeColor: "#8A2BE2",
 
     pathname: "",
     // width: "WINDOW_WIDTH",

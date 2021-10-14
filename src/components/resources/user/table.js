@@ -2,7 +2,11 @@
 /* eslint-disable react/display-name */
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserList, removeUser, current_item } from "../../../store/slices/resources/user";
+import {
+  getUserList,
+  removeUser,
+  current_item,
+} from "../../../store/slices/resources/user";
 import { getRolesList } from "../../../store/slices/resources/role";
 import { Table, Button, Popconfirm } from "antd";
 import { log } from "../../../utils/console-log";
@@ -43,8 +47,12 @@ const Accounts = memo(() => {
   });
 
   const handleChange = (pagination, filters, sorter) => {
-    log("Various parameters of Table, change in User page", pagination, filters, sorter);
-    const {} = pagination;
+    log(
+      "Various parameters of Table, change in User page",
+      pagination,
+      filters,
+      sorter
+    );
     setSort(sorter);
     setPagination(pagination);
   };
@@ -101,7 +109,11 @@ const Accounts = memo(() => {
       width: 360,
       render: (text, record) => (
         <>
-          <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record)} />
+          <Button
+            size="large"
+            icon={<EditOutlined />}
+            onClick={() => handleUpdate(record)}
+          />
           <Popconfirm
             title="Are you sure delete this User?"
             okText="Yes"

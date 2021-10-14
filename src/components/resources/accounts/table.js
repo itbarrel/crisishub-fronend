@@ -6,14 +6,21 @@ import { log } from "../../../utils/console-log";
 
 const Accounts = memo((props) => {
   const { list } = useSelector(({ resources }) => resources.Account);
-  const totalItems = useSelector(({ resources }) => resources.Account.total_items);
+  const totalItems = useSelector(
+    ({ resources }) => resources.Account.total_items
+  );
   const dispatch = useDispatch();
   const [sort, setSort] = useState({});
   const [itemsPerPage, setDataItemsPerPage] = useState();
   const [pageNumber, setPageNumber] = useState(1);
 
   const handleChange = (pagination, filters, sorter) => {
-    log("Various parameters of Table, change in Accounts page", pagination, filters, sorter);
+    log(
+      "Various parameters of Table, change in Accounts page",
+      pagination,
+      filters,
+      sorter
+    );
     setSort(sorter);
     setPageNumber(pagination.current);
     setDataItemsPerPage(pagination.pageSize);

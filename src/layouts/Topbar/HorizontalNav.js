@@ -39,7 +39,11 @@ const HorizontalNav = () => {
   const selectedKeys = pathname.substr(1);
   const defaultOpenKeys = selectedKeys.split("/")[1];
   return (
-    <Menu defaultOpenKeys={[defaultOpenKeys]} selectedKeys={[selectedKeys]} mode="horizontal">
+    <Menu
+      defaultOpenKeys={[defaultOpenKeys]}
+      selectedKeys={[selectedKeys]}
+      mode="horizontal"
+    >
       <SubMenu
         popupClassName={"gx-menu-horizontal gx-submenu-popup-curve"}
         key="main"

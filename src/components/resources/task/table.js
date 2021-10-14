@@ -2,7 +2,11 @@
 /* eslint-disable react/display-name */
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTaskList, removeTask, current_item } from "../../../store/slices/resources/tasks";
+import {
+  getTaskList,
+  removeTask,
+  current_item,
+} from "../../../store/slices/resources/tasks";
 import { Table, Button, Popconfirm } from "antd";
 import { log } from "../../../utils/console-log";
 import UpdateTask from "./form-model";
@@ -44,14 +48,18 @@ const Accounts = memo(() => {
       dataIndex: "active",
       key: "active",
       width: 5,
-      render: (text, record) => <span className="">{record.active ? "Active" : "Un-Active"}</span>,
+      render: (text, record) => (
+        <span className="">{record.active ? "Active" : "Un-Active"}</span>
+      ),
     },
     {
       title: "Author",
       dataIndex: "author",
       key: "author",
       width: 5,
-      render: (text, record) => <span className="gx-link">{record.author}</span>,
+      render: (text, record) => (
+        <span className="gx-link">{record.author}</span>
+      ),
       sorter: (a, b) => a.author.localeCompare(b.author),
       sortOrder: sort.columnKey === "author" && sort.order,
     },
@@ -87,7 +95,11 @@ const Accounts = memo(() => {
       width: 5,
       render: (text, record) => (
         <>
-          <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record)} />
+          <Button
+            size="large"
+            icon={<EditOutlined />}
+            onClick={() => handleUpdate(record)}
+          />
           <Popconfirm
             title="Are you sure delete this incident?"
             okText="Yes"
@@ -124,7 +136,12 @@ const Accounts = memo(() => {
     rowKey: "id",
   });
   const handleChange = (pagination, filters, sorter) => {
-    log("Various parameters of Table, change in Tasks page", pagination, filters, sorter);
+    log(
+      "Various parameters of Table, change in Tasks page",
+      pagination,
+      filters,
+      sorter
+    );
     setSort(sorter);
     setPagination(pagination);
   };

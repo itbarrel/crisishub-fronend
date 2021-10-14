@@ -6,7 +6,10 @@ import IntlMessages from "../../../utils/IntlMessages";
 export const Item = ({ id, title, description, icon }) => {
   return (
     <>
-      <div key={id} className="gx-media gx-align-items-center gx-flex-nowrap gx-pro-contact-list">
+      <div
+        key={id}
+        className="gx-media gx-align-items-center gx-flex-nowrap gx-pro-contact-list"
+      >
         <div className="gx-mr-3">
           <i className={`icon icon-${icon} gx-fs-xxl gx-text-grey`} />
         </div>
@@ -32,10 +35,20 @@ const Contact = memo(() => {
     <>
       <Widget title="Profile" text={"info"} styleName="gx-card-profile-sm">
         {user?.email && (
-          <Item id={"email"} title={"Email"} description={user?.email} icon={"email"} />
+          <Item
+            id={"email"}
+            title={"Email"}
+            description={user?.email}
+            icon={"email"}
+          />
         )}
         {user?.mobilePhone && (
-          <Item id={"Phone"} title={"Phone"} description={user?.mobilePhone} icon={"phone"} />
+          <Item
+            id={"Phone"}
+            title={"Phone"}
+            description={user?.mobilePhone}
+            icon={"phone"}
+          />
         )}
         <Item
           id={"status"}

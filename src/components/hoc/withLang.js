@@ -8,7 +8,10 @@ const withLang = (ComposedComponent) => (props) => {
   return (
     <>
       <ConfigProvider locale={currentAppLocale.antd}>
-        <IntlProvider locale={currentAppLocale.locale} messages={currentAppLocale.messages}>
+        <IntlProvider
+          locale={currentAppLocale.locale}
+          messages={currentAppLocale.messages}
+        >
           <ComposedComponent {...props} />
         </IntlProvider>
       </ConfigProvider>

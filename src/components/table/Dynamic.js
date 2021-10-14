@@ -64,7 +64,12 @@ const Dynamic = () => {
     <>
       <Card title="Accounts">
         <Button type="primary">Creact Account</Button>
-        <Table className="gx-table-responsive" {...state} columns={columns} dataSource={data} />
+        <Table
+          className="gx-table-responsive"
+          {...state}
+          columns={columns}
+          dataSource={data}
+        />
       </Card>
     </>
   );

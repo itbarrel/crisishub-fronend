@@ -4,7 +4,10 @@ import { DeleteOutlined } from "@ant-design/icons";
 import IntlMessages from "../../../../utils/IntlMessages";
 import { useDispatch } from "react-redux";
 import { log } from "../../../../utils/console-log";
-import { removeIncident, current_item } from "../../../../store/slices/resources/incidents";
+import {
+  removeIncident,
+  current_item,
+} from "../../../../store/slices/resources/incidents";
 import PropTypes from "prop-types";
 
 const DeleteButton = memo(({ incident }) => {

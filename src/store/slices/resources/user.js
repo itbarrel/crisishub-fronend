@@ -25,7 +25,8 @@ const slice = createSlice({
     },
     remove: (state) => {
       // eslint-disable-next-line no-negated-condition
-      const update = state.list.filter((user) => (user.id !== state.update_item?.id ? user : null));
+      const update = state.list.filter((user) => (user.id !== state.update_item?.id ? user : null)
+      );
       state.list = update;
       state.loading = false;
     },
@@ -58,7 +59,8 @@ const slice = createSlice({
   },
 });
 
-export const { loading, all, add, remove, update, current_item, show, failed } = slice.actions;
+export const { loading, all, add, remove, update, current_item, show, failed } =
+  slice.actions;
 
 export const getUserList = (data) => (dispatch) => {
   return dispatch(

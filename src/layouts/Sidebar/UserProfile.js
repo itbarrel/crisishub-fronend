@@ -19,7 +19,11 @@ const UserProfile = () => {
 
   return (
     <div className="gx-flex-row gx-align-items-center gx-mb-4 gx-avatar-row">
-      <Popover placement="bottomRight" content={userMenuOptions} trigger="click">
+      <Popover
+        placement="bottomRight"
+        content={userMenuOptions}
+        trigger="click"
+      >
         <Avatar
           src={"/images/avatar/domnic-harris.png"}
           className="gx-size-40 gx-pointer gx-mr-3"

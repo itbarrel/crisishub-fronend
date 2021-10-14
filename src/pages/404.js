@@ -13,7 +13,11 @@ const Error404 = memo(() => (
       <form className="gx-mb-4" role="search">
         <div className="gx-search-bar">
           <div className="gx-form-group">
-            <input type="search" className="ant-input ant-input-lg" placeholder="Search..." />
+            <input
+              type="search"
+              className="ant-input ant-input-lg"
+              placeholder="Search..."
+            />
             <button className="gx-search-icon">
               <i className="icon icon-search" />
             </button>

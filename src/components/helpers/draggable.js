@@ -1,13 +1,16 @@
-import React, { memo, useRef } from 'react'
+import React, { memo, useRef } from "react";
 import Draggable from "react-draggable";
 import { isClient } from "../../utils/is-client";
 
-
 export const DraggableComponent = memo(() => {
   const draggleRef = useRef(null);
-  const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
+  const [bounds, setBounds] = useState({
+    left: 0,
+    top: 0,
+    bottom: 0,
+    right: 0,
+  });
   const [disabled, setDisabled] = useState(true);
-
 
   if (isClient) {
     const { clientWidth, clientHeight } = window?.document?.documentElement;
@@ -33,7 +36,6 @@ export const DraggableComponent = memo(() => {
       </>
     );
   }
-})
+});
 
-DraggableComponent.displayName = DraggableComponent
-
+DraggableComponent.displayName = DraggableComponent;

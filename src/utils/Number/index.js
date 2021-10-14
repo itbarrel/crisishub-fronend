@@ -32,7 +32,11 @@ const formatIfNegative = (amount, locale) => locale === "en" && amount.indexOf("
   : amount;
 
 export const formatCurrency = (amount, currency, { locale }) => {
-  const baseOptions = { style: "currency", currencyDisplay: "code", minimumFractionDigits: 0 };
+  const baseOptions = {
+    style: "currency",
+    currencyDisplay: "code",
+    minimumFractionDigits: 0,
+  };
   const formatter = new Intl.NumberFormat(locale, { ...baseOptions, currency });
   return formatIfNegative(formatter.format(amount), locale);
 };

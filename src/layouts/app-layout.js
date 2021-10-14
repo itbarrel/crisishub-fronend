@@ -36,7 +36,9 @@ const { Content, Footer } = Layout;
 
 // eslint-disable-next-line react/display-name
 const withLayout = (Page) => (props) => {
-  const { width, themeType, locale, navStyle } = useSelector(({ ui }) => ui.settings);
+  const { width, themeType, locale, navStyle } = useSelector(
+    ({ ui }) => ui.settings
+  );
 
   const getContainerClass = (navStyle) => {
     switch (navStyle) {
@@ -112,12 +114,17 @@ const withLayout = (Page) => (props) => {
   return (
     <>
       <ConfigProvider locale={currentAppLocale.antd}>
-        <IntlProvider locale={currentAppLocale.locale} messages={currentAppLocale.messages}>
+        <IntlProvider
+          locale={currentAppLocale.locale}
+          messages={currentAppLocale.messages}
+        >
           <Layout className={`gx-app-layout ${bodyClass}`}>
             {getSidebar(navStyle, width)}
             <Layout>
               {getNavStyles(navStyle)}
-              <Content className={`gx-layout-content ${getContainerClass(navStyle)}`}>
+              <Content
+                className={`gx-layout-content ${getContainerClass(navStyle)}`}
+              >
                 <div className="gx-main-content-wrapper">
                   <Page {...props} />
                 </div>
@@ -134,6 +141,6 @@ const withLayout = (Page) => (props) => {
   );
 };
 
-withLayout.displayName = "someName"
+withLayout.displayName = "someName";
 
 export default (Page) => withAuthSync(withLayout(Page));

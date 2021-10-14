@@ -12,7 +12,9 @@ import { validate } from "../../../constants/validations";
 const ChangePassword = memo(() => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const loading = useSelector(({ loader }) => loader.loading?.[CHANGE_PASSWORD]);
+  const loading = useSelector(
+    ({ loader }) => loader.loading?.[CHANGE_PASSWORD]
+  );
   const [buttonState] = useState(false);
 
   const onSubmit = (get) => {

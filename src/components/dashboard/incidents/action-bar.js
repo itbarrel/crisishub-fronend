@@ -2,7 +2,11 @@ import React, { memo, useEffect, useState } from "react";
 import { Row, Button, Dropdown, Menu } from "antd";
 import Widget from "../../Widget";
 import AddIncident from "../../resources/incident/form-model";
-import { TeamOutlined, UsergroupDeleteOutlined, DownOutlined } from "@ant-design/icons";
+import {
+  TeamOutlined,
+  UsergroupDeleteOutlined,
+  DownOutlined,
+} from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { getFilteredIncidentList } from "../../../store/slices/resources/incidents";
 
@@ -50,10 +54,18 @@ const ActionBar = memo(() => {
             <Button type="text" icon={<TeamOutlined />} className="gx-m-0">
               Alert Team
             </Button>
-            <Button type="text" icon={<UsergroupDeleteOutlined />} className="gx-m-0">
+            <Button
+              type="text"
+              icon={<UsergroupDeleteOutlined />}
+              className="gx-m-0"
+            >
               User Status
             </Button>
-            <Button type="text" icon={<UsergroupDeleteOutlined />} className="gx-m-0">
+            <Button
+              type="text"
+              icon={<UsergroupDeleteOutlined />}
+              className="gx-m-0"
+            >
               Action Plan Wizard
             </Button>
           </div>

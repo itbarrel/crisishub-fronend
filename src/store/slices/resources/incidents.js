@@ -25,7 +25,8 @@ const slice = createSlice({
     },
     remove: (state) => {
       // eslint-disable-next-line no-negated-condition
-      const update = state.list.filter((user) => (user.id !== state.update_item?.id ? user : null));
+      const update = state.list.filter((user) => (user.id !== state.update_item?.id ? user : null)
+      );
       state.list = update;
       state.loading = false;
     },
@@ -34,8 +35,11 @@ const slice = createSlice({
       const index = state.list.findIndex((incident) => incident.id === id);
       const isStatusSame = state.list[index].status === status;
 
-      if (isStatusSame) state.list[index] = action.payload;
-      else state.list.splice(index, 1);
+      if (isStatusSame) {
+        state.list[index] = action.payload;
+      } else {
+        state.list.splice(index, 1);
+      }
 
       // state.list = isStatusSame
       //   ? (state.list[index] = action.payload)
@@ -61,7 +65,8 @@ const slice = createSlice({
   },
 });
 
-export const { loading, all, add, remove, update, current_item, failed } = slice.actions;
+export const { loading, all, add, remove, update, current_item, failed } =
+  slice.actions;
 
 export const getIncidentList = (data) => (dispatch) => {
   return dispatch(

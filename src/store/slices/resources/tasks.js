@@ -25,12 +25,15 @@ const slice = createSlice({
     },
     remove: (state) => {
       // eslint-disable-next-line no-negated-condition
-      const update = state.list.filter((user) => (user.id !== state.update_item?.id ? user : null));
+      const update = state.list.filter((user) => (user.id !== state.update_item?.id ? user : null)
+      );
       state.list = update;
       state.loading = false;
     },
     update: (state, action) => {
-      const haveID = state.list.findIndex((department) => department.id === action.payload.id);
+      const haveID = state.list.findIndex(
+        (department) => department.id === action.payload.id
+      );
       state.list[haveID] = action.payload;
       state.loading = false;
     },
@@ -52,7 +55,8 @@ const slice = createSlice({
   },
 });
 
-export const { loading, all, add, remove, update, current_item, failed } = slice.actions;
+export const { loading, all, add, remove, update, current_item, failed } =
+  slice.actions;
 
 export const getTaskList = (data) => (dispatch) => {
   return dispatch(

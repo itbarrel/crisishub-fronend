@@ -15,11 +15,16 @@ import { PAGINATION, TABLE_SETTING } from "../../../constants/configurations";
 const IncidentTable = memo(() => {
   const dispatch = useDispatch();
   const incidentList = useSelector(({ resources }) => resources.Incidents.list);
-  const totalItems = useSelector(({ resources }) => resources.Incidents.total_items);
+  const totalItems = useSelector(
+    ({ resources }) => resources.Incidents.total_items
+  );
   const [selectedIncident, setSelectedIncident] = useState({});
   const [visible, setVisible] = useState(false);
   const [sort, setSort] = useState({});
-  const [pagination, setPagination] = useState({ total: totalItems, ...PAGINATION });
+  const [pagination, setPagination] = useState({
+    total: totalItems,
+    ...PAGINATION,
+  });
   const [tableSetting] = useState({ pagination, ...TABLE_SETTING });
 
   const handleDelete = (Current_user) => {
@@ -58,7 +63,11 @@ const IncidentTable = memo(() => {
       width: 360,
       render: (text, record) => (
         <>
-          <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record)} />
+          <Button
+            size="large"
+            icon={<EditOutlined />}
+            onClick={() => handleUpdate(record)}
+          />
           <Popconfirm
             title="Are you sure delete this incident?"
             okText="Yes"
@@ -73,7 +82,12 @@ const IncidentTable = memo(() => {
   ];
 
   const handleChange = (pagination, filters, sorter) => {
-    log("Various parameters of Table, change in Incident page", pagination, filters, sorter);
+    log(
+      "Various parameters of Table, change in Incident page",
+      pagination,
+      filters,
+      sorter
+    );
     const {} = pagination;
     setSort(sorter);
     setPagination(pagination);

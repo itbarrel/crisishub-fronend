@@ -28,7 +28,11 @@ const User = memo(() => {
       <Widget title="Roles">
         <Row justify="end">
           <Col span={4}>
-            <Button type="primary" onClick={onShowModal} icon={<PlusCircleOutlined />}>
+            <Button
+              type="primary"
+              onClick={onShowModal}
+              icon={<PlusCircleOutlined />}
+            >
               Create New Role
             </Button>
           </Col>

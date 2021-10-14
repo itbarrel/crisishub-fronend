@@ -13,9 +13,13 @@ import { setLoading } from "../../../store/slices/loader";
 
 const Accounts = memo((props) => {
   const dispatch = useDispatch();
-  const departmentList = useSelector(({ resources }) => resources.Departments.list);
+  const departmentList = useSelector(
+    ({ resources }) => resources.Departments.list
+  );
   const loader = useSelector(({ loader }) => loader.loading?.departments);
-  const totalItems = useSelector(({ resources }) => resources.Departments.total_items);
+  const totalItems = useSelector(
+    ({ resources }) => resources.Departments.total_items
+  );
   const [selectedDepartment, setSelectedDepartment] = useState({});
   const [visible, setVisible] = useState(false);
   const [sort, setSort] = useState({});
@@ -79,7 +83,11 @@ const Accounts = memo((props) => {
       width: 360,
       render: (text, record) => (
         <>
-          <Button size="large" icon={<EditOutlined />} onClick={() => handleUpdate(record)} />
+          <Button
+            size="large"
+            icon={<EditOutlined />}
+            onClick={() => handleUpdate(record)}
+          />
           <Popconfirm
             title="Are you sure delete this User?"
             okText="Yes"
@@ -94,7 +102,12 @@ const Accounts = memo((props) => {
   ];
 
   const handleChange = (pagination, filters, sorter) => {
-    log("Various parameters of Table, change in Department page", pagination, filters, sorter);
+    log(
+      "Various parameters of Table, change in Department page",
+      pagination,
+      filters,
+      sorter
+    );
     setSort(sorter);
     setPagination(pagination);
   };

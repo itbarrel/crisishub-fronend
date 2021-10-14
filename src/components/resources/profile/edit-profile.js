@@ -90,7 +90,12 @@ const EditProfile = memo(() => {
               <Input />
             </Form.Item>
 
-            <Button type="primary" className="gx-mb-0" htmlType="submit" loading={loading}>
+            <Button
+              type="primary"
+              className="gx-mb-0"
+              htmlType="submit"
+              loading={loading}
+            >
               <IntlMessages id="Update" />
             </Button>
           </Form>

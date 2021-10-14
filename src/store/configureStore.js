@@ -21,7 +21,11 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-const store = configureStore({ reducer: persistedReducer, middleware, preloadedState: {} });
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware,
+  preloadedState: {},
+});
 
 export const persistor = persistStore(store);
 

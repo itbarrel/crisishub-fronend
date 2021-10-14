@@ -3,7 +3,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { memo, useEffect, useRef, useState } from "react";
 import { Button, Form, Input, Modal, Select } from "antd";
-
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, updateUser } from "../../../store/slices/resources/user";
 import { isClient } from "../../../utils/is-client";
@@ -11,6 +10,7 @@ import Draggable from "react-draggable";
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
+import {validate} from '../../../constants/validations'
 
 const formItemLayout = {
   labelCol: {
@@ -31,10 +31,14 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
   const [loading, setLoading] = useState(loader);
   const [modelTitle] = useState(title);
   const [disabled, setDisabled] = useState(true);
-  const [bounds, setBounds] = useState({ left: 0, top: 0, bottom: 0, right: 0 });
+  const [bounds, setBounds] = useState({
+    left: 0,
+    top: 0,
+    bottom: 0,
+    right: 0,
+  });
   const [form] = Form.useForm();
   const { Option } = Select;
-
   const onShowModal = () => {
     setVisible(true);
   };
@@ -45,23 +49,13 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
   const onSubmit = async () => {
     setLoading(true);
     const formData = await form.validateFields();
-    let data = {
-      userName: formData.userName,
-      email: formData.email,
-      password: formData.password,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      len: formData.mobilePhone,
-      RoleId: formData.RoleId,
-    };
     if (visible && selectedUser) {
-      dispatch(updateUser(selectedUser.id, data));
+      dispatch(updateUser(selectedUser.id, formData));
     } else {
-      dispatch(addUser(data));
+      dispatch(addUser(formData));
     }
     form.resetFields();
   };
-
   const ModalHeader = () => {
     return (
       <>
@@ -78,8 +72,6 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
           onMouseOut={() => {
             setDisabled(true);
           }}
-          // fix eslintjsx-a11y/mouse-events-have-key-events
-          // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/mouse-events-have-key-events.md
           onFocus={(e) => e}
           onBlur={(e) => e}
         >
@@ -95,27 +87,29 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
         <Button key="back" onClick={onCloseModal}>
           Return
         </Button>
-        <Button key="submit" type="primary" loading={loading} onClick={onSubmit}>
+        <Button
+          key="submit"
+          type="primary"
+          loading={loading}
+          onClick={onSubmit}
+        >
           Submit
         </Button>
       </>
     );
   };
-
   useEffect(() => {
     if (visible) {
       onShowModal();
     }
     form.setFieldsValue(selectedUser);
   }, [visible, selectedUser]);
-
   useEffect(() => {
     if (loading) {
       setVisible(false);
       setLoading(false);
     }
   }, [loading]);
-
   const drag = () => (model) => {
     if (isClient) {
       const { clientWidth, clientHeight } = window?.document?.documentElement;
@@ -142,13 +136,16 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
       );
     }
   };
-
   return (
     <>
       {off ? (
         ""
       ) : (
-        <Button type="primary" onClick={onShowModal} icon={<PlusCircleOutlined />}>
+        <Button
+          type="primary"
+          onClick={onShowModal}
+          icon={<PlusCircleOutlined />}
+        >
           Create User
         </Button>
       )}
@@ -165,24 +162,39 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
         <Form {...formItemLayout} form={form} name={title} scrollToFirstError>
           <Form.Item
             name="firstName"
-            label={<LabelAndTooltip title={"First.Name"} tooltip={"Enter your First Name"} />}
-            rules={[{ required: true, message: "Please input your First Name!", whitespace: true }]}
+            label={
+              <LabelAndTooltip
+                title={"First.Name"}
+                tooltip={"Enter your First Name"}
+              />
+            }
+            rules={validate.firstName}
           >
             <Input />
           </Form.Item>
 
           <Form.Item
             name="lastName"
-            label={<LabelAndTooltip title={"Last.Name"} tooltip={"Enter your Last Name"} />}
-            rules={[{ required: true, message: "Please input your Last Name!", whitespace: true }]}
+            label={
+              <LabelAndTooltip
+                title={"Last.Name"}
+                tooltip={"Enter your Last Name"}
+              />
+            }
+            rules={validate.lastName}
           >
             <Input />
           </Form.Item>
 
           <Form.Item
             name="userName"
-            label={<LabelAndTooltip title={"User.Name"} tooltip={"Enter your User Name"} />}
-            rules={[{ required: true, message: "Please input your User Name!", whitespace: true }]}
+            label={
+              <LabelAndTooltip
+                title={"User.Name"}
+                tooltip={"Enter your User Name"}
+              />
+            }
+            rules={validate.username}
           >
             <Input />
           </Form.Item>
@@ -190,26 +202,20 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
           <Form.Item
             name="email"
             label={<LabelAndTooltip title={"Email"} />}
-            rules={[
-              {
-                type: "email",
-                message: "The input is not valid E-mail!",
-              },
-              {
-                required: true,
-                message: "Please input your E-mail!",
-              },
-            ]}
+            rules={validate.email}
           >
             <Input />
           </Form.Item>
 
           <Form.Item
-            name="mobilePhone"
-            label={<LabelAndTooltip title={"Mobile.Phone"} tooltip={"Enter your Mobile Number"} />}
-            rules={[
-              { required: true, message: "Please input your Mobile Number!", whitespace: true },
-            ]}
+            name="len"
+            label={
+              <LabelAndTooltip
+                title={"Mobile.Phone"}
+                tooltip={"Enter your Mobile Number"}
+              />
+            }
+            rules={validate.phone}
           >
             <Input />
           </Form.Item>
@@ -231,12 +237,7 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
               <Form.Item
                 name="password"
                 label={<LabelAndTooltip title={"Password"} />}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
+                rules={validate.password}
                 hasFeedback
               >
                 <Input.Password />
@@ -247,20 +248,7 @@ const Model = memo(({ visible, setVisible, selectedUser, title, off }) => {
                 label={<LabelAndTooltip title={"Confirm.Password"} />}
                 dependencies={["password"]}
                 hasFeedback
-                rules={[
-                  {
-                    required: true,
-                    message: "Please confirm your password!",
-                  },
-                  ({ getFieldValue }) => ({
-                    validator(rule, value) {
-                      if (!value || getFieldValue("password") === value) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject("The two passwords that you entered do not match!");
-                    },
-                  }),
-                ]}
+                rules={validate.confirmPassword}
               >
                 <Input.Password />
               </Form.Item>
@@ -281,5 +269,4 @@ Model.propTypes = {
   selectedUser: PropTypes.any,
   off: PropTypes.bool,
 };
-
 export default Model;

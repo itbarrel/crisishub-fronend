@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const Register = () => {
   return (
@@ -7,6 +7,6 @@ const Register = () => {
       <h1>Register Page</h1>
     </>
   );
-}
+};
 
-export default Register
+export default Register;
