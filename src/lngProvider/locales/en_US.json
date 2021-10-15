@@ -360,5 +360,7 @@
   "yes": "yes",
   "No": "No",
   "no": "no",
+  "dynamic.form": "Dynamic Form",
+  "create.form": "Create Form",
   "sample": "sample"
 }

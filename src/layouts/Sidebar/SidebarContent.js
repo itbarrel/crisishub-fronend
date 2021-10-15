@@ -100,6 +100,7 @@ const SidebarContent = () => {
                 </Link>
               </Menu.Item>
             </MenuItemGroup>
+
             {/* settings */}
             {
               <MenuItemGroup
@@ -185,6 +186,20 @@ const SidebarContent = () => {
                         <i className="icon icon-tasks" />
                         <span>
                           <IntlMessages id="task" />
+                        </span>
+                      </a>
+                    </Link>
+                  </Menu.Item>
+                )}
+
+                {/* Dynamic Form  */}
+                {true && (
+                  <Menu.Item key="dynamicForm">
+                    <Link href="/secure/dynamicForm/">
+                      <a>
+                        <i className="icon icon-tasks" />
+                        <span>
+                          <IntlMessages id="dynamic.form" />
                         </span>
                       </a>
                     </Link>
