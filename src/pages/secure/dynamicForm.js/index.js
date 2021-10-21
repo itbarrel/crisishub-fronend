@@ -4,16 +4,14 @@ import Widget from "../../../components/Widget";
 import CreateForm from "../../../components/resources/dynamicForm/create-form";
 
 
-const DynamicForm  = memo(() => {
+const DynamicForm = memo(() => {
   return (
     <>
-      <Widget title="create.form">
-        <CreateForm />
-      </Widget>
+      <CreateForm />
     </>
   )
 })
 
 DynamicForm.displayName = DynamicForm
 
-export default withLayout(DynamicForm) 
+export default withLayout(DynamicForm)

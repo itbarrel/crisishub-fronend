@@ -1,65 +1,264 @@
-import React, { memo } from 'react'
-import { Form, Input, Button } from 'antd';
+import React, { memo, useState } from 'react'
+import { Form, Input, Button, Col, Row, Dropdown, Menu, Select } from 'antd';
+import CKEditor from "react-ckeditor-component";
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
+import { validateDynamicForm } from '../../../constants/validations'
+import Widget from "../../Widget";
 
 
 const CreateForm = memo(() => {
-  
+  const { Option } = Select;
+  const [textFieldValue, setTextFieldValue] = useState()
+  const [form] = Form.useForm();
+
   const onFinish = values => {
-    console.log('Received values of form:', values);
+    console.log('asd from submit:', values);
   };
-  
+
+  const filterValues = [
+    "Planing",
+    "Incidents",
+    "Simulations",
+  ];
+
+  const SelectedTextFieldType = {
+    text_field: ['string'],
+    number_field: ['integer', 'float'],
+    text_area: ['string'],
+    check_box: ['string', 'boolean'],
+    select_box: ['string', 'boolean'],
+    radio_button: ['string', 'boolean'],
+  };
+
+  const handleChangeTextField = value => {
+    setTextFieldValue(value)
+    console.log("asdf value", value)
+  }
+
+  const handleCkEditor = value => {
+    console.log("asdf ckeditor", value)
+  }
+
+  const showHide = (
+    <Form.Item name="suffix" noStyle>
+      <Select default={'show'}>
+        <Option value="show">Show</Option>
+        <Option value="hide">Hide</Option>
+      </Select>
+    </Form.Item>
+  );
+
   return (
     <>
-      <Form name="dynamic_form_item"  onFinish={onFinish}>
-        <Form.List
-          name="names"
+      <Col>
+        <Form.Provider
+          onFormFinish={(name, { values, forms }) => {
+            console.log('asdf onFormFinish = ', name)
+            if (name === 'form_initialize') {
+              console.log('asdf form_initialize ----------------')
+            }
+          }}
         >
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map((field) => (
-                <Form.Item
-                  required={false}
-                  key={field.key}
-                >
+          <Form name="form_name" onFinish={onFinish} >
+            <Widget styleName={"gx-card-widget"} title="create.form">
+              <Row>
+                <Col lg={24} md={10} sm={12} xs={24} >
                   <Form.Item
-                    {...field}
-                    validateTrigger={['onChange', 'onBlur']}
-                    rules={[
-                      {
-                        required: true,
-                        whitespace: true,
-                        message: "Please input passenger's name or delete this field.",
-                      },
-                    ]}
-                    noStyle
+                    name="name"
+                    label={<LabelAndTooltip title={"Form.Name"} />}
+                    rules={validateDynamicForm.form_name}
+                    className="gx-mx-0 gx-my-1"
                   >
-                    <Input placeholder="passenger name" style={{ width: '60%' }} />
+                    <Input />
                   </Form.Item>
-                  <MinusCircleOutlined
-                    className="dynamic-delete-button"
-                    onClick={() => remove(field.name)}
-                  />
-                </Form.Item>
-              ))}
-              <Form.Item>
-                <Button
-                  // type="text"
-                  onClick={() => add()}
-                  icon={<PlusOutlined />}
+                </Col>
+                <Col lg={24} md={10} sm={12} xs={24} >
+                  <Form.Item label={<LabelAndTooltip title={"Form.Type"} />} hasFeedback name="RoleId" className="gx-mx-0 gx-my-1" >
+                    <Select allowClear showSearch={true}>
+                      {filterValues.map((role) => (
+                        <Option key={role} value={role}>
+                          {role}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Col lg={24}>
+                <Form.Item
+                  name="form_description"
+                  label={<LabelAndTooltip title={"Form.Description"} />}
+                  rules={validateDynamicForm.firstName}
+                  className=" gx-my-1"
                 >
-                Add field
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-          Submit
-          </Button>
-        </Form.Item>
-      </Form>
+                  <Input.TextArea rows={5} />
+                </Form.Item>
+              </Col>
+            </Widget>
+            {/* </Form> */}
+            {/* <Form name="form_input" onFinish={onFinish} > */}
+            <Form.List
+              name="names"
+            >
+              {(fields, { add, remove }) => (
+                <>
+                  <Row>
+                    {fields.map((field) => (
+                      <Col xl={12} lg={12} md={24} sm={24} xs={24} key={field.key} >
+                        <Form.Item
+                          required={false}
+                          key={field.key}
+                        >
+                          <Widget styleName={"gx-card-widget gx-ml-3 gx-mb-1"} text=" add field" extra={
+                            <ul className="gx-list-inline gx-ml-auto gx-mb-0 gx-text-grey">
+                              <li onClick={() => { remove(field.name); setTextFieldValue('') }
+                              }>
+                                <MinusCircleOutlined className="dynamic-delete-button" /> Delete
+                              </li>
+                            </ul>
+                          }>
+                            <Input.Group compact>
+                              <Form.Item
+                                name="label"
+                                rules={validateDynamicForm.firstName}
+                                className="gx-m-1"
+                                style={{ width: '99%' }}
+                              >
+                                <Input placeholder="label" addonAfter={showHide} />
+                              </Form.Item>
+                            </Input.Group>
+
+                            <Input.Group compact>
+                              <Form.Item
+                                name="input_description"
+                                rules={validateDynamicForm.firstName}
+                                className="gx-m-1"
+                                style={{ width: '99%' }}
+                              >
+                                <Input placeholder="Description" addonAfter={showHide} />
+                              </Form.Item>
+                            </Input.Group>
+
+                            <Form.Item
+                              name="field"
+                              rules={validateDynamicForm.firstName}
+                              className="gx-m-1"
+                            >
+                              <Input placeholder="Order" />
+                            </Form.Item>
+
+                            <Form.Item hasFeedback name="input_type" className="gx-m-1">
+                              <Select showSearch={true} className="gx-pl-0" onChange={handleChangeTextField}>
+                                <Option key={"text_field"} value={"text_field"} > Text Field</Option>
+                                <Option key={"number_field"} value={"number_field"} >Number Field</Option>
+                                <Option key={"text_area"} value={"text_area"} >Text Area</Option>
+                                <Option key={"check_box"} value={"check_box"} >Check Box</Option>
+                                <Option key={"select_box"} value={"select_box"} >Select Box</Option>
+                                <Option key={"radio_button"} value={"radio_button"} >Radio Button</Option>
+                              </Select>
+                            </Form.Item>
+
+                            {textFieldValue && <Form.Item name="input_data_type" className="gx-m-1">
+                              <Select className="gx-pl-0">
+                                {SelectedTextFieldType[textFieldValue].map((input) => {
+                                  console.log('asdf key', input)
+                                  return (
+                                    <>
+                                      <Option key={input} value={input} ></Option>
+                                    </>
+                                  )
+                                })}
+                              </Select>
+                            </Form.Item>}
+
+                            {textFieldValue === 'select_box' &&
+                              <>
+                                <Form.List
+                                  name="select_box_field"
+                                >
+                                  {(fields, { add, remove }) => (
+                                    <>
+                                      <Row>
+                                        {fields.map((field) => (
+                                          <Col xl={12} lg={12} md={24} sm={24} xs={24} key={field.key} >
+                                            <Form.Item
+                                              required={false}
+                                              key={field.key}
+                                            >
+                                              <Widget styleName={"gx-bg-light gx-card-widget gx-ml-3 gx-mb-0 gx-mt-1"} extra={
+                                                <ul className="gx-list-inline gx-ml-auto gx-mb-0 gx-text-grey">
+                                                  <li onClick={() => remove(field.name)} className="gx-pr-3">
+                                                    <MinusCircleOutlined className="dynamic-delete-button" />
+                                                  </li>
+                                                </ul>
+                                              }>
+                                                <Form.Item
+                                                  name="field"
+                                                  rules={validateDynamicForm.firstName}
+                                                  className="gx-m-1"
+                                                >
+                                                  <Input placeholder="label" />
+                                                </Form.Item>
+
+                                                <Form.Item
+                                                  name="field"
+                                                  rules={validateDynamicForm.firstName}
+                                                  className="gx-m-1"
+                                                >
+                                                  <Input placeholder="Order" />
+                                                </Form.Item>
+                                              </Widget>
+                                            </Form.Item>
+                                          </Col>
+                                        ))}
+                                      </Row>
+
+                                      <Form.Item>
+                                        <Button
+                                          className="gx-ml-3"
+                                          onClick={() => add()}
+                                          icon={<PlusOutlined />}
+                                        >
+                                          Add select Box
+                                        </Button>
+                                      </Form.Item>
+                                    </>
+                                  )}
+                                </Form.List>
+                              </>
+                            }
+                            <div className="gx-m-1 gx-rounded-circle">
+                              <CKEditor activeClass="p10 gx-rounded-circle gx-rounded-lg" onChange={handleCkEditor} />
+                            </div>
+                          </Widget>
+                        </Form.Item>
+                      </Col>
+                    ))}
+                  </Row>
+
+                  <Form.Item>
+                    <Button
+                      type="light"
+                      className="gx-ml-3"
+                      onClick={() => add()}
+                      icon={<PlusOutlined />}
+                    >
+                      Add field
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="gx-ml-3" >
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Form.Provider>
+      </Col>
     </>
   )
 }

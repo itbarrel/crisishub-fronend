@@ -54,5 +54,8 @@
   "no": "nee",
   "dynamic.form": "Dynamische Vorm",
   "create.form": "Formulier Maken",
+  "Form.Name": "Formulier Naam",
+  "Form.Description": "Formulierbeschrijvings",
+  "Form.Type": "Formuliertype:",
   "sample": "sample"
 }

@@ -362,5 +362,8 @@
   "no": "no",
   "dynamic.form": "Dynamic Form",
   "create.form": "Create Form",
+  "Form.Name": "Form Name",
+  "Form.Description": "Form Description",
+  "Form.Type": "Form Type",
   "sample": "sample"
 }

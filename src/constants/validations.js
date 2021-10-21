@@ -58,3 +58,13 @@ export const validateForgetPassword = {
     { required: true, message: "Please input your E-mail!" },
   ],
 };
+
+export const validateDynamicForm = {
+  form_name: [
+    {
+      required: true,
+      message: "Please Enter form name!",
+      whitespace: true,
+    },
+  ],
+};
