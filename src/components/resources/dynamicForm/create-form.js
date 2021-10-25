@@ -38,8 +38,8 @@ const CreateForm = memo(() => {
   };
 
   const showHide = (
-    <Form.Item name="input_showHide" noStyle>
-      <Select initialValues={"show"}>
+    <Form.Item name={"input_showHide"} noStyle>
+      <Select initialValue={"show"}>
         <Option value="show">Show</Option>
         <Option value="hide">Hide</Option>
       </Select>
@@ -127,14 +127,20 @@ const CreateForm = memo(() => {
                             }
                           >
                             <Form.Item
-                              name={[name, "label"]}
+                              name={"label"}
                               fieldKey={[fieldKey, 'label']}
                               rules={validateDynamicForm.field.label}
                               className="gx-m-1"
                               style={{ width: "99%" }}
                               {...field}
                             >
-                              <Input placeholder="label" addonAfter={showHide} />
+                              <Input placeholder="label" addonAfter={
+                                <Form.Item name={[name, "input_showHide_label"]} initialValue='show' fieldKey={[fieldKey, 'input_showHide_label']} {...field} noStyle>
+                                  <Select>
+                                    <Option value="show">Show</Option>
+                                    <Option value="hide">Hide</Option>
+                                  </Select>
+                                </Form.Item>} />
                             </Form.Item>
 
                             <Form.Item
@@ -145,7 +151,13 @@ const CreateForm = memo(() => {
                               style={{ width: "99%" }}
                               {...field}
                             >
-                              <Input placeholder="Description" addonAfter={showHide} />
+                              <Input placeholder="Description" addonAfter={
+                                <Form.Item name={[name, "input_showHide"]} initialValue='show' fieldKey={[fieldKey, 'input_showHide_des']} {...field} noStyle>
+                                  <Select>
+                                    <Option value="show">Show</Option>
+                                    <Option value="hide">Hide</Option>
+                                  </Select>
+                                </Form.Item>} />
                             </Form.Item>
 
                             {/* <Form.Item
