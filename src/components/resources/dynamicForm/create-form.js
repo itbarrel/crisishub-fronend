@@ -127,7 +127,7 @@ const CreateForm = memo(() => {
                             }
                           >
                             <Form.Item
-                              name={"label"}
+                              name={[name, "label"]}
                               fieldKey={[fieldKey, 'label']}
                               rules={validateDynamicForm.field.label}
                               className="gx-m-1"
@@ -203,7 +203,7 @@ const CreateForm = memo(() => {
                                   {SelectedTextFieldType[fieldType].map((input) => {
                                     return (
                                       <>
-                                        <Option key={input} value={input}></Option>
+                                        <Option key={input} value={input}> {input} </Option>
                                       </>
                                     );
                                   })}
