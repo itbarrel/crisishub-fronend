@@ -39,7 +39,7 @@ const CreateForm = memo(() => {
 
   const showHide = (
     <Form.Item name="input_showHide" noStyle>
-      <Select defaultValue={"show"}>
+      <Select initialValues={"show"}>
         <Option value="show">Show</Option>
         <Option value="hide">Hide</Option>
       </Select>
@@ -57,10 +57,7 @@ const CreateForm = memo(() => {
             }
           }}
         >
-          <Form name="form_name" onFinish={onFinish} form={form} scrollToFirstError onFieldsChange={(_, allFields) => {
-            console.log('form all items', allFields);
-          }}
-          >
+          <Form name="form_name" onFinish={onFinish} form={form} scrollToFirstError>
             <Widget styleName={"gx-card-widget"} title="create.form">
               <Row>
                 <Col lg={24} md={10} sm={12} xs={24}>
@@ -105,7 +102,7 @@ const CreateForm = memo(() => {
             </Widget>
             {/* </Form> */}
             {/* <Form name="form_input" onFinish={onFinish} > */}
-            <Form.List name="names">
+            <Form.List name={"DynamicForm"}>
               {(fields, { add, remove }) => (
                 <>
                   <Row>
@@ -113,13 +110,14 @@ const CreateForm = memo(() => {
                       <Col xl={12} lg={12} md={24} sm={24} xs={24} key={field.key}>
                         <Form.Item required={false} key={field.key}>
                           <Widget
+                            fieldKey={[name, 'card']}
                             styleName={"gx-card-widget gx-ml-3 gx-mb-1"}
                             text=" add field"
                             extra={
                               <ul className="gx-list-inline gx-ml-auto gx-mb-0 gx-text-grey">
                                 <li
                                   onClick={() => {
-                                    remove(field.name);
+                                    remove(name);
                                     setFieldType("");
                                   }}
                                 >
@@ -140,6 +138,7 @@ const CreateForm = memo(() => {
                             </Form.Item>
 
                             <Form.Item
+                              fieldKey={[fieldKey, 'input_description']}
                               name={[name, "input_description"]}
                               rules={validateDynamicForm.description}
                               className="gx-m-1"
@@ -157,13 +156,13 @@ const CreateForm = memo(() => {
                               <Input placeholder="Order" />
                             </Form.Item> */}
 
-                            <Form.Item hasFeedback name={[name, "input_type"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} {...field}>
+                            <Form.Item hasFeedback name={[name, "input_type"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} fieldKey={[fieldKey, 'input_type']} {...field} >
                               <Select
                                 showSearch={true}
                                 className="gx-pl-0"
                                 onChange={handleChangeTextField}
                                 placeholder="Select input type"
-                                defaultValue={fieldType}
+                                initialValues={fieldType}
                               >
                                 <Option key={"text_field"} value={"text_field"}>
                                   Text Field
@@ -187,7 +186,7 @@ const CreateForm = memo(() => {
                             </Form.Item>
 
                             {fieldType && (
-                              <Form.Item name={[name, "input_data_type"]} className="gx-m-1" rules={validateDynamicForm.field.inputDataType} {...field}>
+                              <Form.Item name={[name, "input_data_type"]} className="gx-m-1" rules={validateDynamicForm.field.inputDataType} fieldKey={[fieldKey, 'input_data_type']} {...field}>
                                 <Select className="gx-pl-0" placeholder="Select input data type">
                                   {SelectedTextFieldType[fieldType].map((input) => {
                                     return (
