@@ -109,7 +109,7 @@ const CreateForm = memo(() => {
               {(fields, { add, remove }) => (
                 <>
                   <Row>
-                    {fields.map((field) => (
+                    {fields.map(({ key, name, fieldKey, ...field }) => (
                       <Col xl={12} lg={12} md={24} sm={24} xs={24} key={field.key}>
                         <Form.Item required={false} key={field.key}>
                           <Widget
@@ -129,19 +129,22 @@ const CreateForm = memo(() => {
                             }
                           >
                             <Form.Item
-                              name="label"
+                              name={[name, "label"]}
+                              fieldKey={[fieldKey, 'label']}
                               rules={validateDynamicForm.field.label}
                               className="gx-m-1"
                               style={{ width: "99%" }}
+                              {...field}
                             >
                               <Input placeholder="label" addonAfter={showHide} />
                             </Form.Item>
 
                             <Form.Item
-                              name="input_description"
+                              name={[name, "input_description"]}
                               rules={validateDynamicForm.description}
                               className="gx-m-1"
                               style={{ width: "99%" }}
+                              {...field}
                             >
                               <Input placeholder="Description" addonAfter={showHide} />
                             </Form.Item>
@@ -154,7 +157,7 @@ const CreateForm = memo(() => {
                               <Input placeholder="Order" />
                             </Form.Item> */}
 
-                            <Form.Item hasFeedback name="input_type" className="gx-m-1" rules={validateDynamicForm.field.inputType}>
+                            <Form.Item hasFeedback name={[name, "input_type"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} {...field}>
                               <Select
                                 showSearch={true}
                                 className="gx-pl-0"
@@ -184,7 +187,7 @@ const CreateForm = memo(() => {
                             </Form.Item>
 
                             {fieldType && (
-                              <Form.Item name="input_data_type" className="gx-m-1" rules={validateDynamicForm.field.inputDataType}>
+                              <Form.Item name={[name, "input_data_type"]} className="gx-m-1" rules={validateDynamicForm.field.inputDataType} {...field}>
                                 <Select className="gx-pl-0" placeholder="Select input data type">
                                   {SelectedTextFieldType[fieldType].map((input) => {
                                     return (
@@ -199,7 +202,7 @@ const CreateForm = memo(() => {
 
                             {fieldType === "select_box" && (
                               <>
-                                <Form.List name="select_box_field">
+                                <Form.List name={[name, "select_box_field"]}>
                                   {(fields, { add, remove }) => (
                                     <>
                                       <Row>
@@ -222,7 +225,7 @@ const CreateForm = memo(() => {
                                                 }
                                               >
                                                 <Form.Item
-                                                  name="checkbox-label"
+                                                  name={[name, "checkbox-label"]}
                                                   rules={validateDynamicForm.field.checkboxLabel}
                                                   className="gx-m-1"
                                                 >
@@ -230,7 +233,7 @@ const CreateForm = memo(() => {
                                                 </Form.Item>
 
                                                 <Form.Item
-                                                  name="checkbox-input"
+                                                  name={[name, "checkbox-input"]}
                                                   rules={validateDynamicForm.field.checkboxLabel}
                                                   className="gx-m-1"
                                                 >
@@ -258,7 +261,7 @@ const CreateForm = memo(() => {
                             )}
                             {fieldType === "radio_button" && (
                               <>
-                                <Form.List name="radio_button_field">
+                                <Form.List name={[name, "radio_button_field"]}>
                                   {(fields, { add, remove }) => (
                                     <>
                                       <Row>
@@ -281,7 +284,7 @@ const CreateForm = memo(() => {
                                                 }
                                               >
                                                 <Form.Item
-                                                  name="radioButton-label"
+                                                  name={[name, "radioButton-label"]}
                                                   rules={validateDynamicForm.field.checkboxLabel}
                                                   className="gx-m-1"
                                                 >
@@ -289,7 +292,7 @@ const CreateForm = memo(() => {
                                                 </Form.Item>
 
                                                 <Form.Item
-                                                  name="radioButton-input"
+                                                  name={[name, "radioButton-input"]}
                                                   rules={validateDynamicForm.field.checkboxLabel}
                                                   className="gx-m-1"
                                                 >
