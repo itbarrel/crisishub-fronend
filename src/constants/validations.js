@@ -60,11 +60,55 @@ export const validateForgetPassword = {
 };
 
 export const validateDynamicForm = {
-  form_name: [
+  name: [
     {
       required: true,
       message: "Please Enter form name!",
       whitespace: true,
     },
   ],
+  formType: [
+    {
+      required: true,
+      message: "Please select form type",
+      whitespace: true,
+    },
+  ],
+  description: [
+    {
+      required: true,
+      message: "Please Enter description",
+      whitespace: true,
+    },
+  ],
+  field: {
+    label: [
+      {
+        required: true,
+        message: "Please enter label name",
+        whitespace: true,
+      },
+    ],
+    description: [
+      {
+        required: true,
+        message: "Please Enter description",
+        whitespace: true,
+      },
+    ],
+    inputType: [
+      {
+        required: true,
+        message: "Please select input type",
+        whitespace: true,
+      },
+    ],
+    inputDataType: [
+      {
+        required: true,
+        message: "Please select input data type",
+        whitespace: true,
+      },
+    ],
+  }
 };
