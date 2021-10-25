@@ -53,11 +53,14 @@ const CreateForm = memo(() => {
           onFormFinish={(name, { values, forms }) => {
             console.log("asdf onFormFinish = ", name);
             if (name === "form_initialize") {
-              console.log("asdf form_initialize ----------------");
+              console.log("form_initialize ----------------");
             }
           }}
         >
-          <Form name="form_name" onFinish={onFinish} form={form} scrollToFirstError >
+          <Form name="form_name" onFinish={onFinish} form={form} scrollToFirstError onFieldsChange={(_, allFields) => {
+            console.log('form all items', allFields);
+          }}
+          >
             <Widget styleName={"gx-card-widget"} title="create.form">
               <Row>
                 <Col lg={24} md={10} sm={12} xs={24}>
@@ -184,7 +187,6 @@ const CreateForm = memo(() => {
                               <Form.Item name="input_data_type" className="gx-m-1" rules={validateDynamicForm.field.inputDataType}>
                                 <Select className="gx-pl-0" placeholder="Select input data type">
                                   {SelectedTextFieldType[fieldType].map((input) => {
-                                    console.log("asdf key", input);
                                     return (
                                       <>
                                         <Option key={input} value={input}></Option>
@@ -220,19 +222,78 @@ const CreateForm = memo(() => {
                                                 }
                                               >
                                                 <Form.Item
-                                                  name="field"
-                                                  rules={validateDynamicForm.firstName}
+                                                  name="checkbox-label"
+                                                  rules={validateDynamicForm.field.checkboxLabel}
                                                   className="gx-m-1"
                                                 >
-                                                  <Input placeholder="label" />
+                                                  <Input placeholder="Text" />
                                                 </Form.Item>
 
                                                 <Form.Item
-                                                  name="field"
-                                                  rules={validateDynamicForm.firstName}
+                                                  name="checkbox-input"
+                                                  rules={validateDynamicForm.field.checkboxLabel}
                                                   className="gx-m-1"
                                                 >
-                                                  <Input placeholder="Order" />
+                                                  <Input placeholder="Value" />
+                                                </Form.Item>
+                                              </Widget>
+                                            </Form.Item>
+                                          </Col>
+                                        ))}
+                                      </Row>
+
+                                      <Form.Item>
+                                        <Button
+                                          className="gx-ml-3"
+                                          onClick={() => add()}
+                                          icon={<PlusOutlined />}
+                                        >
+                                          Add select Box
+                                        </Button>
+                                      </Form.Item>
+                                    </>
+                                  )}
+                                </Form.List>
+                              </>
+                            )}
+                            {fieldType === "radio_button" && (
+                              <>
+                                <Form.List name="radio_button_field">
+                                  {(fields, { add, remove }) => (
+                                    <>
+                                      <Row>
+                                        {fields.map((field) => (
+                                          <Col xl={12} lg={12} md={24} sm={24} xs={24} key={field.key} >
+                                            <Form.Item required={false} key={field.key}>
+                                              <Widget
+                                                styleName={
+                                                  "gx-bg-light gx-card-widget gx-ml-3 gx-mb-0 gx-mt-1"
+                                                }
+                                                extra={
+                                                  <ul className="gx-list-inline gx-ml-auto gx-mb-0 gx-text-grey">
+                                                    <li
+                                                      onClick={() => remove(field.name)}
+                                                      className="gx-pr-3"
+                                                    >
+                                                      <MinusCircleOutlined className="dynamic-delete-button" />
+                                                    </li>
+                                                  </ul>
+                                                }
+                                              >
+                                                <Form.Item
+                                                  name="radioButton-label"
+                                                  rules={validateDynamicForm.field.checkboxLabel}
+                                                  className="gx-m-1"
+                                                >
+                                                  <Input placeholder="Text" />
+                                                </Form.Item>
+
+                                                <Form.Item
+                                                  name="radioButton-input"
+                                                  rules={validateDynamicForm.field.checkboxLabel}
+                                                  className="gx-m-1"
+                                                >
+                                                  <Input placeholder="Value" />
                                                 </Form.Item>
                                               </Widget>
                                             </Form.Item>

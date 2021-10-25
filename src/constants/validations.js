@@ -110,5 +110,12 @@ export const validateDynamicForm = {
         whitespace: true,
       },
     ],
+    checkboxLabel: [
+      {
+        required: true,
+        message: "Please enter checkbox label name",
+        whitespace: true,
+      },
+    ],
   }
 };
