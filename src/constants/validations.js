@@ -1,6 +1,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable prefer-promise-reject-errors */
 export const validate = {
+  required: [
+    {
+      required: true,
+      message: "field is required",
+      whitespace: true,
+    },
+  ],
   firstName: [
     {
       required: true,
@@ -60,6 +67,13 @@ export const validateForgetPassword = {
 };
 
 export const validateDynamicForm = {
+  required: [
+    {
+      required: true,
+      message: "field is required",
+      whitespace: true,
+    },
+  ],
   name: [
     {
       required: true,

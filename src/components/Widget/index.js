@@ -43,5 +43,5 @@ Widget.propTypes = {
   extra: PropTypes.node,
   cover: PropTypes.node,
   actions: PropTypes.node,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any,
 };
