@@ -1,13 +1,13 @@
 import React, { Fragment, memo, useEffect, useRef, useState } from "react";
 import { Form, Input, Button, Col, Row, Select } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
-import { validateDynamicForm } from "../../../constants/validations";
-import Widget from "../../Widget";
-import { add } from '../../../store/slices/resources/dynamicForm'
 import { useDispatch } from "react-redux";
+import { validateDynamicForm } from "../../../constants/validations";
+import { add } from '../../../store/slices/resources/dynamicForm'
 import { log } from '../../../utils/console-log'
 import { getKey } from '../../../utils/keyGenerator'
+import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
+import Widget from "../../Widget";
 
 const CreateForm = memo(() => {
   const [fieldType, setFieldType] = useState('');
@@ -31,19 +31,16 @@ const CreateForm = memo(() => {
   };
 
   const handleChangeTextField = (value) => {
-    console.log('HandleChangeTextField ==', value)
-    // const arr = form.getFieldValue()
-    // console.log('asdf input type isOption', array.fields)
     setFieldType(value)
+    log('HandleChangeTextField ==', value)
   };
 
   const onFinish = (formData) => {
-    console.assert(formData);
     const dynamicFormData = {
       id: getKey(),
       ...formData
     }
-    log("asdf Form Data: Submit", dynamicFormData);
+    log("Form Data: Submit", dynamicFormData);
     dispatch({ type: add.type, payload: dynamicFormData })
   };
 
@@ -60,6 +57,7 @@ const CreateForm = memo(() => {
       <Col>
         <Form.Provider>
           <Form name="DynamicForm" onFinish={onFinish} form={form} scrollToFirstError preserve={false}>
+            {/* Form Header */}
             <Widget styleName={"gx-card-widget"} title="create.form">
               <Row>
                 <Col lg={24} md={10} sm={12} xs={24}>
@@ -102,28 +100,23 @@ const CreateForm = memo(() => {
                 </Form.Item>
               </Col>
             </Widget>
-            {/* form Fields */}
-            <Form.List name={"fields"}>
+            {/* Form Body */}
+            <Form.List name={"fields"} >
               {(fields, { add, remove }) => (
-                <>
+                <Fragment key={getKey()}>
                   <Row>
-                    {fields.map(({ key, name, fieldKey, ...field }) => {
+                    {fields.map(({ key, name, fieldKey, ...field }, index) => {
                       return (
                         <>
-                          <Col xl={12} lg={12} md={24} sm={24} xs={24} key={key}>
-                            <Form.Item required={false} fieldKey={[fieldKey, 'mainItem']}>
+                          <Col xl={12} lg={12} md={24} sm={24} xs={24}>
+                            <Form.Item required={false} fieldKey={[fieldKey, 'mainItem']} >
                               <Widget
                                 fieldKey={[name, 'card']}
                                 styleName={"gx-card-widget gx-ml-3 gx-mb-1"}
-                                text=" add field"
+                                text="add field"
                                 extra={
                                   <ul className="gx-list-inline gx-ml-auto gx-mb-0 gx-text-grey">
-                                    <li
-                                      onClick={() => {
-                                        remove(name);
-                                        // setFieldType("");
-                                      }}
-                                    >
+                                    <li onClick={() => remove(name)}>
                                       <MinusCircleOutlined className="dynamic-delete-button" /> Delete
                                     </li>
                                   </ul>
@@ -145,9 +138,10 @@ const CreateForm = memo(() => {
                                   className="gx-m-1"
                                   style={{ width: "99%" }}
                                   {...field}
+                                  onChange={handleChangeTextField}
                                 >
                                   <Input placeholder="label" addonAfter={
-                                    <Form.Item name={[name, "label_input"]} initialValue='show' fieldKey={[fieldKey, 'label_input']} {...field} noStyle>
+                                    <Form.Item name={[name, "label_input"]} onChange={handleChangeTextField} initialValue='show' fieldKey={[fieldKey, 'label_input']} {...field} noStyle>
                                       <Select>
                                         <Option value="show">Show</Option>
                                         <Option value="hide">Hide</Option>
@@ -155,7 +149,7 @@ const CreateForm = memo(() => {
                                     </Form.Item>} />
                                 </Form.Item>
 
-                                <Form.Item hasFeedback name={[name, "isInput"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} fieldKey={[fieldKey, 'isInput']} {...field} >
+                                <Form.Item hasFeedback onChange={handleChangeTextField} name={[name, "isInput"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} fieldKey={[fieldKey, 'isInput']} {...field} >
                                   <Select
                                     showSearch={true}
                                     className="gx-pl-0"
@@ -172,6 +166,7 @@ const CreateForm = memo(() => {
                                     className="gx-pl-0"
                                     onChange={handleChangeTextField}
                                     placeholder="Select input type"
+                                    defaultValue={"text_field"}
                                   >
                                     <Option key={"text_field"} value={"text_field"} >
                                       Text Field
@@ -194,7 +189,8 @@ const CreateForm = memo(() => {
                                   </Select>
                                 </Form.Item>
 
-                                {fieldType && (
+                                {/* {fieldType && ( */}
+                                {false && (
                                   <Form.Item name={[name, "input_data_type"]} className="gx-m-1" rules={validateDynamicForm.field.inputDataType} fieldKey={[fieldKey, 'input_data_types']} {...field}>
                                     <Select className="gx-pl-0" placeholder="Select input data type" >
                                       {SelectedTextFieldType[fieldType].map((input) => {
@@ -205,9 +201,10 @@ const CreateForm = memo(() => {
                                 )}
 
                                 {
-                                  (true) && (
+                                  // (fieldType == 'check_box' || fieldType == 'select_box' || fieldType == 'radio_button') && (
+                                  ((form.getFieldValue()?.fields[index]?.input_type == 'check_box') || (form.getFieldValue()?.fields[index]?.input_type == 'select_box') || (form.getFieldValue()?.fields[index]?.input_type == 'radio_button')) && (
                                     <>
-                                      <Form.List name={[name, "options"]} >
+                                      <Form.List name={[name, "options"]}>
                                         {(fields, { add, remove }) => {
                                           const SelectedTextFieldType = {
                                             check_box: 'CheckBox',
@@ -215,11 +212,11 @@ const CreateForm = memo(() => {
                                             radio_button: 'Radio Button',
                                           };
                                           return (
-                                            <>
+                                            <Fragment key={getKey()}>
                                               <Row>
                                                 {fields.map(({ key, name, fieldKey, ...field }) => (
-                                                  <Col xl={12} lg={12} md={24} sm={24} xs={24} key={key} >
-                                                    <Form.Item required={false} fieldKey={[fieldKey, `${fieldType}Fields`]}>
+                                                  <Col xl={12} lg={12} md={24} sm={24} xs={24}>
+                                                    <Form.Item required={false} fieldKey={[fieldKey, `${fieldType}Fields`]} >
                                                       <Widget
                                                         styleName={
                                                           "gx-bg-light gx-card-widget gx-ml-3 gx-mb-0 gx-mt-1"
@@ -266,10 +263,10 @@ const CreateForm = memo(() => {
                                                   onClick={() => add()}
                                                   icon={<PlusOutlined />}
                                                 >
-                                                  Add option
+                                                  Add {SelectedTextFieldType[fieldType]}
                                                 </Button>
                                               </Form.Item>
-                                            </>
+                                            </Fragment>
                                           )
                                         }}
                                       </Form.List>
@@ -308,7 +305,7 @@ const CreateForm = memo(() => {
                       Add field
                     </Button>
                   </Form.Item>
-                </>
+                </Fragment>
               )}
             </Form.List>
 
@@ -319,7 +316,7 @@ const CreateForm = memo(() => {
             </Form.Item>
           </Form>
         </Form.Provider>
-      </Col>
+      </Col >
     </>
   );
 });

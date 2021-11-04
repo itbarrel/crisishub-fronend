@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux';
 import { Form, Input, Button, Checkbox, Select, Col, Radio } from "antd";
 import { validate } from "../../../constants/validations";
+import { getKey } from "../../../utils/keyGenerator";
 import withLayout from "../../../layouts/app-layout";
 import Widget from "../../../components/Widget";
 import { log } from '../../../utils/console-log'
@@ -34,11 +35,9 @@ const View = memo(() => {
             <Widget styleName={"gx-card-widget"} >
               <p className="gx-text-grey gx-fs-xl "> {selectedFrom.name} - {selectedFrom.type} </p>
               <p className="gx-text-grey gx-fs-md gx-mb-4">{selectedFrom.description} </p>
-              {/* <p className="gx-text-grey gx-fs-xl gx-mb-2"> Form Name - Type </p> */}
-              {/* <p className="gx-text-grey gx-fs-lg gx-mb-4"> Here we can use form description</p> */}
               {
                 selectedFrom?.fields?.map((data, index) => {
-                  const { label, label_input, isInput, input_type, options, input_description, description_input, ckeditor, model } = data
+                  const { label, label_input, isInput, input_type, options, ckeditor, model } = data
                   const SelectedTextFieldType = {
                     text_field: <Input hidden={isInput === 'show' ? false : true} />,
                     number_field: <Input hidden={isInput === 'show' ? false : true} />,
@@ -76,12 +75,10 @@ const View = memo(() => {
                   console.log("asdf selectedFrom", ckeditor);
 
                   return (
-                    <Fragment key={Math.floor(100000000 + Math.random() * 900000000)}>
+                    <Fragment key={getKey()}>
                       <Form.Item
-                        name={label} // model
+                        name={model} // label
                         label={label_input === 'show' ? label : ''}
-                      // extra={parse(ckeditor)}
-                      // rules={input_type === 'check_box' || input_type === 'radio_button' ? false : validate.required}
                       >
                         {SelectedTextFieldType[input_type]}
                       </Form.Item>

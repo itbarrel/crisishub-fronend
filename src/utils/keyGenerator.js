@@ -1,4 +1,6 @@
 
 export const getKey = () => {
-  return Math.floor(100000000 + Math.random() * 900000000).toString(16)
+  const chars = [..."abcdefghijklmnopqrstuvwxyz"];
+  const key = [...Array(11)].map(i => chars[Math.random() * chars.length | 0]).join``;
+  return key;
 }

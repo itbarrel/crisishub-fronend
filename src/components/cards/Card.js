@@ -58,8 +58,8 @@ const Card = memo(({ title, createdAt, incident }) => {
 Card.displayName = Card;
 
 Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  createdAt: PropTypes.string,
   incident: PropTypes.object,
 };
 

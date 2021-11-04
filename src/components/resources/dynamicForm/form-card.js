@@ -7,8 +7,6 @@ import IntlMessages from "../../../utils/IntlMessages";
 import Widget from "../../../components/Widget";
 import { remove } from '../../../store/slices/resources/dynamicForm'
 import Link from 'next/link'
-import EditForm from './create-form'
-
 
 const DynamicFormCard = memo(({ name, description, type, id, form }) => {
   const dispatch = useDispatch();
@@ -61,8 +59,8 @@ const DynamicFormCard = memo(({ name, description, type, id, form }) => {
 DynamicFormCard.displayName = DynamicFormCard;
 
 DynamicFormCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  createdAt: PropTypes.string,
   incident: PropTypes.object,
   form: PropTypes.object,
 };
