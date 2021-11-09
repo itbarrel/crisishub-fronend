@@ -41,8 +41,8 @@ export default class ApiClient {
     this.apiUrl = apiUrl;
   }
 
-  doRequest(method, path, data) {
-    const token = CookieService.getToken();
+  doRequest(method, path, data, getToken) {
+    const token = getToken || CookieService.getToken();
 
     switch (method) {
       case "get":

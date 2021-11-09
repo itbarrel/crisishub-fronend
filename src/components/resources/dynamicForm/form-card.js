@@ -5,17 +5,19 @@ import { Popconfirm } from "antd";
 import PropTypes from "prop-types";
 import IntlMessages from "../../../utils/IntlMessages";
 import Widget from "../../../components/Widget";
-import { remove } from '../../../store/slices/resources/dynamicForm'
+import { removeDynamicForm, current_item } from '../../../store/slices/resources/dynamicForm'
 import Link from 'next/link'
+import { log } from '../../../utils/console-log'
+import config from '../../../configs'
 
 const DynamicFormCard = memo(({ name, description, type, id, form }) => {
   const dispatch = useDispatch();
+  let token = config.dynamicFormToken
+
 
   const handleDelete = (id) => {
-    dispatch(remove(id))
-  }
-  const handleEditForm = () => {
-    console.log('object', form)
+    dispatch(removeDynamicForm(id, token))
+    dispatch(current_item(form));
   }
 
   return (
@@ -29,8 +31,10 @@ const DynamicFormCard = memo(({ name, description, type, id, form }) => {
                 <EyeOutlined style={{ fontSize: '18px' }} />
               </Link>
             </li>
-            <li onClick={handleEditForm}>
-              <EditOutlined style={{ fontSize: '18px' }} />
+            <li>
+              <Link href={`/secure/dynamicForm/edit/${id}`} passHref>
+                <EditOutlined style={{ fontSize: '18px' }} />
+              </Link>
             </li>
             <li>
               <Popconfirm

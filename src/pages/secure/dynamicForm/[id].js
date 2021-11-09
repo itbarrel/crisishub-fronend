@@ -18,7 +18,11 @@ const View = memo(() => {
   const { id: formId } = router.query
   const FormList = useSelector(({ resources }) => resources.DynamicForm.list);
   const [selectedFrom] = useState(FormList.find((form) => form.id == formId))
+  // const [selectedFrom] = useState(true)
 
+  // log("asdf selectedFrom", FormList, selectedFrom);
+  log("asdf selectedFrom ----------- ", selectedFrom);
+  // log("asdf selectedFrom ----------- ", formId);
   const onFinish = (formData) => {
     log("Form Data Submit", formData);
   };
@@ -26,6 +30,7 @@ const View = memo(() => {
   return (
     <>
       {
+        // false &&
         selectedFrom?.id == formId &&
         <>
           <Widget>
@@ -72,8 +77,6 @@ const View = memo(() => {
                       }
                     </Radio.Group>
                   };
-                  console.log("asdf selectedFrom", ckeditor);
-
                   return (
                     <Fragment key={getKey()}>
                       <Form.Item

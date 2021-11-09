@@ -9,6 +9,7 @@ import {
 
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 import api from "./api";
+import DynamicFormApi from "./dynamic-form-api";
 import toast from "./toast";
 import { ReduxApiClient } from "../rtk-query";
 
@@ -22,6 +23,7 @@ const middleware = () => {
     }),
     toast,
     api,
+    DynamicFormApi,
     ReduxApiClient.middleware,
   ];
 };

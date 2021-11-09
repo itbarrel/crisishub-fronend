@@ -1,15 +1,27 @@
-import React, { Fragment, memo, useState } from "react";
+import React, { Fragment, memo, useEffect, useState } from "react";
 import { Col, Row } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sNO_RESULT_FOUND_BY } from "../../../constants/messages";
 import withLayout from "../../../layouts/app-layout";
 import NotFound from "../../../components/helpers/errors";
 import Form from '../../../components/resources/dynamicForm/form-card'
 import { getKey } from '../../../utils/keyGenerator'
+import { getFormTypesList } from "../../../store/slices/resources/dynamicForm";
+import { log } from '../../../utils/console-log'
+import config from '../../../configs'
+
+
 
 const List = memo(() => {
   const { list } = useSelector(({ resources }) => resources.DynamicForm);
   const [isLoading] = useState(false);
+  const dispatch = useDispatch();
+  let token = config.dynamicFormToken
+
+  useEffect(() => {
+    log("asdf Dynamic Form list fetch")
+    dispatch(getFormTypesList(token))
+  }, [])
 
   return (
     <>

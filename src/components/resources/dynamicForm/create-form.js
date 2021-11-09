@@ -1,25 +1,33 @@
 import React, { Fragment, memo, useEffect, useRef, useState } from "react";
-import { Form, Input, Button, Col, Row, Select } from "antd";
+import { Form, Input, Button, Col, Row, Select, Alert, Checkbox } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { validateDynamicForm } from "../../../constants/validations";
 import { add } from '../../../store/slices/resources/dynamicForm'
 import { log } from '../../../utils/console-log'
 import { getKey } from '../../../utils/keyGenerator'
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
 import Widget from "../../Widget";
+import { getFormTypes, createDynamicForm, updateDynamicForm, update } from "../../../store/slices/resources/dynamicForm";
+import config from '../../../configs'
 
-const CreateForm = memo(() => {
+
+
+const CreateForm = memo(({ selectedFrom }) => {
+  const formTypes = useSelector(({ resources }) => resources.DynamicForm.formType);
+  const [MultipleFormTypeId, setMultipleFormTypeId] = useState()
+  const [MultipleFormType, setMultipleFormType] = useState()
   const [fieldType, setFieldType] = useState('');
   const { Option } = Select;
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const editorRef = useRef()
 
-  const [editorLoaded, setEditorLoaded] = useState(false)
-  const { CKEditor, ClassicEditor } = editorRef.current || {}
+  let token = config.dynamicFormToken
 
-  const filterValues = ["Planing", "Incidents", "Simulations"];
+
+  const [editorLoaded, setEditorLoaded] = useState(false)
+  const { CKEditor, ClassicEditor } = editorRef.current || []
 
   const SelectedTextFieldType = {
     text_field: ["string"],
@@ -32,16 +40,33 @@ const CreateForm = memo(() => {
 
   const handleChangeTextField = (value) => {
     setFieldType(value)
-    log('HandleChangeTextField ==', value)
+    log('HandleChangeTextField', value)
   };
+
+  const handleMultipleFormType = (typeId) => {
+    setMultipleFormTypeId(typeId)
+    // const multiple = formType.find((form) => form.id == typeId)
+    // log('asdf handleMultipleFormType ==', typeId)
+  };
+
+  useEffect(() => {
+    const multiple = formTypes?.find((form) => form.id == MultipleFormTypeId)
+    log('asdf ===================== ', multiple?.multiple)
+    if (multiple?.multiple === false) setMultipleFormType(multiple?.multiple)
+
+  }, [MultipleFormTypeId])
+
 
   const onFinish = (formData) => {
     const dynamicFormData = {
-      id: getKey(),
-      ...formData
+      ...formData,
+      fields: formData.fields || {},
     }
-    log("Form Data: Submit", dynamicFormData);
-    dispatch({ type: add.type, payload: dynamicFormData })
+    if (selectedFrom) {
+      log("asdf Form Data: update", selectedFrom);
+      dispatch(updateDynamicForm(selectedFrom.id, dynamicFormData, token))
+    }
+    else dispatch(createDynamicForm(dynamicFormData, token))
   };
 
   useEffect(() => {
@@ -50,13 +75,29 @@ const CreateForm = memo(() => {
       ClassicEditor: require('@ckeditor/ckeditor5-build-classic')
     }
     setEditorLoaded(true)
+    if (selectedFrom) form.setFieldsValue(selectedFrom)
+    // else dispatch(getFormTypes(token))
+    dispatch(getFormTypes(token))
+    // else log('asdf get form type ')
   }, [])
 
   return (
     <>
       <Col>
+        {
+          (MultipleFormType === false) ? (
+            <Alert
+              // message="Informational Notes"
+              description="This form type can have only one form"
+              type="info"
+              showIcon
+              closable
+              afterClose={true}
+            />
+          ) : ''
+        }
         <Form.Provider>
-          <Form name="DynamicForm" onFinish={onFinish} form={form} scrollToFirstError preserve={false}>
+          <Form name="DynamicForm" onFinish={onFinish} form={form} scrollToFirstError >
             {/* Form Header */}
             <Widget styleName={"gx-card-widget"} title="create.form">
               <Row>
@@ -75,16 +116,20 @@ const CreateForm = memo(() => {
                   <Form.Item
                     label={<LabelAndTooltip title={"Form.Type"} />}
                     hasFeedback
-                    name="type"
+                    name="formTypeId"
                     className="gx-mx-0 gx-my-1"
                     rules={validateDynamicForm.formType}
                   >
-                    <Select allowClear showSearch={true}>
-                      {filterValues.map((role) => (
-                        <Option key={role} value={role}>
-                          {role}
-                        </Option>
-                      ))}
+                    <Select allowClear showSearch={true} onChange={handleMultipleFormType}>
+                      {
+                        formTypes?.map((form) => {
+                          return (
+                            <Option key={getKey()} value={form.id}>
+                              {form.name}
+                            </Option>
+                          )
+                        })
+                      }
                     </Select>
                   </Form.Item>
                 </Col>
@@ -107,7 +152,7 @@ const CreateForm = memo(() => {
                   <Row>
                     {fields.map(({ key, name, fieldKey, ...field }, index) => {
                       return (
-                        <>
+                        <Fragment key={getKey()}>
                           <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                             <Form.Item required={false} fieldKey={[fieldKey, 'mainItem']} >
                               <Widget
@@ -123,6 +168,7 @@ const CreateForm = memo(() => {
                                 }
                               >
                                 <Form.Item
+                                  name={[name, "model"]}
                                   fieldKey={[fieldKey, 'model']}
                                   className="gx-m-1"
                                   style={{ width: "99%" }}
@@ -138,10 +184,9 @@ const CreateForm = memo(() => {
                                   className="gx-m-1"
                                   style={{ width: "99%" }}
                                   {...field}
-                                  onChange={handleChangeTextField}
                                 >
                                   <Input placeholder="label" addonAfter={
-                                    <Form.Item name={[name, "label_input"]} onChange={handleChangeTextField} initialValue='show' fieldKey={[fieldKey, 'label_input']} {...field} noStyle>
+                                    <Form.Item name={[name, "label_input"]} initialValue='show' fieldKey={[fieldKey, 'label_input']} {...field} noStyle>
                                       <Select>
                                         <Option value="show">Show</Option>
                                         <Option value="hide">Hide</Option>
@@ -149,24 +194,26 @@ const CreateForm = memo(() => {
                                     </Form.Item>} />
                                 </Form.Item>
 
-                                <Form.Item hasFeedback onChange={handleChangeTextField} name={[name, "isInput"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} fieldKey={[fieldKey, 'isInput']} {...field} >
+                                <Form.Item hasFeedback name={[name, "isInput"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} fieldKey={[fieldKey, 'isInput']} {...field} >
                                   <Select
                                     showSearch={true}
                                     className="gx-pl-0"
                                     placeholder="input field show or hide"
+                                    onChange={handleChangeTextField}
                                   >
                                     <Option value={"show"}>Show</Option>
                                     <Option value={"hide"}>Hide</Option>
                                   </Select>
                                 </Form.Item>
 
+                                {/* initialValue={'text_field'} */}
                                 <Form.Item hasFeedback name={[name, "input_type"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} fieldKey={[fieldKey, 'input_type']} {...field} >
                                   <Select
                                     showSearch={true}
                                     className="gx-pl-0"
                                     onChange={handleChangeTextField}
                                     placeholder="Select input type"
-                                    defaultValue={"text_field"}
+
                                   >
                                     <Option key={"text_field"} value={"text_field"} >
                                       Text Field
@@ -189,11 +236,10 @@ const CreateForm = memo(() => {
                                   </Select>
                                 </Form.Item>
 
-                                {/* {fieldType && ( */}
-                                {false && (
+                                {fieldType && (
                                   <Form.Item name={[name, "input_data_type"]} className="gx-m-1" rules={validateDynamicForm.field.inputDataType} fieldKey={[fieldKey, 'input_data_types']} {...field}>
                                     <Select className="gx-pl-0" placeholder="Select input data type" >
-                                      {SelectedTextFieldType[fieldType].map((input) => {
+                                      {SelectedTextFieldType[fieldType]?.map((input) => {
                                         return <Option key={getKey()} value={input} > {input} </Option>
                                       })}
                                     </Select>
@@ -263,7 +309,7 @@ const CreateForm = memo(() => {
                                                   onClick={() => add()}
                                                   icon={<PlusOutlined />}
                                                 >
-                                                  Add {SelectedTextFieldType[fieldType]}
+                                                  Add Options
                                                 </Button>
                                               </Form.Item>
                                             </Fragment>
@@ -286,11 +332,24 @@ const CreateForm = memo(() => {
                                     <CKEditor editor={ClassicEditor} />
                                   </Form.Item>
                                 </div>
+                                {/* <div>
+                                  <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+                                    <Checkbox>Input show</Checkbox>
+                                  </Form.Item>
+                                  <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+                                    <Checkbox>Input show</Checkbox>
+                                  </Form.Item>
+                                  <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+                                    <Checkbox>Input show</Checkbox>
+                                  </Form.Item>
+                                </div> */}
+
+
 
                               </Widget>
                             </Form.Item>
                           </Col>
-                        </>
+                        </Fragment>
                       )
                     })}
                   </Row>
@@ -311,7 +370,7 @@ const CreateForm = memo(() => {
 
             <Form.Item>
               <Button type="primary" htmlType="submit" className="gx-ml-3">
-                Submit
+                {selectedFrom ? "Update Form" : 'Submit'}
               </Button>
             </Form.Item>
           </Form>
