@@ -18,11 +18,8 @@ const View = memo(() => {
   const { id: formId } = router.query
   const FormList = useSelector(({ resources }) => resources.DynamicForm.list);
   const [selectedFrom] = useState(FormList.find((form) => form.id == formId))
-  // const [selectedFrom] = useState(true)
 
-  // log("asdf selectedFrom", FormList, selectedFrom);
-  log("asdf selectedFrom ----------- ", selectedFrom);
-  // log("asdf selectedFrom ----------- ", formId);
+  log("selectedFrom", selectedFrom);
   const onFinish = (formData) => {
     log("Form Data Submit", formData);
   };
@@ -30,7 +27,6 @@ const View = memo(() => {
   return (
     <>
       {
-        // false &&
         selectedFrom?.id == formId &&
         <>
           <Widget>
@@ -42,11 +38,11 @@ const View = memo(() => {
               <p className="gx-text-grey gx-fs-md gx-mb-4">{selectedFrom.description} </p>
               {
                 selectedFrom?.fields?.map((data, index) => {
-                  const { label, label_input, isInput, input_type, options, ckeditor, model } = data
+                  const { label, label_input, isInput, isLabel, isDescription, isEncryption, input_type, options, ckeditor, model, description } = data
                   const SelectedTextFieldType = {
-                    text_field: <Input hidden={isInput === 'show' ? false : true} />,
-                    number_field: <Input hidden={isInput === 'show' ? false : true} />,
-                    text_area: <Input.TextArea rows={5} hidden={isInput === 'show' ? false : true} />,
+                    text_field: <Input hidden={isInput ? false : true} />,
+                    number_field: <Input hidden={isInput ? false : true} />,
+                    text_area: <Input.TextArea rows={5} hidden={isInput ? false : true} />,
                     check_box: <Checkbox.Group>
                       {
                         options?.map((field, index) => {
@@ -56,7 +52,7 @@ const View = memo(() => {
                         })
                       }
                     </Checkbox.Group>,
-                    select_box: <Select hidden={isInput === 'show' ? false : true} >
+                    select_box: <Select >
                       {
                         options?.map((field, index) => {
                           return (
@@ -77,15 +73,16 @@ const View = memo(() => {
                       }
                     </Radio.Group>
                   };
+                  console.log('asdfasdf data', isDescription, description, 'isEncryption==', data.isEncryption)
                   return (
                     <Fragment key={getKey()}>
                       <Form.Item
                         name={model} // label
-                        label={label_input === 'show' ? label : ''}
+                        label={isLabel ? label : ''}
                       >
                         {SelectedTextFieldType[input_type]}
                       </Form.Item>
-                      {ckeditor && parse(ckeditor)}
+                      {isDescription && parse(parse(ckeditor))}
                     </Fragment>
                   )
                 })

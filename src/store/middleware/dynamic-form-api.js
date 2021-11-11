@@ -1,5 +1,5 @@
 import * as actions from "../apiActions";
-import dynamicFormApiClient from "../../services/ApiClient/dynamic-form-client";
+import dynamicFormApiClient from "../../services/ApiClient/dynamic-form";
 import { log } from "../../utils/console-log";
 import { notification } from "antd";
 import { onLogOut } from "../slices/auth";

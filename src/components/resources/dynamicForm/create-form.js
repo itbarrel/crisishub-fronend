@@ -25,7 +25,6 @@ const CreateForm = memo(({ selectedFrom }) => {
 
   let token = config.dynamicFormToken
 
-
   const [editorLoaded, setEditorLoaded] = useState(false)
   const { CKEditor, ClassicEditor } = editorRef.current || []
 
@@ -45,17 +44,12 @@ const CreateForm = memo(({ selectedFrom }) => {
 
   const handleMultipleFormType = (typeId) => {
     setMultipleFormTypeId(typeId)
-    // const multiple = formType.find((form) => form.id == typeId)
-    // log('asdf handleMultipleFormType ==', typeId)
   };
 
   useEffect(() => {
-    const multiple = formTypes?.find((form) => form.id == MultipleFormTypeId)
-    log('asdf ===================== ', multiple?.multiple)
-    if (multiple?.multiple === false) setMultipleFormType(multiple?.multiple)
-
+    const isMultiple = formTypes?.find((form) => form.id == MultipleFormTypeId)
+    if (isMultiple?.multiple === false) setMultipleFormType(isMultiple?.multiple)
   }, [MultipleFormTypeId])
-
 
   const onFinish = (formData) => {
     const dynamicFormData = {
@@ -63,11 +57,11 @@ const CreateForm = memo(({ selectedFrom }) => {
       fields: formData.fields || {},
     }
     if (selectedFrom) {
-      log("asdf Form Data: update", selectedFrom);
+      log("Form Data: update", selectedFrom);
       dispatch(updateDynamicForm(selectedFrom.id, dynamicFormData, token))
     }
-    // else dispatch(createDynamicForm(dynamicFormData, token))
-    else console.log('asdf sumbit', formData)
+    else dispatch(createDynamicForm(dynamicFormData, token))
+    // else console.log('asdf sumbit', formData)
   };
 
   useEffect(() => {
@@ -77,7 +71,7 @@ const CreateForm = memo(({ selectedFrom }) => {
     }
     setEditorLoaded(true)
     if (selectedFrom) form.setFieldsValue(selectedFrom)
-    // else dispatch(getFormTypes(token))
+    else dispatch(getFormTypes(token))
     dispatch(getFormTypes(token))
     // else log('asdf get form type ')
   }, [])
@@ -97,25 +91,25 @@ const CreateForm = memo(({ selectedFrom }) => {
     { name: 'Select Box', value: 'select_box' },
     { name: 'Radio Button', value: 'radio_button' },
   ];
+
   return (
     <>
       <Col>
         {
           (MultipleFormType === false) ? (
             <Alert
-              // message="Informational Notes"
-              description="This form type can have only one form"
+              message="Informational Notes"
+              description={`The form type is can have only one form ${MultipleFormType ? 'non multiple' : 'multiple'}`}
               type="info"
               showIcon
               closable
-              afterClose={true}
             />
           ) : ''
         }
         <Form.Provider>
           <Form name="DynamicForm" onFinish={onFinish} form={form} scrollToFirstError >
             {/* Form Header */}
-            {/* <Widget styleName={"gx-card-widget"} title="create.form">
+            <Widget styleName={"gx-card-widget"} title="create.form">
               <Row>
                 <Col lg={24} md={10} sm={12} xs={24}>
                   <Form.Item
@@ -160,7 +154,7 @@ const CreateForm = memo(({ selectedFrom }) => {
                   <Input.TextArea rows={5} />
                 </Form.Item>
               </Col>
-            </Widget> */}
+            </Widget>
             {/* Form Body */}
             <Form.List name={"fields"} >
               {(fields, { add, remove }) => (
@@ -327,7 +321,7 @@ const CreateForm = memo(({ selectedFrom }) => {
                                 }
                                 <div className="gx-mx-3 gx-px-1">
                                   <Form.Item
-                                    name={[name, "ckeditor"]}
+                                    name={[name, "description"]}
                                     valuePropName='data'
                                     getValueFromEvent={(event, editor) => {
                                       const data = editor.getData();

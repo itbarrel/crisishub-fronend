@@ -11,6 +11,7 @@ const slice = createSlice({
     loader: {},
     user: null,
     token: null,
+    dynamicFormToken: null,
     hasErrors: false,
   },
   reducers: {
@@ -18,14 +19,15 @@ const slice = createSlice({
       return state;
     },
     login: (state, action) => {
-      const { token, user, permissions } = action.payload;
+      const { token, user, permissions, dynamicFormToken } = action.payload;
       state.loader = false;
       state.token = token;
+      state.dynamicFormToken = dynamicFormToken;
       state.isAuthenticated = !!token;
       state.permissions = permissions;
       state.user = user;
       state.hasErrors = false;
-      _login(token);
+      _login(token, dynamicFormToken);
     },
     logout: (state) => {
       _logout();
