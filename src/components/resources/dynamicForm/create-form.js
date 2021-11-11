@@ -1,5 +1,5 @@
 import React, { Fragment, memo, useEffect, useRef, useState } from "react";
-import { Form, Input, Button, Col, Row, Select, Alert, Checkbox } from "antd";
+import { Form, Input, Button, Col, Row, Select, Alert, Checkbox, Switch } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { validateDynamicForm } from "../../../constants/validations";
@@ -66,7 +66,8 @@ const CreateForm = memo(({ selectedFrom }) => {
       log("asdf Form Data: update", selectedFrom);
       dispatch(updateDynamicForm(selectedFrom.id, dynamicFormData, token))
     }
-    else dispatch(createDynamicForm(dynamicFormData, token))
+    // else dispatch(createDynamicForm(dynamicFormData, token))
+    else console.log('asdf sumbit', formData)
   };
 
   useEffect(() => {
@@ -81,6 +82,21 @@ const CreateForm = memo(({ selectedFrom }) => {
     // else log('asdf get form type ')
   }, [])
 
+  const switchButtons = [
+    { Label: 'Label', name: 'isLabel' },
+    { Label: 'Input', name: 'isInput' },
+    { Label: 'Description', name: 'isDescription' },
+    { Label: 'Encryption', name: 'isEncryption' },
+  ];
+
+  const inputTypes = [
+    { name: 'Text Field', value: 'text_field' },
+    { name: 'Number Field', value: 'number_field' },
+    { name: 'Text Area', value: 'text_area' },
+    { name: 'Check Box', value: 'check_box' },
+    { name: 'Select Box', value: 'select_box' },
+    { name: 'Radio Button', value: 'radio_button' },
+  ];
   return (
     <>
       <Col>
@@ -99,7 +115,7 @@ const CreateForm = memo(({ selectedFrom }) => {
         <Form.Provider>
           <Form name="DynamicForm" onFinish={onFinish} form={form} scrollToFirstError >
             {/* Form Header */}
-            <Widget styleName={"gx-card-widget"} title="create.form">
+            {/* <Widget styleName={"gx-card-widget"} title="create.form">
               <Row>
                 <Col lg={24} md={10} sm={12} xs={24}>
                   <Form.Item
@@ -144,15 +160,15 @@ const CreateForm = memo(({ selectedFrom }) => {
                   <Input.TextArea rows={5} />
                 </Form.Item>
               </Col>
-            </Widget>
+            </Widget> */}
             {/* Form Body */}
             <Form.List name={"fields"} >
               {(fields, { add, remove }) => (
-                <Fragment key={getKey()}>
+                <Fragment >
                   <Row>
                     {fields.map(({ key, name, fieldKey, ...field }, index) => {
                       return (
-                        <Fragment key={getKey()}>
+                        <Fragment>
                           <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                             <Form.Item required={false} fieldKey={[fieldKey, 'mainItem']} >
                               <Widget
@@ -167,6 +183,7 @@ const CreateForm = memo(({ selectedFrom }) => {
                                   </ul>
                                 }
                               >
+
                                 <Form.Item
                                   name={[name, "model"]}
                                   fieldKey={[fieldKey, 'model']}
@@ -185,16 +202,19 @@ const CreateForm = memo(({ selectedFrom }) => {
                                   style={{ width: "99%" }}
                                   {...field}
                                 >
-                                  <Input placeholder="label" addonAfter={
-                                    <Form.Item name={[name, "label_input"]} initialValue='show' fieldKey={[fieldKey, 'label_input']} {...field} noStyle>
-                                      <Select>
-                                        <Option value="show">Show</Option>
-                                        <Option value="hide">Hide</Option>
-                                      </Select>
-                                    </Form.Item>} />
+                                  <Input placeholder="label"
+                                  // addonAfter={
+                                  //   <Form.Item name={[name, "label_input"]} initialValue='show' fieldKey={[fieldKey, 'label_input']} {...field} noStyle>
+                                  //     <Select>
+                                  //       <Option value="show">Show</Option>
+                                  //       <Option value="hide">Hide</Option>
+                                  //     </Select>
+                                  //   </Form.Item>
+                                  // }
+                                  />
                                 </Form.Item>
 
-                                <Form.Item hasFeedback name={[name, "isInput"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} fieldKey={[fieldKey, 'isInput']} {...field} >
+                                {/* <Form.Item hasFeedback name={[name, "isInput"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} fieldKey={[fieldKey, 'isInput']} {...field} >
                                   <Select
                                     showSearch={true}
                                     className="gx-pl-0"
@@ -204,7 +224,7 @@ const CreateForm = memo(({ selectedFrom }) => {
                                     <Option value={"show"}>Show</Option>
                                     <Option value={"hide"}>Hide</Option>
                                   </Select>
-                                </Form.Item>
+                                </Form.Item> */}
 
                                 {/* initialValue={'text_field'} */}
                                 <Form.Item hasFeedback name={[name, "input_type"]} className="gx-m-1" rules={validateDynamicForm.field.inputType} fieldKey={[fieldKey, 'input_type']} {...field} >
@@ -215,24 +235,15 @@ const CreateForm = memo(({ selectedFrom }) => {
                                     placeholder="Select input type"
 
                                   >
-                                    <Option key={"text_field"} value={"text_field"} >
-                                      Text Field
-                                    </Option>
-                                    <Option key={"number_field"} value={"number_field"}>
-                                      Number Field
-                                    </Option>
-                                    <Option key={"text_area"} value={"text_area"}>
-                                      Text Area
-                                    </Option>
-                                    <Option key={"check_box"} value={"check_box"}>
-                                      Check Box
-                                    </Option>
-                                    <Option key={"select_box"} value={"select_box"}>
-                                      Select Box
-                                    </Option>
-                                    <Option key={"radio_button"} value={"radio_button"}>
-                                      Radio Button
-                                    </Option>
+                                    {inputTypes.map((item) => {
+                                      return (
+                                        <Fragment key={getKey()}>
+                                          <Option key={item.value} value={item.value}>
+                                            {item.name}
+                                          </Option>
+                                        </Fragment>
+                                      )
+                                    })}
                                   </Select>
                                 </Form.Item>
 
@@ -252,11 +263,6 @@ const CreateForm = memo(({ selectedFrom }) => {
                                     <>
                                       <Form.List name={[name, "options"]}>
                                         {(fields, { add, remove }) => {
-                                          const SelectedTextFieldType = {
-                                            check_box: 'CheckBox',
-                                            select_box: 'SelectBox',
-                                            radio_button: 'Radio Button',
-                                          };
                                           return (
                                             <Fragment key={getKey()}>
                                               <Row>
@@ -332,19 +338,30 @@ const CreateForm = memo(({ selectedFrom }) => {
                                     <CKEditor editor={ClassicEditor} />
                                   </Form.Item>
                                 </div>
-                                {/* <div>
-                                  <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-                                    <Checkbox>Input show</Checkbox>
-                                  </Form.Item>
-                                  <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-                                    <Checkbox>Input show</Checkbox>
-                                  </Form.Item>
-                                  <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-                                    <Checkbox>Input show</Checkbox>
-                                  </Form.Item>
-                                </div> */}
 
-
+                                <div className='gx-d-flex gx-text-nowrap'>
+                                  {
+                                    switchButtons.map((item) => {
+                                      return (
+                                        <Fragment>
+                                          <div className={'gx-flex gx-mx-4'}>
+                                            <Form.Item
+                                              name={[name, item.name]}
+                                              label={item.Label}
+                                              fieldKey={[fieldKey, item.name]}
+                                              {...field}
+                                            >
+                                              <Switch
+                                                checkedChildren="Show"
+                                                unCheckedChildren="Hide"
+                                              />
+                                            </Form.Item>
+                                          </div>
+                                        </Fragment>
+                                      );
+                                    })
+                                  }
+                                </div>
 
                               </Widget>
                             </Form.Item>
