@@ -3,15 +3,12 @@ import { Form, Input, Button, Col, Row, Select, Alert, Checkbox, Switch } from "
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { validateDynamicForm } from "../../../constants/validations";
-import { add } from '../../../store/slices/resources/dynamicForm'
 import { log } from '../../../utils/console-log'
 import { getKey } from '../../../utils/keyGenerator'
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
 import Widget from "../../Widget";
 import { getFormTypes, createDynamicForm, updateDynamicForm, update } from "../../../store/slices/resources/dynamicForm";
 import config from '../../../configs'
-
-
 
 const CreateForm = memo(({ selectedFrom }) => {
   const formTypes = useSelector(({ resources }) => resources.DynamicForm.formType);
@@ -60,7 +57,10 @@ const CreateForm = memo(({ selectedFrom }) => {
       log("Form Data: update", selectedFrom);
       dispatch(updateDynamicForm(selectedFrom.id, dynamicFormData, token))
     }
-    else dispatch(createDynamicForm(dynamicFormData, token))
+    else {
+      dispatch(createDynamicForm(dynamicFormData, token))
+      form.resetFields();
+    }
     // else console.log('asdf sumbit', formData)
   };
 
@@ -70,7 +70,9 @@ const CreateForm = memo(({ selectedFrom }) => {
       ClassicEditor: require('@ckeditor/ckeditor5-build-classic')
     }
     setEditorLoaded(true)
-    if (selectedFrom) form.setFieldsValue(selectedFrom)
+    if (selectedFrom) {
+      form.setFieldsValue(selectedFrom)
+    }
     else dispatch(getFormTypes(token))
     dispatch(getFormTypes(token))
     // else log('asdf get form type ')
@@ -252,7 +254,6 @@ const CreateForm = memo(({ selectedFrom }) => {
                                 )}
 
                                 {
-                                  // (fieldType == 'check_box' || fieldType == 'select_box' || fieldType == 'radio_button') && (
                                   ((form.getFieldValue()?.fields[index]?.input_type == 'check_box') || (form.getFieldValue()?.fields[index]?.input_type == 'select_box') || (form.getFieldValue()?.fields[index]?.input_type == 'radio_button')) && (
                                     <>
                                       <Form.List name={[name, "options"]}>

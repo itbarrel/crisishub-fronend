@@ -73,7 +73,6 @@ const View = memo(() => {
                       }
                     </Radio.Group>
                   };
-                  console.log('asdfasdf data', isDescription, description, 'isEncryption==', data.isEncryption)
                   return (
                     <Fragment key={getKey()}>
                       <Form.Item
@@ -82,7 +81,7 @@ const View = memo(() => {
                       >
                         {SelectedTextFieldType[input_type]}
                       </Form.Item>
-                      {isDescription && parse(parse(ckeditor))}
+                      {(isDescription && description) && (parse(parse(description)))}
                     </Fragment>
                   )
                 })
