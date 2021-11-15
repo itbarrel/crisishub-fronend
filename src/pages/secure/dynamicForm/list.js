@@ -19,6 +19,7 @@ const List = memo(() => {
 
   useEffect(() => {
     log("Dynamic Form list fetch", list)
+    log("Dynamic Form Types List fetch", formTypes)
     dispatch(getFormTypesList(token))
     dispatch(getFormTypes(token))
   }, [])
@@ -31,11 +32,12 @@ const List = memo(() => {
           !isLoading &&
           list &&
           list.length > 0 &&
-          list.map((form, index) => {
+          list.map((form) => {
+            const formType = formTypes?.find((type) => type.id == form.formTypeId)
             return (
               <Fragment key={getKey()}>
                 <Col xl={6} lg={8} md={12} sm={12} xs={24} key={form.id}>
-                  <Form name={form.name} description={form.description} type={formTypes && formTypes[index]?.name} id={form.id} form={form} />
+                  <Form name={form.name} description={form.description} type={formType?.name} id={form.id} form={form} />
                 </Col>
               </Fragment>
             );

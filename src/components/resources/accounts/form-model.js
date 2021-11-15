@@ -75,9 +75,9 @@ const Model = memo(() => {
           }}
           // fix eslintjsx-a11y/mouse-events-have-key-events
           // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/mouse-events-have-key-events.md
-          onFocus={() => {}}
-          onBlur={() => {}}
-          // end
+          onFocus={() => { }}
+          onBlur={() => { }}
+        // end
         >
           {title}
         </div>

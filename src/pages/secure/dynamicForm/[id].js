@@ -19,7 +19,6 @@ const View = memo(() => {
   const FormList = useSelector(({ resources }) => resources.DynamicForm.list);
   const [selectedFrom] = useState(FormList.find((form) => form.id == formId))
 
-  log("selectedFrom", selectedFrom);
   const onFinish = (formData) => {
     log("Form Data Submit", formData);
   };
