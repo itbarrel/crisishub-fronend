@@ -64,7 +64,7 @@ const DynamicFormApis =
         if (err.response && err.response.status === 401) {
           dispatch(onLogOut());
         }
-        err.response.json().then((error) => {
+        err?.response?.json().then((error) => {
           dispatch(actions.dynamicFormApiCallFailed(error.message));
           if (loadingKey) {
             dispatch({
