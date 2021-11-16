@@ -1,5 +1,5 @@
 import React, { Fragment, memo, useEffect, useState } from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { sNO_RESULT_FOUND_BY } from "../../../constants/messages";
 import withLayout from "../../../layouts/app-layout";
@@ -9,6 +9,10 @@ import { getKey } from '../../../utils/keyGenerator'
 import { getFormTypesList, getFormTypes } from "../../../store/slices/resources/dynamicForm";
 import { log } from '../../../utils/console-log'
 import config from '../../../configs'
+import Widget from "../../../components/Widget";
+import { PlusCircleOutlined } from "@ant-design/icons";
+import Link from "next/link";
+
 
 const List = memo(() => {
   const { list } = useSelector(({ resources }) => resources.DynamicForm);
@@ -26,7 +30,23 @@ const List = memo(() => {
 
   return (
     <>
-      <h3>Form List</h3>
+      <Widget styleName={"gx-card-widget"} align="middle">
+        <Row justify="space-between">
+          <div>
+            <h3 className='gx-my-0 gx-mt-2 gx-ml-2'>Dynamic Form List</h3>
+          </div>
+          <Link href="/secure/dynamicForm" passHref>
+            <Button
+              type={'primary'}
+              icon={<PlusCircleOutlined />}
+              className={"gx-my-0 gx-list-inline gx-ml-auto gx-pl-2 gx-mx-2"}
+            >
+              Create Dynamic Form
+            </Button>
+          </Link>
+        </Row>
+      </Widget>
+
       <Row>
         {
           !isLoading &&
