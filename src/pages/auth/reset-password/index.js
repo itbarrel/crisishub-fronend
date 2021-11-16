@@ -14,39 +14,36 @@ const ForgotPassword = memo(() => {
   const dispatch = useDispatch();
   const router = useRouter();
   let { token } = router.query;
-  const [loading, setLoading] = useState(true);
   const [Token, setToken] = useState(token);
+  const [form] = Form.useForm();
 
   const onFinishFailed = (errorInfo) => {
     log(`Failed ${errorInfo}`);
   };
 
   const onFinish = (formData) => {
-    log(`Reset Page submit`, formData);
     const data = {
       token: Token,
       password: formData.confirm,
     };
+    log(`Reset Page submit`, formData);
     dispatch(onResetPassword(data));
+    form.resetFields();
+    setTimeout(() => {
+      router.back();
+    }, 5000);
   };
 
   useEffect(() => {
     if (token) {
       setToken(token);
-      setLoading(false);
+      console.log('asdf Token', Token)
     }
   }, [token]);
-
-  const back = () => {
-    setTimeout(() => {
-      router.back();
-    }, 3000);
-  };
 
   return (
     <>
       <SEO title="Forgot Page" />
-
       <div className="gx-app-login-wrap">
         <div className="gx-app-login-container">
           <div className="gx-app-login-main-content">
@@ -69,7 +66,7 @@ const ForgotPassword = memo(() => {
                 <img alt="example" src={"/images/logo.png"} />
               </div>
             </div>
-            {Token && !loading && (
+            {Token && (
               <>
                 <div className="gx-app-login-content">
                   <h2>Reset Password</h2>
@@ -82,6 +79,7 @@ const ForgotPassword = memo(() => {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     className="gx-signin-form gx-form-row0"
+                    form={form}
                   >
                     <Form.Item rules={validate.password} name="password">
                       <Input placeholder={"password"} />
@@ -109,17 +107,17 @@ const ForgotPassword = memo(() => {
                   or contact to
                   <Link href="/contact-us">
                     <a>
-                      {" "}
                       <IntlMessages id="app.userAuth.support" />
                     </a>
                   </Link>
                 </div>
               </>
             )}
-            {loading && (
+            {(!token) && (
               <>
-                <h1>Somethings went wrong</h1>
-                {back()}
+                <div className="gx-app-login-content">
+                  <h3 className="gx-text-center">Somethings went wrong</h3>
+                </div>
               </>
             )}
           </div>

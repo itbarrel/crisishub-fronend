@@ -14,7 +14,7 @@ const ForgotPassword = memo(() => {
   const [form] = Form.useForm();
 
   const onFinish = (formData) => {
-    log("Forget Page form submit", formData);
+    log(" >>>>>>>", formData);
     const { domain, email } = formData;
     const data = {
       domain,
