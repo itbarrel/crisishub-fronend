@@ -20,11 +20,11 @@ const Widget = ({
     );
   };
   return (
-    <Card
+    <Card 
       title={(title && <Title />) || text}
       actions={actions}
       cover={cover}
-      className={` ${styleName}`}
+      className={` ${styleName } `}
       extra={extra}
     >
       {children}

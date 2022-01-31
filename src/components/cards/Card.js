@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Progress } from "antd";
+import Link from "next/link";
 import {
   DashboardFilled,
   LinkOutlined,
@@ -31,9 +32,13 @@ const Card = memo(({ title, createdAt, incident }) => {
         <h2 className="gx-mb-1">{title}</h2>
         <p className="gx-text-grey gx-fs-sm gx-mb-4">{createdAt}</p>
         <ul className="gx-text-center gx-list-inline gx-mb-2 gx-mb-lg-1">
-          <li>
-            <DashboardFilled style={{ fontSize: "22px", color: "orange" }} />
-          </li>
+          <Link href={`/secure/dashboard/information?incidentId=${incident.id}`}>
+            <a>
+              <li>
+                <DashboardFilled style={{ fontSize: "22px", color: "orange" }} />
+              </li>
+            </a>
+          </Link>
           <li>
             <LinkOutlined style={{ fontSize: "22px", color: "green" }} />
           </li>

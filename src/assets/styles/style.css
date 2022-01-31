@@ -4558,6 +4558,9 @@ a.ant-btn-sm {
 .ant-card-body {
   padding: 24px;
 }
+.ant-card-body-new {
+  padding: 0px;
+}
 .ant-card-body::before {
   display: table;
   content: "";
@@ -35918,6 +35921,10 @@ fieldset[disabled] a.gx-btn {
 }
 .gx-card-widget.ant-card-bordered {
   border: 0 none;
+}
+.background-color {
+  background-color: #f5f5f5;
+  /* background-image: linear-gradient(to right, #f5f5f5c9, rgb(45, 128, 195)); */
 }
 .gx-card-widget .ant-card-head {
   border-bottom: 0 none;

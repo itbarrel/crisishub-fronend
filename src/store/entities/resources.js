@@ -6,7 +6,8 @@ import {
   Departments,
   Incidents,
   Task,
-  DynamicForm
+  DynamicForm,
+  Category,
 } from "../slices/resources";
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
   Departments,
   Incidents,
   Task,
-  DynamicForm
+  DynamicForm,
+  Category,
 });
