@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan, resetAll } from "../../apiActions";
 
 const slice = createSlice({
-  name: "category",
+  name: "categoryMessage",
   initialState: {
     list: [],
     update_item: [],
@@ -23,8 +23,8 @@ const slice = createSlice({
     },
     remove: (state, action) => {
       // eslint-disable-next-line no-negated-condition
-      const update = state.list.filter((category) =>
-        category.id !== state.update_item?.id ? category : null
+      const update = state.list.filter((categoryMessage) =>
+        categoryMessage.id !== state.update_item?.id ? categoryMessage : null
       );
       state.list = update;
     },
@@ -59,10 +59,10 @@ export const {
   failed,
 } = slice.actions;
 
-export const getCategoryList = (data) => (dispatch) => {
+export const getCategoryMessageList = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      url: "v1/categories",
+      url: "v1/categoryMessages",
       method: "get",
       data,
       onSuccess: all.type,
@@ -71,10 +71,10 @@ export const getCategoryList = (data) => (dispatch) => {
   );
 };
 
-export const getFilteredCategoryList = (filter) => (dispatch) => {
+export const getFilteredCategoryMessageList = (id) => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      url: "v1/categories",
+      url: `v1/categoryMessages?parentId=${id}`,
       method: "get",
       data: filter,
       onStart: loading.type,
@@ -84,10 +84,10 @@ export const getFilteredCategoryList = (filter) => (dispatch) => {
   );
 };
 
-export const addCategory = (data) => (dispatch) => {
+export const addCategoryMessage = (data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      url: "v1/categories",
+      url: "v1/categoryMessages",
       method: "post",
       data,
       // onStart: loading.type,
@@ -98,10 +98,10 @@ export const addCategory = (data) => (dispatch) => {
   );
 };
 
-export const removeCategory = (id) => (dispatch) => {
+export const removeCategoryMessage = (id) => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      url: `v1/categories/${id}`,
+      url: `v1/categoryMessages/${id}`,
       method: "delete",
       // onStart: loading.type,
       onSuccess: remove.type,
@@ -111,10 +111,10 @@ export const removeCategory = (id) => (dispatch) => {
   );
 };
 
-export const updateCategory = (id, data) => (dispatch) => {
+export const updateCategoryMessage = (id, data) => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      url: `v1/categories/${id}`,
+      url: `v1/categoryMessages/${id}`,
       method: "put",
       data,
       // onStart: loading.type,

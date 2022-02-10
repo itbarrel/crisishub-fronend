@@ -12,6 +12,8 @@ import PropTypes from "prop-types";
 import DeleteIncident from "../resources/incident/button/deleteButton";
 import UpdateButton from "../resources/incident/button/update-button";
 
+import styles from "./card.module.css";
+
 const Card = memo(({ title, createdAt, incident }) => {
   return (
     <Widget
@@ -29,13 +31,17 @@ const Card = memo(({ title, createdAt, incident }) => {
       text={<Progress percent={50} showInfo={true} size={"small"} />}
     >
       <>
-        <h2 className="gx-mb-1">{title}</h2>
+        <h2>{title}</h2>
         <p className="gx-text-grey gx-fs-sm gx-mb-4">{createdAt}</p>
         <ul className="gx-text-center gx-list-inline gx-mb-2 gx-mb-lg-1">
-          <Link href={`/secure/dashboard/information?incidentId=${incident.id}`}>
+          <Link
+            href={`/secure/dashboard/information?incidentId=${incident.id}`}
+          >
             <a>
               <li>
-                <DashboardFilled style={{ fontSize: "22px", color: "orange" }} />
+                <DashboardFilled
+                  style={{ fontSize: "22px", color: "orange" }}
+                />
               </li>
             </a>
           </Link>

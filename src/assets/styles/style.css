@@ -28687,6 +28687,9 @@ img {
 .gx-width-175 {
   width: 175px !important;
 }
+/* .gx-width-400 {
+  width: 400px !important;
+} */
 .gx-img-fluid,
 .gx-img-thumbnail {
   max-width: 100%;
