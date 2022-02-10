@@ -48,13 +48,14 @@ const category = memo(() => {
       ...sourceCategory,
       CategoryMessages: newCategoryMessages,
     };
-    console.log(".....", categoryList[updatedCategory]);
-    const haveID = state.list.findIndex(
-      (category) => category.id === action.payload.id
+    const haveID = categoryList.findIndex(
+      (category) => category.id === updatedCategory.id
     );
+    console.log(".....", haveID);
+
     const updatedCategoryList = {
-      categoryList,
-      [updatedCategory.id]: updatedCategory,
+      ...categoryList,
+      [haveID]: updatedCategory,
     };
 
     console.log("source category", updatedCategoryList);
