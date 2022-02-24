@@ -1,25 +1,33 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { memo, useState, useEffect, Fragment } from "react";
 import { Col, Row } from "antd";
-import CategoryCard from "../../cards/categoryCard/CategoryOutCard";
+import CategoryCard from "../../cards/categoryCard";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCategoryList,
-  updateCategory,
+  setCategoryList,
+  getFilteredCategoryList,
 } from "../../../store/slices/resources/category";
+import categoryMessage, {
+  updateCategoryMessageIndex,
+} from "../../../store/slices/resources/categoryMessage";
+updateCategoryMessageIndex;
 import { sNO_RESULT_FOUND_BY } from "../../../constants/messages";
 import NotFound from "../../../components/helpers/errors";
 import { DragDropContext } from "react-beautiful-dnd";
 
+import CustomScrollbars from "../../CustomScrollbars/categoryScrollbar";
+import styles from "../../componentCss/category.module.css";
+
 import AddCategory from "../../../components/resources/categories/modal";
 
-const category = memo(() => {
+const category = memo(({ incidentId }) => {
   const dispatch = useDispatch();
   const categoryList = useSelector(({ resources }) => resources.Category.list);
-  const [selectedCategory, setselectedCategory] = useState({});
+  console.log("categoryList", categoryList);
   const [isLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    dispatch(getCategoryList());
+    dispatch(getFilteredCategoryList(incidentId));
   }, []);
 
   const onDragEnd = (result) => {
@@ -33,81 +41,102 @@ const category = memo(() => {
     ) {
       return;
     }
-    console.log("?????????", category, source, ">>>", destination, draggableId);
 
-    const sourceCategory = categoryList.find(
+    const updatedCategories = [...categoryList];
+    // Source
+    const sourceCategoryIndex = updatedCategories.findIndex(
       (element) => element.id === source.droppableId
     );
 
-    const { CategoryMessages } = sourceCategory;
-    const newCategoryMessages = [...CategoryMessages];
+    const sourceCategory = updatedCategories[sourceCategoryIndex];
+    const { CategoryMessages: sourceMessages } = sourceCategory;
 
-    newCategoryMessages.splice(source.index, 1);
+    const draggedMessage = sourceMessages[source.index];
 
-    const updatedCategory = {
+    const updatedSourceMessages = [
+      ...sourceMessages.slice(0, source.index),
+      ...sourceMessages.slice(source.index + 1),
+    ];
+
+    const updatedSourceCategory = {
       ...sourceCategory,
-      CategoryMessages: newCategoryMessages,
+      CategoryMessages: updatedSourceMessages,
     };
-    const haveID = categoryList.findIndex(
-      (category) => category.id === updatedCategory.id
+
+    updatedCategories[sourceCategoryIndex] = updatedSourceCategory;
+
+    const destinationCategoryIndex = updatedCategories.findIndex(
+      (element) => element.id === destination.droppableId
     );
-    console.log(".....", haveID);
 
-    const updatedCategoryList = {
-      ...categoryList,
-      [haveID]: updatedCategory,
+    const destinationCategory = updatedCategories[destinationCategoryIndex];
+    const { CategoryMessages: destinationMessages } = destinationCategory;
+    const prevSortOrder =
+      destination.index > 0
+        ? destinationMessages[destination.index - 1].sortOrder
+        : -1;
+
+    const updatedDestinationMessages = [
+      ...destinationMessages.slice(0, destination.index),
+      draggedMessage,
+      ...destinationMessages.slice(destination.index),
+    ];
+
+    const updatedDestinationCategory = {
+      ...destinationCategory,
+      CategoryMessages: updatedDestinationMessages,
     };
 
-    console.log("source category", updatedCategoryList);
+    updatedCategories[destinationCategoryIndex] = updatedDestinationCategory;
 
-    // newCategoryMessages.splice(destination.index, 0, draggableId);
+    dispatch(setCategoryList(updatedCategories));
+    const data = {
+      categoryId: destination.droppableId,
+      sortOrder: prevSortOrder,
+    };
 
-    // const updateCategory = {
-    //   ...category,
-    //   CategoryMessages: newCategoryMessages,
-    // };
-    // console.log(">>>>>>>.1111", updateCategory);
-
-    // const updateCategoryList = {
-    //   ...categoryList,
-    //   [updateCategory.id]: updateCategory,
-    // };
-    // console.log("LLLLLLLll", updateCategoryList);
-    // dispatch(updateCategory(updateCategory.id, updateCategoryList));
+    dispatch(updateCategoryMessageIndex(draggableId, data));
   };
   return (
     <>
-      <AddCategory
-        title={"Add category"}
-        visible={visible}
-        setVisible={setVisible}
-      />
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Row>
-          {!isLoading &&
-            categoryList &&
-            categoryList.length > 0 &&
-            categoryList.map((category) => {
-              return (
-                <Col xl={6} lg={8} md={12} sm={18} xs={24} key={category.id}>
-                  <CategoryCard
-                    title={category.title}
-                    createdAt={category.createdAt}
-                    category={category}
-                    CategoryMessages={category.CategoryMessages}
-                  />
-                </Col>
-              );
-            })}
-          {!isLoading && !categoryList.length && (
-            <>
+      <CustomScrollbars
+        // className="gx-wall-scroll"
+        className={styles.categoryscrollbar}
+      >
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Row>
+            {!isLoading &&
+              categoryList &&
+              categoryList.length > 0 &&
+              categoryList.map((category) => {
+                return (
+                  <Col
+                    xl={6}
+                    lg={8}
+                    md={8}
+                    sm={12}
+                    xs={24}
+                    key={category.id}
+                    // align="space-between"
+                  >
+                    <CategoryCard
+                      title={category.title}
+                      createdAt={category.createdAt}
+                      category={category}
+                      CategoryMessages={category.CategoryMessages}
+                      incidentId={incidentId}
+                    />
+                  </Col>
+                );
+              })}
+            {!isLoading && !categoryList.length && (
               <Col span={24} align="middle">
                 <NotFound message={<h1>{sNO_RESULT_FOUND_BY}</h1>} />
               </Col>
-            </>
-          )}
-        </Row>
-      </DragDropContext>
+            )}
+          </Row>
+        </DragDropContext>
+      </CustomScrollbars>
     </>
   );
 });

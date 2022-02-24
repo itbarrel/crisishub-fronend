@@ -1,0 +1,5 @@
+.categoryscrollbar {
+  width: auto !important;
+  height: 600px !important;
+  /* overflow-x: scroll; */
+}

@@ -19,6 +19,7 @@ const slice = createSlice({
       const haveID = state.list.findIndex(
         (category) => category.id === action.payload.id
       );
+
       state.list[haveID] = action.payload;
     },
     remove: (state, action) => {
@@ -90,7 +91,6 @@ export const addCategoryMessage = (data) => (dispatch) => {
       url: "v1/categoryMessages",
       method: "post",
       data,
-      // onStart: loading.type,
       onSuccess: add.type,
       onError: failed.type,
       notify: true,
@@ -103,7 +103,6 @@ export const removeCategoryMessage = (id) => (dispatch) => {
     apiCallBegan({
       url: `v1/categoryMessages/${id}`,
       method: "delete",
-      // onStart: loading.type,
       onSuccess: remove.type,
       onError: failed.type,
       notify: true,
@@ -117,9 +116,19 @@ export const updateCategoryMessage = (id, data) => (dispatch) => {
       url: `v1/categoryMessages/${id}`,
       method: "put",
       data,
-      // onStart: loading.type,
       onSuccess: update.type,
       onError: failed.type,
+      notify: true,
+    })
+  );
+};
+
+export const updateCategoryMessageIndex = (id, data) => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      url: `v1/categoryMessages/${id}/sortOrder`,
+      method: "put",
+      data,
       notify: true,
     })
   );

@@ -39815,10 +39815,11 @@ textarea.gx-chat-textarea {
   color: #ffffff;
 }
 .gx-wall-scroll {
-  height: calc(100vh - 154px) !important;
+  width: 325px !important;
+  height: 350px !important;
 }
 .framed-layout .gx-wall-scroll {
-  height: calc(100vh - 152px - 2 * 20px) !important;
+  height: 250px !important;
 }
 @media screen and (max-width: 991px) {
   .gx-wall-scroll {

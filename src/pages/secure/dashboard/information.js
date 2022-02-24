@@ -1,20 +1,46 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import withLayout from "../../../layouts/app-layout";
-import { Row, Button, Col, Space, Dropdown, Menu } from "antd";
+import { Row, Col } from "antd";
 import SEO from "../../../components/seo";
-import InfoActionBar from "../../../components/dashboard/information-dashboard/info-dashboard-bar";
-// import InforDashboard from "../../../components/dashboard/incidents/InformationDashboard";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+
+import Navigation from "../../../components/navigation/information-dashboard/MainNav";
 import Category from "../../../components/dashboard/category";
 import Widget from "../../../components/Widget";
+import styles from "../../../components/componentCss/category.module.css";
+import CustomScrollbars from "../../../components/CustomScrollbars/categoryScrollbar";
 
 const Dashboard = memo(() => {
+  const router = useRouter();
+  const incidentList = useSelector(({ resources }) => resources.Incidents.list);
+
+  let { incidentId } = router.query;
+  if (!incidentId) {
+    let localStorageincidentId = localStorage.getItem("incidentId");
+    if (localStorageincidentId) {
+      const foundIncident = incidentList.find(
+        (incident) => incident.id === localStorageincidentId
+      );
+      if (foundIncident) {
+        incidentId = foundIncident.id;
+      } else {
+        incidentId = incidentList[0].id;
+      }
+    }
+
+    // console.log("foundIncident", foundIncident);
+  }
+
+  const [categoryIncidentId, setcategoryIncidentId] = useState(incidentId);
+
+  // console.log("incidentId", incidentId);
   return (
     <>
       <SEO title={"Information Dashboard"} />
-      <InfoActionBar />
-      {/* <InforDashboard /> */}
+      <Navigation incidentId={incidentId} />
       <Widget styleName={"gx-card-widgetgx-order-history "} align="middle">
-        <Row gutter={[16, 16]}>
+        <Row gutter={[24, 24]}>
           {/* <Col
             xl={0}
             lg={12}
@@ -26,13 +52,13 @@ const Dashboard = memo(() => {
 
           <Col
             xl={24}
-            lg={12}
-            md={16}
-            sm={20}
+            lg={24}
+            md={24}
+            sm={24}
             xs={24}
-            style={{ height: "600px" }}
+            style={{ height: "100%" }}
           >
-            <Category />
+            <Category incidentId={incidentId} />
           </Col>
 
           {/* <Col

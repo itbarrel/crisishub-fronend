@@ -12,14 +12,27 @@ const slice = createSlice({
     all: (state, action) => {
       state.list = action.payload.data;
     },
+    setCategotyList: (state, action) => {
+      state.list = action.payload;
+    },
     add: (state, action) => {
-      state.list.unshift(action.payload);
+      const { payload } = action;
+      state.list.push({
+        ...payload,
+        CategoryMessages: [],
+      });
     },
     update: (state, action) => {
+      const { payload } = action;
       const haveID = state.list.findIndex(
         (category) => category.id === action.payload.id
       );
-      state.list[haveID] = action.payload;
+
+      const categoryMessages = state.list[haveID].CategoryMessages;
+      state.list[haveID] = {
+        ...payload,
+        CategoryMessages: categoryMessages,
+      };
     },
     remove: (state, action) => {
       // eslint-disable-next-line no-negated-condition
@@ -57,9 +70,11 @@ export const {
   current_item,
   formType,
   failed,
+  setCategotyList,
 } = slice.actions;
 
 export const getCategoryList = (data) => (dispatch) => {
+  console.log(">>>", data);
   return dispatch(
     apiCallBegan({
       url: "v1/categories",
@@ -74,10 +89,10 @@ export const getCategoryList = (data) => (dispatch) => {
 export const getFilteredCategoryList = (filter) => (dispatch) => {
   return dispatch(
     apiCallBegan({
-      url: "v1/categories",
+      url: `v1/categories?IncidentId=${filter}`,
       method: "get",
-      data: filter,
-      onStart: loading.type,
+      // data: filter,
+      // onStart: loading.type,
       onSuccess: all.type,
       onError: failed.type,
     })
@@ -123,6 +138,10 @@ export const updateCategory = (id, data) => (dispatch) => {
       notify: true,
     })
   );
+};
+export const setCategoryList = (data) => (dispatch) => {
+  console.log("dispatch", data);
+  return dispatch(setCategotyList(data));
 };
 
 export default slice.reducer;

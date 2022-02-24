@@ -1,56 +1,77 @@
-import React, { memo } from "react";
-import { Progress } from "antd";
-import { Col, Row } from "antd";
-import { Button, Form, Input, Popconfirm } from "antd";
-import { Bar, BarChart, ResponsiveContainer, Tooltip } from "recharts";
-// import { Col, Row } from "antd";
+import React, { memo, useState } from "react";
+import { Button, Popconfirm, Affix, Row } from "antd";
 import { Draggable } from "react-beautiful-dnd";
-import Link from "next/link";
-import { SendOutlined, ZoomInOutlined } from "@ant-design/icons";
-
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Widget from "../../Widget";
 import PropTypes from "prop-types";
-
 import styles from "../card.module.css";
 
-const MessageCard = memo(({ title, createdAt, CategoryMessage, index }) => {
+const MessageCard = memo(({ CategoryMessage, index }) => {
+  const [container, setContainer] = useState(null);
+
   return (
-    <Draggable draggableId={CategoryMessage.id} index={index}>
-      {(provided) => (
-        <div
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        >
-          <Widget styleName="gx-m-1 gx-card-widget">
-            <div className="gx-media gx-align-items-center gx-flex-nowrap">
-              <div className="gx-m-lg-1 ">
-                <i
-                  className={`icon icon-orders gx-fs-xlxl gx-text-geekblue gx-d-flex`}
-                  style={{ fontSize: 16 }}
-                />
+    <Row className={styles.messageCard}>
+      <Draggable draggableId={CategoryMessage.id} index={index}>
+        {(provided) => (
+          <div {...provided.draggableProps} ref={provided.innerRef}>
+            <Widget styleName="gx-ml-3 gx-mt-1 gx-mr-3 gx-mb-0 gx-card-widget ">
+              <div className="gx-media">
+                <div className="gx-m-3 ">
+                  <i
+                    {...provided.dragHandleProps}
+                    className={`icon icon-drag-and-drop  `}
+                    style={{ fontSize: 22 }}
+                  />
+                </div>
+                <div className="gx-media-body">
+                  <h4 className="gx-mb-0 gx-float-right ">
+                    <Button
+                      type="text"
+                      icon={<EditOutlined style={{ color: "grey" }} />}
+                      // onClick={() => handleUpdate(category)}
+                      className=" gx-mr-0 "
+                      size="small"
+                    />
+
+                    <Popconfirm
+                      placement="bottomRight"
+                      title="Are you sure delete this Message?"
+                      okText="Yes"
+                      cancelText="No"
+                      // onConfirm={() => handleDelete(category)}
+                    >
+                      <Button
+                        type="text"
+                        icon={<DeleteOutlined style={{ color: "grey" }} />}
+                        className="gx-mr-0 "
+                        size="small"
+                      />
+                    </Popconfirm>
+                  </h4>
+                  <h1 className="gx-fs-xxl gx-font-weight-light gx-text-capitalize gx-mb-0">
+                    {CategoryMessage.title}
+                  </h1>
+
+                  <p className="gx-text-grey gx-mb-0 gx-w-100">
+                    Message: {CategoryMessage.message}
+                  </p>
+                  <p className="gx-text-grey gx-mb-0 gx-float-right">
+                    {CategoryMessage.createdAt}
+                  </p>
+                </div>
               </div>
-              <div className="gx-media-body">
-                <h1 className="gx-fs-xxxl gx-font-weight-medium gx-mb-1">
-                  {title}
-                </h1>
-                <p className="gx-text-grey gx-mb-0">
-                  {CategoryMessage.message}
-                </p>
-              </div>
-            </div>
-          </Widget>
-        </div>
-      )}
-    </Draggable>
+            </Widget>
+          </div>
+        )}
+      </Draggable>
+    </Row>
   );
 });
 
 MessageCard.displayName = MessageCard;
 
 MessageCard.propTypes = {
-  title: PropTypes.string,
-  createdAt: PropTypes.string,
+  CategoryMessage: PropTypes.object,
 };
 
 export default MessageCard;
