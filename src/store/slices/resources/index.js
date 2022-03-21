@@ -6,7 +6,8 @@ import Incidents from "./incidents";
 import Task from "./tasks";
 import DynamicForm from "./dynamicForm";
 import Category from "./category";
-import categoryMessage from "./categoryMessage";
+import IncomingMessage from "./incomingMessage";
+import CategoryMessage from "./categoryMessage";
 
 export {
   Account,
@@ -17,5 +18,6 @@ export {
   Task,
   DynamicForm,
   Category,
-  categoryMessage,
+  CategoryMessage,
+  IncomingMessage,
 };

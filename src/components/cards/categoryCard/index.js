@@ -50,14 +50,14 @@ const CategoryCard = memo(
           setVisible={setVisible}
           selected={selectedCategory}
         />
-        <Widget styleName={"gx-card-widget gx-bg-light "}>
+        <Widget styleName={"gx-card-widget gx-bg-light"}>
           <Row>
-            <Col xxl={18} xl={12} lg={12} md={12} sm={12} xs={12}>
-              <h4 className="gx-text-black gx-text-capitalize gx-fs-md gx-ml-4  ">
+            <Col xxl={15} xl={12} lg={12} md={12} sm={12} xs={12}>
+              <h4 className="gx-text-black gx-text-capitalize gx-fs-md   ">
                 {title}
               </h4>
             </Col>
-            <Col xxl={6} xl={12} lg={12} md={12} sm={12} xs={12} align="end">
+            <Col xxl={9} xl={12} lg={12} md={12} sm={12} xs={12} align="end">
               <h4 className="gx-mb-0  ">
                 <Button
                   type="text"

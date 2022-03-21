@@ -6,14 +6,17 @@ const slice = createSlice({
   initialState: {
     list: [],
     update_item: [],
-    // formType: [],
   },
   reducers: {
     all: (state, action) => {
       state.list = action.payload.data;
     },
     setCategotyList: (state, action) => {
-      state.list = action.payload;
+      const payload = UpdateCategotyList(
+        action.payload,
+        JSON.parse(JSON.stringify(state.list))
+      );
+      state.list = payload;
     },
     add: (state, action) => {
       const { payload } = action;
@@ -56,7 +59,6 @@ const slice = createSlice({
     builder.addCase(resetAll, (state) => {
       state.list = [];
       state.update_item = [];
-      // state.formType = [];
     });
   },
 });
@@ -92,7 +94,6 @@ export const getFilteredCategoryList = (filter) => (dispatch) => {
       url: `v1/categories?IncidentId=${filter}`,
       method: "get",
       // data: filter,
-      // onStart: loading.type,
       onSuccess: all.type,
       onError: failed.type,
     })
@@ -140,8 +141,65 @@ export const updateCategory = (id, data) => (dispatch) => {
   );
 };
 export const setCategoryList = (data) => (dispatch) => {
-  console.log("dispatch", data);
   return dispatch(setCategotyList(data));
 };
 
 export default slice.reducer;
+
+const UpdateCategotyList = (action, list) => {
+  const { messageToUpdate, sortOrders } = action;
+
+  // Source
+  let socketCategories = [...list];
+
+  const sourceCategoryIndex = socketCategories.findIndex(
+    (element) => element.id === messageToUpdate.prevCategoryId
+  );
+  const sourceCategory = socketCategories[sourceCategoryIndex];
+  const { CategoryMessages: sourceMessages } = sourceCategory;
+  const sourceMessagesIndex = sourceMessages.findIndex(
+    (element) => element.id === messageToUpdate.id
+  );
+  let draggedMessage = sourceMessages[sourceMessagesIndex];
+  let temp = Object.assign({}, draggedMessage);
+  temp.parentId = messageToUpdate.categoryId;
+  draggedMessage = temp;
+  const updatedSourceMessages = [
+    ...sourceMessages.slice(0, sourceMessagesIndex),
+    ...sourceMessages.slice(sourceMessagesIndex + 1),
+  ];
+
+  const updatedSourceCategory = {
+    ...sourceCategory,
+    CategoryMessages: updatedSourceMessages,
+  };
+  socketCategories[sourceCategoryIndex] = updatedSourceCategory;
+
+  // // // Destination
+  const destinationCategoryIndex = socketCategories.findIndex(
+    (element) => element.id === messageToUpdate.categoryId
+  );
+  const destinationCategory = socketCategories[destinationCategoryIndex];
+  const { CategoryMessages: destinationMessages } = destinationCategory;
+
+  let updatedDestinationMessages = [
+    ...destinationMessages.slice(0, messageToUpdate.sortOrder),
+    draggedMessage,
+    ...destinationMessages.slice(messageToUpdate.sortOrder),
+  ];
+
+  const newSortedMessages = updatedDestinationMessages.map((message) => {
+    var temp = Object.assign({}, message);
+    temp.sortOrder = sortOrders[temp.id];
+    return temp;
+  });
+  newSortedMessages.sort((a, b) => (a.sortOrder > b.sortOrder ? 1 : -1));
+
+  const updatedDestinationCategory = {
+    ...destinationCategory,
+    CategoryMessages: newSortedMessages,
+  };
+
+  socketCategories[destinationCategoryIndex] = updatedDestinationCategory;
+  return socketCategories;
+};

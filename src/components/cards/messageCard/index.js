@@ -14,8 +14,8 @@ const MessageCard = memo(({ CategoryMessage, index }) => {
       <Draggable draggableId={CategoryMessage.id} index={index}>
         {(provided) => (
           <div {...provided.draggableProps} ref={provided.innerRef}>
-            <Widget styleName="gx-ml-3 gx-mt-1 gx-mr-3 gx-mb-0 gx-card-widget ">
-              <div className="gx-media">
+            <Widget styleName="gx-ml-3 gx-mt-1  gx-mb-0 gx-card-widget ">
+              <div className="gx-media ">
                 <div className="gx-m-3 ">
                   <i
                     {...provided.dragHandleProps}
@@ -51,10 +51,6 @@ const MessageCard = memo(({ CategoryMessage, index }) => {
                   <h1 className="gx-fs-xxl gx-font-weight-light gx-text-capitalize gx-mb-0">
                     {CategoryMessage.title}
                   </h1>
-
-                  <p className="gx-text-grey gx-mb-0 gx-w-100">
-                    Message: {CategoryMessage.message}
-                  </p>
                   <p className="gx-text-grey gx-mb-0 gx-float-right">
                     {CategoryMessage.createdAt}
                   </p>

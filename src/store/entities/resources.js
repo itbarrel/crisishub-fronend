@@ -8,7 +8,8 @@ import {
   Task,
   DynamicForm,
   Category,
-  categoryMessage,
+  CategoryMessage,
+  IncomingMessage,
 } from "../slices/resources";
 
 export default combineReducers({
@@ -20,5 +21,6 @@ export default combineReducers({
   Task,
   DynamicForm,
   Category,
-  categoryMessage,
+  CategoryMessage,
+  IncomingMessage,
 });

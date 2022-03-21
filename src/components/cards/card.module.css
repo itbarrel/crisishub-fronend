@@ -16,7 +16,8 @@
 }
 
 .messageCard {
-  margin: 0%;
+  margin: 1%;
+  padding-right: 5%;
   /* border-color: grey; */
   border-radius: 20px;
 }
