@@ -37,7 +37,6 @@ const ForgotPassword = memo(() => {
   useEffect(() => {
     if (token) {
       setToken(token);
-      console.log('asdf Token', Token)
     }
   }, [token]);
 
@@ -113,7 +112,7 @@ const ForgotPassword = memo(() => {
                 </div>
               </>
             )}
-            {(!token) && (
+            {!token && (
               <>
                 <div className="gx-app-login-content">
                   <h3 className="gx-text-center">Somethings went wrong</h3>

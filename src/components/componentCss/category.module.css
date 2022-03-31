@@ -1,5 +1,16 @@
 .categoryscrollbar {
   width: auto !important;
   height: 600px !important;
-  /* overflow-x: scroll; */
+}
+.scrollbar {
+  height: 520px !important;
+}
+.message {
+  margin-top: 3%;
+  border-radius: 10px;
+}
+.messageCard {
+  margin: 1%;
+  padding-right: 5%;
+  border-radius: 20px;
 }

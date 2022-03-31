@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addCategory,
   updateCategory,
+  updateCategoryMessage,
 } from "../../../store/slices/resources/category";
 import { isClient } from "../../../utils/is-client";
 import Draggable from "react-draggable";
@@ -21,7 +22,7 @@ const formItemLayout = {
   },
 };
 
-const CategoryModal = memo(
+const CategoryMessageModal = memo(
   ({ visible, setVisible, selected, title, off, incidentId }) => {
     const draggleRef = useRef(null);
     const dispatch = useDispatch();
@@ -53,11 +54,9 @@ const CategoryModal = memo(
         IncidentId: incidentId,
         title: formData.title,
       };
-      if (visible && selected) {
-        dispatch(updateCategory(selected.id, data));
-      } else {
-        dispatch(addCategory(data));
-      }
+
+      dispatch(updateCategoryMessage(selected.id, data));
+
       form.resetFields();
     };
 
@@ -170,14 +169,16 @@ const CategoryModal = memo(
               name="title"
               label={
                 <LabelAndTooltip
-                  title={"Category.Title"}
-                  tooltip={"Enter your Category name you want to create "}
+                  title={"CategoryMessage.Title"}
+                  tooltip={
+                    "Enter your CategoryMessage title you want to create "
+                  }
                 />
               }
               rules={[
                 {
                   required: true,
-                  message: "Please input your Category Name!",
+                  message: "Please input your CategoryMessage Title!",
                   whitespace: true,
                 },
               ]}
@@ -191,6 +192,6 @@ const CategoryModal = memo(
   }
 );
 
-CategoryModal.displayName = CategoryModal;
+CategoryMessageModal.displayName = CategoryMessageModal;
 
-export default CategoryModal;
+export default CategoryMessageModal;

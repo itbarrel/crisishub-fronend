@@ -25,6 +25,24 @@ const slice = createSlice({
         CategoryMessages: [],
       });
     },
+    addcategoryMessage: (state, action) => {
+      const { payload } = action;
+      let categories = state.list;
+      const CategoryIndex = categories.findIndex(
+        (element) => element.id === payload.parentId
+      );
+      const Category = categories[CategoryIndex];
+      const { CategoryMessages: Messages } = Category;
+      Messages.push(payload);
+
+      const updatedCategory = {
+        ...Category,
+        CategoryMessages: Messages,
+      };
+      categories[CategoryIndex] = updatedCategory;
+
+      state.list = categories;
+    },
     update: (state, action) => {
       const { payload } = action;
       const haveID = state.list.findIndex(
@@ -37,12 +55,66 @@ const slice = createSlice({
         CategoryMessages: categoryMessages,
       };
     },
+    updatecategoryMessage: (state, action) => {
+      const { payload } = action;
+
+      let categories = state.list;
+      const CategoryIndex = categories.findIndex(
+        (element) => element.id === payload.parentId
+      );
+      const Category = categories[CategoryIndex];
+      const { CategoryMessages: Messages } = Category;
+
+      const MessagesIndex = Messages.findIndex(
+        (element) => element.id === payload.id
+      );
+
+      const updatedMessages = [
+        ...Messages.slice(0, MessagesIndex),
+        payload,
+        ...Messages.slice(MessagesIndex + 1),
+      ];
+
+      const updatedCategory = {
+        ...Category,
+        CategoryMessages: updatedMessages,
+      };
+      categories[CategoryIndex] = updatedCategory;
+      state.list = categories;
+    },
     remove: (state, action) => {
       // eslint-disable-next-line no-negated-condition
       const update = state.list.filter((category) =>
         category.id !== state.update_item?.id ? category : null
       );
       state.list = update;
+    },
+    removecategoryMessage: (state, action) => {
+      // eslint-disable-next-line no-negated-condition
+      const update = state.update_item;
+
+      let categories = state.list;
+      const CategoryIndex = categories.findIndex(
+        (element) => element.id === update.parentId
+      );
+      const Category = categories[CategoryIndex];
+      const { CategoryMessages: Messages } = Category;
+
+      const MessagesIndex = Messages.findIndex(
+        (element) => element.id === update.id
+      );
+
+      const updatedMessages = [
+        ...Messages.slice(0, MessagesIndex),
+        ...Messages.slice(MessagesIndex + 1),
+      ];
+
+      const updatedCategory = {
+        ...Category,
+        CategoryMessages: updatedMessages,
+      };
+      categories[CategoryIndex] = updatedCategory;
+      state.list = categories;
     },
     formType: (state, action) => {
       const { payload } = action;
@@ -70,13 +142,15 @@ export const {
   update,
   remove,
   current_item,
+  addcategoryMessage,
+  removecategoryMessage,
+  updatecategoryMessage,
   formType,
   failed,
   setCategotyList,
 } = slice.actions;
 
 export const getCategoryList = (data) => (dispatch) => {
-  console.log(">>>", data);
   return dispatch(
     apiCallBegan({
       url: "v1/categories",
@@ -140,6 +214,43 @@ export const updateCategory = (id, data) => (dispatch) => {
     })
   );
 };
+export const addCategoryMessage = (data) => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      url: "v1/categoryMessages",
+      method: "post",
+      data,
+      onSuccess: addcategoryMessage.type,
+      onError: failed.type,
+      notify: true,
+    })
+  );
+};
+
+export const removeCategoryMessage = (id) => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      url: `v1/categoryMessages/${id}`,
+      method: "delete",
+      onSuccess: removecategoryMessage.type,
+      onError: failed.type,
+      notify: true,
+    })
+  );
+};
+
+export const updateCategoryMessage = (id, data) => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      url: `v1/categoryMessages/${id}`,
+      method: "put",
+      data,
+      onSuccess: updatecategoryMessage.type,
+      onError: failed.type,
+      notify: true,
+    })
+  );
+};
 export const setCategoryList = (data) => (dispatch) => {
   return dispatch(setCategotyList(data));
 };
@@ -151,55 +262,131 @@ const UpdateCategotyList = (action, list) => {
 
   // Source
   let socketCategories = [...list];
+  // Drag from Category and drop in Category
 
-  const sourceCategoryIndex = socketCategories.findIndex(
-    (element) => element.id === messageToUpdate.prevCategoryId
-  );
-  const sourceCategory = socketCategories[sourceCategoryIndex];
-  const { CategoryMessages: sourceMessages } = sourceCategory;
-  const sourceMessagesIndex = sourceMessages.findIndex(
-    (element) => element.id === messageToUpdate.id
-  );
-  let draggedMessage = sourceMessages[sourceMessagesIndex];
-  let temp = Object.assign({}, draggedMessage);
-  temp.parentId = messageToUpdate.categoryId;
-  draggedMessage = temp;
-  const updatedSourceMessages = [
-    ...sourceMessages.slice(0, sourceMessagesIndex),
-    ...sourceMessages.slice(sourceMessagesIndex + 1),
-  ];
+  if (
+    messageToUpdate.prevCategoryId !== "IncomingMessage" &&
+    messageToUpdate.prevCategoryId !== "ActionListMessage" &&
+    messageToUpdate.categoryId !== "IncomingMessage" &&
+    messageToUpdate.categoryId !== "ActionListMessage"
+  ) {
+    const sourceCategoryIndex = socketCategories.findIndex(
+      (element) => element.id === messageToUpdate.prevCategoryId
+    );
+    const sourceCategory = socketCategories[sourceCategoryIndex];
+    const { CategoryMessages: sourceMessages } = sourceCategory;
+    const sourceMessagesIndex = sourceMessages.findIndex(
+      (element) => element.id === messageToUpdate.id
+    );
+    let draggedMessage = sourceMessages[sourceMessagesIndex];
+    let temp = Object.assign({}, draggedMessage);
+    temp.parentId = messageToUpdate.categoryId;
+    draggedMessage = temp;
+    const updatedSourceMessages = [
+      ...sourceMessages.slice(0, sourceMessagesIndex),
+      ...sourceMessages.slice(sourceMessagesIndex + 1),
+    ];
 
-  const updatedSourceCategory = {
-    ...sourceCategory,
-    CategoryMessages: updatedSourceMessages,
-  };
-  socketCategories[sourceCategoryIndex] = updatedSourceCategory;
+    const updatedSourceCategory = {
+      ...sourceCategory,
+      CategoryMessages: updatedSourceMessages,
+    };
+    socketCategories[sourceCategoryIndex] = updatedSourceCategory;
 
-  // // // Destination
-  const destinationCategoryIndex = socketCategories.findIndex(
-    (element) => element.id === messageToUpdate.categoryId
-  );
-  const destinationCategory = socketCategories[destinationCategoryIndex];
-  const { CategoryMessages: destinationMessages } = destinationCategory;
+    // // // Destination
+    const destinationCategoryIndex = socketCategories.findIndex(
+      (element) => element.id === messageToUpdate.categoryId
+    );
+    const destinationCategory = socketCategories[destinationCategoryIndex];
+    const { CategoryMessages: destinationMessages } = destinationCategory;
 
-  let updatedDestinationMessages = [
-    ...destinationMessages.slice(0, messageToUpdate.sortOrder),
-    draggedMessage,
-    ...destinationMessages.slice(messageToUpdate.sortOrder),
-  ];
+    let updatedDestinationMessages = [
+      ...destinationMessages.slice(0, messageToUpdate.sortOrder),
+      draggedMessage,
+      ...destinationMessages.slice(messageToUpdate.sortOrder),
+    ];
 
-  const newSortedMessages = updatedDestinationMessages.map((message) => {
-    var temp = Object.assign({}, message);
-    temp.sortOrder = sortOrders[temp.id];
-    return temp;
-  });
-  newSortedMessages.sort((a, b) => (a.sortOrder > b.sortOrder ? 1 : -1));
+    const newSortedMessages = updatedDestinationMessages.map((message) => {
+      var temp = Object.assign({}, message);
+      temp.sortOrder = sortOrders[temp.id];
+      return temp;
+    });
+    newSortedMessages.sort((a, b) => (a.sortOrder > b.sortOrder ? 1 : -1));
 
-  const updatedDestinationCategory = {
-    ...destinationCategory,
-    CategoryMessages: newSortedMessages,
-  };
+    const updatedDestinationCategory = {
+      ...destinationCategory,
+      CategoryMessages: newSortedMessages,
+    };
 
-  socketCategories[destinationCategoryIndex] = updatedDestinationCategory;
-  return socketCategories;
+    socketCategories[destinationCategoryIndex] = updatedDestinationCategory;
+    return socketCategories;
+  }
+  // Drag from IncomingMessage and drop in Category
+  else if (
+    messageToUpdate.prevCategoryId === "IncomingMessage" &&
+    messageToUpdate.prevCategoryId !== "ActionListMessage" &&
+    messageToUpdate.categoryId !== "IncomingMessage" &&
+    messageToUpdate.categoryId !== "ActionListMessage"
+  ) {
+    const destinationCategoryIndex = socketCategories.findIndex(
+      (element) => element.id === messageToUpdate.categoryId
+    );
+    const destinationCategory = socketCategories[destinationCategoryIndex];
+    const { CategoryMessages: destinationMessages } = destinationCategory;
+
+    let draggedMessage = messageToUpdate.message;
+    let temp = Object.assign({}, draggedMessage);
+    temp.parentId = messageToUpdate.categoryId;
+    draggedMessage = temp;
+
+    let updatedDestinationMessages = [
+      ...destinationMessages.slice(0, messageToUpdate.sortOrder),
+      draggedMessage,
+      ...destinationMessages.slice(messageToUpdate.sortOrder),
+    ];
+
+    const newSortedMessages = updatedDestinationMessages.map((message) => {
+      var temp = Object.assign({}, message);
+      temp.sortOrder = sortOrders[temp.id];
+      return temp;
+    });
+    newSortedMessages.sort((a, b) => (a.sortOrder > b.sortOrder ? 1 : -1));
+
+    const updatedDestinationCategory = {
+      ...destinationCategory,
+      CategoryMessages: newSortedMessages,
+    };
+
+    socketCategories[destinationCategoryIndex] = updatedDestinationCategory;
+    return socketCategories;
+  }
+  // Drag from Category and drop in IncomingMessage
+  else if (
+    messageToUpdate.categoryId === "IncomingMessage" &&
+    messageToUpdate.categoryId !== "ActionListMessage" &&
+    messageToUpdate.prevCategoryId !== "ActionListMessage" &&
+    messageToUpdate.prevCategoryId !== "IncomingMessage"
+  ) {
+    const sourceCategoryIndex = socketCategories.findIndex(
+      (element) => element.id === messageToUpdate.prevCategoryId
+    );
+    const sourceCategory = socketCategories[sourceCategoryIndex];
+    const { CategoryMessages: sourceMessages } = sourceCategory;
+    const sourceMessagesIndex = sourceMessages.findIndex(
+      (element) => element.id === messageToUpdate.id
+    );
+
+    const updatedSourceMessages = [
+      ...sourceMessages.slice(0, sourceMessagesIndex),
+      ...sourceMessages.slice(sourceMessagesIndex + 1),
+    ];
+
+    const updatedSourceCategory = {
+      ...sourceCategory,
+      CategoryMessages: updatedSourceMessages,
+    };
+    socketCategories[sourceCategoryIndex] = updatedSourceCategory;
+
+    return socketCategories;
+  }
 };

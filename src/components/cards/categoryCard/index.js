@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
-import { Button, Input, Popconfirm, Affix } from "antd";
+import { Button, Input, Popconfirm, } from "antd";
 import { Droppable } from "react-beautiful-dnd";
-import { Col, Row } from "antd";
+import { Col, Row, Form } from "antd";
 import { useDispatch } from "react-redux";
 import NotFound from "../../helpers/errors";
 import { sNO_RESULT_FOUND_BY } from "../../../constants/messages";
@@ -14,6 +14,7 @@ import {
 import {
   removeCategory,
   current_item,
+  addCategoryMessage,
 } from "../../../store/slices/resources/category";
 import Widget from "../../Widget";
 import PropTypes from "prop-types";
@@ -27,12 +28,11 @@ const CategoryCard = memo(
     const dispatch = useDispatch();
     const [isLoading] = useState(false);
     const [visible, setVisible] = useState(false);
-    const [container, setContainer] = useState(null);
+    const [form] = Form.useForm();
 
     const [selectedCategory, setSelectedCategory] = useState({});
 
     const handleDelete = (Current_category) => {
-      console.log("handleDelete category", Current_category.id);
       dispatch(removeCategory(Current_category.id));
       dispatch(current_item(Current_category));
     };
@@ -41,7 +41,19 @@ const CategoryCard = memo(
       setVisible(true);
       setSelectedCategory(Current_category);
     };
+    const onSubmit = async () => {
+      const formData = await form.validateFields();
+      let data = {
+        IncidentId: incidentId,
+        title: formData.categoryMessage,
+        ColorPaletteId: "53560acf-ad80-4fc2-bdad-3d2ea0e8d51a",
+        parentType: "categoryMessage",
+        parentId: category.id,
+      };
+      dispatch(addCategoryMessage(data));
 
+      form.resetFields();
+    };
     return (
       <>
         <UpdateCategory
@@ -50,14 +62,14 @@ const CategoryCard = memo(
           setVisible={setVisible}
           selected={selectedCategory}
         />
-        <Widget styleName={"gx-card-widget gx-bg-light"}>
+        <Widget styleName={"gx-card-widget gx-bg-light gx-p-0 "}>
           <Row>
-            <Col xxl={15} xl={12} lg={12} md={12} sm={12} xs={12}>
+            <Col xxl={15} xl={12} lg={12} md={12} sm={12} xs={12} align='start'>
               <h4 className="gx-text-black gx-text-capitalize gx-fs-md   ">
                 {title}
               </h4>
             </Col>
-            <Col xxl={9} xl={12} lg={12} md={12} sm={12} xs={12} align="end">
+            <Col xxl={9} xl={12} lg={12} md={24} sm={12} xs={12} align="end">
               <h4 className="gx-mb-0  ">
                 <Button
                   type="text"
@@ -104,44 +116,53 @@ const CategoryCard = memo(
 
           <Row className={styles.message}>
             <Col span={24}>
-              <Input
-                placeholder="Message"
-                suffix={
-                  <Button
-                    type="text"
-                    size="small"
-                    icon={<SendOutlined rotate="320" />}
-                    className=" gx-text-primary gx-mr-2"
+              <Form form={form} name="register" scrollToFirstError>
+                <Form.Item name="categoryMessage">
+                  <Input
+                    placeholder="Message"
+                    suffix={
+                      <Button
+                        type="text"
+                        size="small"
+                        icon={<SendOutlined rotate="320" />}
+                        className=" gx-text-primary gx-mr-2"
+                        onClick={onSubmit}
+                      />
+                    }
+                    className=" gx-border-light gx-mb-1"
                   />
-                }
-                className=" gx-border-light gx-mb-1"
-              />
+                </Form.Item>
+              </Form>
             </Col>
           </Row>
 
-          <Row className=" gx-d-sm-block">
-            <CustomScrollbars
-              // className="gx-wall-scroll"
-              className={styles.scrollbar}
-            >
+          <Row className=" gx-d-sm-block gx-row-sm">
+            <CustomScrollbars className={styles.scrollbar}>
               <Droppable droppableId={category.id}>
                 {(provided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    {...provided.dragHandleProps}
+                  >
                     {CategoryMessages &&
                       CategoryMessages.length > 0 &&
                       CategoryMessages.map((CategoryMessage, index) => {
                         return (
                           <Col
-                            // xl={24}
-                            // lg={24}
-                            // md={24}
-                            // sm={24}
-                            // xs={24}
+                            xxl={24}
+                            xl={24}
+                            lg={24}
+                            md={24}
+                            sm={24}
+                            xs={24}
                             key={CategoryMessage.id}
+                            className="gx-mr-lg-3 gx-mr-xxl-0 gx-mr-xl-3 gx-mr-md-3 gx-mr-sm-3"
                           >
                             <MessageCard
                               CategoryMessage={CategoryMessage}
                               index={index}
+                              userName={CategoryMessage.User.userName}
                             >
                               {provided.placeholder}
                             </MessageCard>

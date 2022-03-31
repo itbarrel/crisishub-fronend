@@ -1,6 +1,5 @@
 {
   "editor.insertSpaces": true,
-  "editor.formatOnSave": true,
   "editor.unfoldOnClickAfterEndOfLine": true,
   "files.insertFinalNewline": true,
   "html.format.endWithNewline": true,

@@ -367,5 +367,7 @@
   "Form.Type": "Form Type",
   "form.list": "Form List",
   "Category.Title": "Category.Title",
+  "CategoryMessage.Title": "CategoryMessage.Title",
+  "IncomingMessage.Title": "IncomingMessage.Title",
   "sample": "sample"
 }

@@ -11,14 +11,13 @@ import {
   DownOutlined,
 } from "@ant-design/icons";
 import { getFilteredCategoryList } from "../../../store/slices/resources/category";
+import { getFilteredIncomingMessageList } from "../../../store/slices/resources/incomingMessage";
 import SubNav from "./SubNav";
 import { useRouter } from "next/router";
 
 const MainNav = memo(({ incidentId }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(true);
-  // const [categoryIncidentId, setcategoryIncidentId] = useState(incidentId);
-  // console.log("categoryIncidentId", categoryIncidentId);
 
   const incidentList = useSelector(({ resources }) => resources.Incidents.list);
   const router = useRouter();
@@ -29,7 +28,8 @@ const MainNav = memo(({ incidentId }) => {
       shallow: true,
     });
     dispatch(getFilteredCategoryList(e.key));
-    // setcategoryIncidentId(e.key);
+    dispatch(getFilteredIncomingMessageList(e.key));
+
     localStorage.setItem("incidentId", e.key);
   }
   const menu = (
@@ -45,7 +45,7 @@ const MainNav = memo(({ incidentId }) => {
     <>
       <Widget styleName={"gx-card-widget"} align="middle">
         <Row>
-          <Col xxl={10} xl={14} lg={16} md={14} sm={20} xs={24}>
+          <Col xxl={10} xl={14} lg={18} md={18} sm={18} xs={24}>
             <Button
               type="text"
               icon={<ArrowDownOutlined />}
@@ -70,7 +70,7 @@ const MainNav = memo(({ incidentId }) => {
             <SubNav visible={visible} incidentId={incidentId} />
           </Col>
 
-          <Col xxl={4} xl={4} lg={4} md={4} sm={4} xs={6} align="center">
+          <Col xxl={4} xl={4} lg={4} md={4} sm={6} xs={24} align="center">
             <Button
               type="text"
               icon={<CheckCircleOutlined />}

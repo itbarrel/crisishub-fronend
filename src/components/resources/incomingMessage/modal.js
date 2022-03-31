@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addCategory,
   updateCategory,
-} from "../../../store/slices/resources/category";
+  updateIncomingMessage,
+} from "../../../store/slices/resources/incomingMessage";
 import { isClient } from "../../../utils/is-client";
 import Draggable from "react-draggable";
 import LabelAndTooltip from "../../forms/form-assets/label-and-tooltip";
@@ -21,7 +22,7 @@ const formItemLayout = {
   },
 };
 
-const CategoryModal = memo(
+const IncomingMessageModal = memo(
   ({ visible, setVisible, selected, title, off, incidentId }) => {
     const draggleRef = useRef(null);
     const dispatch = useDispatch();
@@ -53,11 +54,9 @@ const CategoryModal = memo(
         IncidentId: incidentId,
         title: formData.title,
       };
-      if (visible && selected) {
-        dispatch(updateCategory(selected.id, data));
-      } else {
-        dispatch(addCategory(data));
-      }
+
+      dispatch(updateIncomingMessage(selected.id, data));
+
       form.resetFields();
     };
 
@@ -170,14 +169,16 @@ const CategoryModal = memo(
               name="title"
               label={
                 <LabelAndTooltip
-                  title={"Category.Title"}
-                  tooltip={"Enter your Category name you want to create "}
+                  title={"IncomingMessage.Title"}
+                  tooltip={
+                    "Enter your IncomingMessage title you want to create "
+                  }
                 />
               }
               rules={[
                 {
                   required: true,
-                  message: "Please input your Category Name!",
+                  message: "Please input your IncomingMessage Title!",
                   whitespace: true,
                 },
               ]}
@@ -191,6 +192,6 @@ const CategoryModal = memo(
   }
 );
 
-CategoryModal.displayName = CategoryModal;
+IncomingMessageModal.displayName = IncomingMessageModal;
 
-export default CategoryModal;
+export default IncomingMessageModal;
